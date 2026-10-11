@@ -1,6 +1,6 @@
-# Silkraod
+# Silk Road
 
-Next.js App Router storefront for wholesale BODUO ingredients and Asia–Egypt sourcing. Static export: no backend, accounts or payment processing. Orders are quotation enquiries sent to WhatsApp +20 100 422 7074.
+Next.js App Router storefront for wholesale BODUO ingredients and China-to-Egypt sourcing. Static export: no backend, accounts or payment processing. Orders are quotation enquiries sent to WhatsApp +20 100 422 7074.
 
 ## Develop
 
@@ -29,16 +29,16 @@ For a custom domain later, remove `NEXT_PUBLIC_BASE_PATH: /silkraod` from the wo
 ## Features
 
 - English-only storefront with readable product specifications and carton ordering
-- Editorial ivory and evergreen design, serif typography and responsive product studios
+- Official Silk Road logo, navy/copper palette and clean white product studios
 - Twelve products, category filters and name / SKU search
 - Floating enquiry review, ordering FAQ and related ingredient discovery
 - Carton quantities with a persistent local browser order
 - WhatsApp quotation handoff; availability and delivery confirmed in conversation
 - Original catalog download and direct sourcing enquiry
-- Lazy loaded geographic Three.js globe with an animated China–Egypt connection, WebGL fallback and reduced motion support
+- Lazy loaded geographic Three.js globe with a directional China-to-Egypt animation, WebGL fallback and reduced motion support
 - Static rendered content, metadata and Open Graph information
 - Twelve individual product pages with structured product data
 - Sitemap and robots.txt generated from the deployment URL
 - Responsive design, keyboard focus, modal focus management and live cart feedback
 
-The ingredient photos are extracted from the supplied catalog. Google Fonts loads Inter and Instrument Serif with system fallbacks. The globe uses Natural Earth public-domain land geometry through world-atlas; its connection is an illustration, not a promised shipping itinerary. The [port photograph](https://images.unsplash.com/photo-1494412519320-aa613dfb7738) is stock imagery from Unsplash and does not depict a claimed Silkraod facility. The site does not claim certification, exclusive distribution or delivery guarantees. Instagram is omitted until a verified account is supplied.
+The product images and official logo use the original embedded artwork and transparency masks from the supplied catalog. Source images are encoded as WebP for delivery; labels and packaging are preserved. Google Fonts loads Inter with system fallbacks. The globe uses Natural Earth public-domain land geometry through world-atlas; its connection is an illustration, not a promised shipping itinerary. The [port photograph](https://images.unsplash.com/photo-1494412519320-aa613dfb7738) is stock imagery from Unsplash and does not depict a claimed Silk Road facility. The site does not claim certification, exclusive distribution or delivery guarantees. Instagram is omitted until a verified account is supplied.

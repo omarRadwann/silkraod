@@ -1,9 +1,10 @@
+import Brand from "@/components/Brand";
 import { base } from "@/lib/catalog";
 export default function NotFound() {
   return (
     <main className="empty-order" style={{ minHeight: "100vh" }}>
       <a className="wordmark" href={`${base}/`}>
-        silkraod®
+        <Brand />
       </a>
       <span className="eyebrow">404 / A SMALL DETOUR</span>
       <h1>Let’s find your way back.</h1>

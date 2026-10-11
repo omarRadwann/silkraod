@@ -107,7 +107,7 @@ export default function Storefront() {
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
   const selected = products.filter((p) => cart[p.id]);
   const order = whatsapp(
-    `${"Hello Silkraod! I would like a wholesale quotation and availability for:"}\n\n${selected.map((p) => `${cart[p.id]} carton(s) × ${p.name} | ${p.weight} × ${p.carton} pcs | SKU ${p.id}`).join("\n")}\n\n${"Business name:\nDelivery city:\nPreferred delivery date:"}`,
+    `${"Hello Silk Road! I would like a wholesale quotation and availability for:"}\n\n${selected.map((p) => `${cart[p.id]} carton(s) × ${p.name} | ${p.weight} × ${p.carton} pcs | SKU ${p.id}`).join("\n")}\n\n${"Business name:\nDelivery city:\nPreferred delivery date:"}`,
   );
   const filtered = products.filter(
     (p) =>
@@ -120,7 +120,7 @@ export default function Storefront() {
         Skip to ingredients
       </a>
       <header>
-        <a href="#" className="wordmark" aria-label="Silkraod home">
+        <a href="#" className="wordmark" aria-label="Silk Road home">
           <Brand />
         </a>
         <nav
@@ -151,7 +151,7 @@ export default function Storefront() {
           <a
             className="header-contact"
             href={whatsapp(
-              "Hello Silkraod! I would like to discuss a trade enquiry.",
+              "Hello Silk Road! I would like to discuss a trade enquiry.",
             )}
             target="_blank"
             rel="noreferrer"
@@ -177,22 +177,19 @@ export default function Storefront() {
           <div className="hero-copy">
             <div className="eyebrow">
               <span className="status-dot" />
-              {"THE WORLD IS CLOSER THAN YOU THINK"}
+              {"YOUR DIRECT CONNECTION TO CHINA"}
             </div>
             <h1>
-              {"Opportunity,"}
+              From <em>China.</em>
               <br />
-              {"without"}
+              To <em>Egypt.</em>
               <br />
-              <em>{"borders."}</em>
-              <span className="heading-arrow" aria-hidden="true">
-                ↗
-              </span>
+              <span>For your business.</span>
             </h1>
             <p>
-              {
-                "Connecting Asian markets with Egyptian ambition. Products, partnerships, and a new perspective on global trade."
-              }
+              Discover BODUO wholesale ingredients and explore sourcing
+              opportunities from China. One direct connection for your next move
+              in Egypt.
             </p>
             <div className="hero-actions">
               <a className="button light" href="#collection">
@@ -210,21 +207,21 @@ export default function Storefront() {
           <div className="hero-art">
             <TradeGlobe />
             <div className="globe-orbit-label">
-              A WORLD OF POSSIBILITY
+              CHINA TO EGYPT
               <br />
-              <span>ONE DIRECT CONNECTION.</span>
+              <span>ONE CLEAR DIRECTION.</span>
             </div>
             <div className="globe-caption">
               <span className="status-dot" />
-              CHINA <i>─────────</i> EGYPT
+              CHINA <i>⟶</i> EGYPT
               <span className="globe-caption-sub">
-                ILLUSTRATIVE TRADE CONNECTION
+                ORIGIN → DESTINATION / ILLUSTRATIVE ROUTE
               </span>
             </div>
           </div>
           <div className="hero-bottom">
-            <span>01 — IMPORT & EXPORT</span>
-            <span>02 — WHOLESALE INGREDIENTS</span>
+            <span>01 — CHINA → EGYPT</span>
+            <span>02 — WHOLESALE & SOURCING</span>
             <a href="#about">
               {"SCROLL TO EXPLORE"}
               <ArrowRight size={14} />
@@ -233,20 +230,20 @@ export default function Storefront() {
         </section>
         <section className="about section" id="about">
           <div className="about-label">
-            <span className="eyebrow">{"THE SILKRAOD PERSPECTIVE"}</span>
+            <span className="eyebrow">{"THE SILK ROAD CONNECTION"}</span>
             <span className="about-symbol" aria-hidden="true">
               ↗
             </span>
           </div>
           <div className="about-content reveal">
             <h2>
-              {"A world of potential."}
+              {"Global possibilities."}
               <br />
-              <em>{"A partner closer to home."}</em>
+              <em>{"Local ambition."}</em>
             </h2>
             <p>
               {
-                "The best opportunities don’t always start nearby. Silkraod brings the possibilities of Asian markets to growing businesses in Egypt — starting with a focused collection of BODUO beverage ingredients."
+                "Silk Road connects businesses in Egypt with products and sourcing opportunities from China. Explore our current BODUO beverage ingredient range, or talk to us about what your business needs next."
               }
             </p>
             <div className="about-services">
@@ -289,36 +286,44 @@ export default function Storefront() {
           <div className="feature-copy">
             <span className="eyebrow">{"INTRODUCING / THE BODUO EDIT"}</span>
             <h2>
-              {"The ingredients"}
+              Better ingredients.
               <br />
-              {"of your"}
-              <br />
-              <em>{"next chapter."}</em>
+              <em>Bigger possibilities.</em>
             </h2>
+            <p className="feature-description">
+              From the first pour to the final topping. Build your next menu
+              with BODUO popping boba, powders and core ingredients.
+            </p>
             <a className="text-link" href="#collection">
               {"Discover the collection"}
               <ArrowUpRight size={20} />
             </a>
           </div>
           <div className="feature-products">
-            <span className="feature-watermark">BODUO</span>
+            <span className="feature-watermark" aria-hidden="true">
+              THE BODUO COLLECTION
+            </span>
             <img
               className="feature-mango"
-              src={`${base}/products/130600912.webp`}
+              src={`${base}/products/130600912-source.webp`}
               alt="BODUO mango popping boba"
               width="460"
               height="530"
             />
             <img
               className="feature-berry"
-              src={`${base}/products/130600910.webp`}
+              src={`${base}/products/130600910-source.webp`}
               alt="BODUO strawberry popping boba"
               width="360"
               height="420"
             />
             <div className="feature-caption">
-              <span>POPPING BOBA / CORE INGREDIENTS / POWDERS</span>
-              <span>COLLECTION 2026</span>
+              <span>
+                MANGO POPPING BOBA <b>1.2 kg</b>
+              </span>
+              <span>
+                STRAWBERRY POPPING BOBA <b>1.2 kg</b>
+              </span>
             </div>
           </div>
         </section>
@@ -396,6 +401,7 @@ export default function Storefront() {
               <article
                 key={p.id}
                 className="product-card reveal"
+                data-category={p.category}
                 style={{ "--product-color": p.color } as React.CSSProperties}
               >
                 <a
@@ -411,7 +417,7 @@ export default function Storefront() {
                   </div>
                   <span className="product-halo" aria-hidden="true" />
                   <img
-                    src={`${base}/products/${p.id}.webp`}
+                    src={`${base}/products/${p.id}-source.webp`}
                     alt={`BODUO ${p.name} ${p.weight} packaging`}
                     loading="lazy"
                     width="360"
@@ -495,7 +501,7 @@ export default function Storefront() {
           />
           <div className="port-overlay" />
           <div className="sourcing-top">
-            <span className="eyebrow">{"ASIA TO EGYPT. AND BEYOND."}</span>
+            <span className="eyebrow">{"FROM CHINA. TO EGYPT."}</span>
             <span>THE NEXT CONNECTION / 02</span>
           </div>
           <div className="sourcing-content reveal">
@@ -509,13 +515,13 @@ export default function Storefront() {
             <div className="sourcing-right">
               <p>
                 {
-                  "Looking beyond our current collection? Tell us what you need, your quantities, and your timeline. Let’s explore sourcing possibilities in Asian markets together."
+                  "Your next opportunity might start in China. Tell us the product, quantity and timeline you have in mind. We’ll discuss sourcing possibilities for your business in Egypt."
                 }
               </p>
               <a
                 className="button light"
                 href={whatsapp(
-                  "Hello Silkraod! I have a sourcing enquiry.\nProduct:\nQuantity:\nDestination:\nTimeline:",
+                  "Hello Silk Road! I have a sourcing enquiry.\nProduct:\nQuantity:\nDestination:\nTimeline:",
                 )}
                 target="_blank"
                 rel="noreferrer"
@@ -625,7 +631,7 @@ export default function Storefront() {
           <a
             className="contact-title"
             href={whatsapp(
-              "Hello Silkraod! I would like to discuss a wholesale or sourcing enquiry.",
+              "Hello Silk Road! I would like to discuss a wholesale or sourcing enquiry.",
             )}
             target="_blank"
             rel="noreferrer"
@@ -656,7 +662,7 @@ export default function Storefront() {
             <Brand />
           </a>
           <p>
-            {"Asian markets. Egyptian ambition."}
+            {"From China to Egypt."}
             <br />
             {"A wider world, within reach."}
           </p>
@@ -674,9 +680,9 @@ export default function Storefront() {
         </div>
         <div className="footer-bottom">
           <span>
-            © {new Date().getFullYear()} SILKRAOD. ALL RIGHTS RESERVED.
+            © {new Date().getFullYear()} SILK ROAD. ALL RIGHTS RESERVED.
           </span>
-          <span>{"BASED IN EGYPT. CONNECTED TO ASIA."}</span>
+          <span>{"CHINA → EGYPT. DIRECT CONNECTION."}</span>
           <a href="#">{"BACK TO TOP"} ↑</a>
         </div>
       </footer>
@@ -761,7 +767,7 @@ export default function Storefront() {
                 {selected.map((p) => (
                   <div key={p.id} className="order-item">
                     <img
-                      src={`${base}/products/${p.id}.webp`}
+                      src={`${base}/products/${p.id}-source.webp`}
                       alt=""
                       style={{ background: p.color }}
                     />

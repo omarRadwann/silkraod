@@ -50,7 +50,7 @@ export default function TradeGlobe() {
     group.add(
       new THREE.Mesh(
         own(new THREE.SphereGeometry(1.995, 64, 64)),
-        mat(new THREE.MeshBasicMaterial({ color: 0x111a1d })),
+        mat(new THREE.MeshBasicMaterial({ color: 0x0c1c30 })),
       ),
     );
     const glow = mat(
@@ -59,7 +59,7 @@ export default function TradeGlobe() {
         vertexShader:
           "varying vec3 vNormal; varying vec3 vPosition; void main(){vNormal=normalize(normalMatrix*normal);vec4 p=modelViewMatrix*vec4(position,1.0);vPosition=p.xyz;gl_Position=projectionMatrix*p;}",
         fragmentShader:
-          "varying vec3 vNormal;varying vec3 vPosition;void main(){float rim=pow(1.0-abs(dot(normalize(vNormal),normalize(-vPosition))),4.0);gl_FragColor=vec4(0.53,0.70,0.48,rim*0.22);}",
+          "varying vec3 vNormal;varying vec3 vPosition;void main(){float rim=pow(1.0-abs(dot(normalize(vNormal),normalize(-vPosition))),4.0);gl_FragColor=vec4(0.35,0.54,0.76,rim*0.18);}",
         transparent: true,
         depthWrite: false,
         side: THREE.FrontSide,
@@ -117,7 +117,7 @@ export default function TradeGlobe() {
             geometry,
             mat(
               new THREE.PointsMaterial({
-                color: 0x9daea2,
+                color: 0x8da4bd,
                 size: 0.027,
                 sizeAttenuation: true,
                 transparent: true,
@@ -132,9 +132,9 @@ export default function TradeGlobe() {
       shanghai = point(31.23, 121.47, 2.04);
     const arcPoints = Array.from({ length: 101 }, (_, i) => {
       const t = i / 100;
-      return cairo
+      return shanghai
         .clone()
-        .lerp(shanghai, t)
+        .lerp(cairo, t)
         .normalize()
         .multiplyScalar(2.04 + Math.sin(t * Math.PI) * 0.54);
     });
@@ -142,13 +142,13 @@ export default function TradeGlobe() {
     group.add(
       new THREE.Mesh(
         own(new THREE.TubeGeometry(curve, 100, 0.009, 6, false)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xd7f99a })),
+        mat(new THREE.MeshBasicMaterial({ color: 0xe7a86b })),
       ),
     );
     const moving = Array.from({ length: 3 }, () => {
       const mesh = new THREE.Mesh(
         own(new THREE.SphereGeometry(0.025, 10, 10)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xf5ffe4 })),
+        mat(new THREE.MeshBasicMaterial({ color: 0xffe9d1 })),
       );
       group.add(mesh);
       return mesh;
@@ -156,7 +156,7 @@ export default function TradeGlobe() {
     [cairo, shanghai].forEach((p) => {
       const marker = new THREE.Mesh(
         own(new THREE.SphereGeometry(0.043, 16, 16)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xd7f99a })),
+        mat(new THREE.MeshBasicMaterial({ color: 0xe7a86b })),
       );
       marker.position.copy(p);
       group.add(marker);
@@ -164,7 +164,7 @@ export default function TradeGlobe() {
         own(new THREE.RingGeometry(0.065, 0.076, 32)),
         mat(
           new THREE.MeshBasicMaterial({
-            color: 0xd7f99a,
+            color: 0xe7a86b,
             transparent: true,
             opacity: 0.7,
             side: THREE.DoubleSide,
@@ -243,17 +243,17 @@ export default function TradeGlobe() {
       className="trade-globe"
       ref={host}
       role="img"
-      aria-label="An interactive globe illustrating the connection between China and Egypt"
+      aria-label="An interactive globe illustrating imports from China to Egypt"
     >
       <div className="globe-fallback" />
       <span className="globe-pin egypt-pin" ref={egypt}>
         <i />
-        <b>EGYPT</b>
+        <b>EGYPT · DESTINATION</b>
         <small>30.04° N / 31.24° E</small>
       </span>
       <span className="globe-pin china-pin" ref={china}>
         <i />
-        <b>CHINA</b>
+        <b>CHINA · ORIGIN</b>
         <small>31.23° N / 121.47° E</small>
       </span>
     </div>
