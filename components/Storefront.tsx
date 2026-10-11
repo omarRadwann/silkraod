@@ -12,7 +12,6 @@ import {
   Menu,
   Check,
   MessageCircle,
-  Globe,
   Download,
 } from "lucide-react";
 import { products, base, whatsapp } from "@/lib/catalog";
@@ -24,15 +23,8 @@ const categories = [
   "Core ingredients",
   "Powders",
 ];
-const arabicCats = [
-  "كل المكونات",
-  "بوبـا فواكه",
-  "المكونات الأساسية",
-  "البودرة",
-];
 export default function Storefront() {
-  const [ar, setAr] = useState(false),
-    [category, setCategory] = useState("All ingredients"),
+  const [category, setCategory] = useState("All ingredients"),
     [query, setQuery] = useState(""),
     [cart, setCart] = useState<Record<string, number>>({}),
     [open, setOpen] = useState(false),
@@ -42,7 +34,6 @@ export default function Storefront() {
   const dialog = useRef<HTMLDialogElement>(null);
   const cartButton = useRef<HTMLButtonElement>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const t = (en: string, arabic: string) => (ar ? arabic : en);
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("silkraod-cart") || "{}");
@@ -63,9 +54,9 @@ export default function Storefront() {
     }
   }, [cart, ready]);
   useEffect(() => {
-    document.documentElement.lang = ar ? "ar" : "en";
-    document.documentElement.dir = ar ? "rtl" : "ltr";
-  }, [ar]);
+    document.documentElement.lang = "en";
+    document.documentElement.dir = "ltr";
+  }, []);
   useEffect(() => {
     const d = dialog.current;
     if (open) {
@@ -93,7 +84,7 @@ export default function Storefront() {
     );
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [category, query, ar]);
+  }, [category, query]);
   useEffect(
     () => () => {
       if (toastTimer.current) clearTimeout(toastTimer.current);
@@ -116,12 +107,12 @@ export default function Storefront() {
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
   const selected = products.filter((p) => cart[p.id]);
   const order = whatsapp(
-    `${ar ? "مرحباً سيلكراود، أود طلب أسعار وتأكيد توفر المنتجات التالية:" : "Hello Silkraod! I would like a wholesale quotation and availability for:"}\n\n${selected.map((p) => `${cart[p.id]} carton(s) × ${p.name} | ${p.weight} × ${p.carton} pcs | SKU ${p.id}`).join("\n")}\n\n${ar ? "اسم الشركة:\nالمدينة:\nموعد التسليم المطلوب:" : "Business name:\nDelivery city:\nPreferred delivery date:"}`,
+    `${"Hello Silkraod! I would like a wholesale quotation and availability for:"}\n\n${selected.map((p) => `${cart[p.id]} carton(s) × ${p.name} | ${p.weight} × ${p.carton} pcs | SKU ${p.id}`).join("\n")}\n\n${"Business name:\nDelivery city:\nPreferred delivery date:"}`,
   );
   const filtered = products.filter(
     (p) =>
       (category === "All ingredients" || p.category === category) &&
-      `${p.name} ${p.ar} ${p.id}`.toLowerCase().includes(query.toLowerCase()),
+      `${p.name} ${p.id}`.toLowerCase().includes(query.toLowerCase()),
   );
   return (
     <>
@@ -137,23 +128,16 @@ export default function Storefront() {
           className={menu ? "nav mobile-open" : "nav"}
         >
           <a href="#about" onClick={() => setMenu(false)}>
-            {t("The company", "عن الشركة")}
+            {"The company"}
           </a>
           <a href="#collection" onClick={() => setMenu(false)}>
-            {t("Our collection", "المنتجات")}
+            {"Our collection"}
           </a>
           <a href="#sourcing" onClick={() => setMenu(false)}>
-            {t("Global sourcing", "الاستيراد")}
+            {"Global sourcing"}
           </a>
         </nav>
         <div className="header-actions">
-          <button
-            className="lang"
-            onClick={() => setAr(!ar)}
-            aria-label="Switch language"
-          >
-            {ar ? "EN" : "عربي"}
-          </button>
           <button
             ref={cartButton}
             className="bag-button"
@@ -171,7 +155,7 @@ export default function Storefront() {
             target="_blank"
             rel="noreferrer"
           >
-            {t("Let’s talk", "تواصل معنا")}
+            {"Let’s talk"}
             <ArrowUpRight size={15} />
           </a>
           <button
@@ -192,33 +176,32 @@ export default function Storefront() {
           <div className="hero-copy">
             <div className="eyebrow">
               <span className="status-dot" />
-              {t("THE WORLD IS CLOSER THAN YOU THINK", "العالم أقرب مما تتخيل")}
+              {"THE WORLD IS CLOSER THAN YOU THINK"}
             </div>
             <h1>
-              {t("Opportunity,", "فرص جديدة،")}
+              {"Opportunity,"}
               <br />
-              {t("without", "بلا")}
+              {"without"}
               <br />
-              <em>{t("borders.", "حدود.")}</em>
+              <em>{"borders."}</em>
               <span className="heading-arrow" aria-hidden="true">
                 ↗
               </span>
             </h1>
             <p>
-              {t(
-                "Connecting Asian markets with Egyptian ambition. Products, partnerships, and a new perspective on global trade.",
-                "نربط الأسواق الآسيوية بالطموح المصري. منتجات وشراكات ورؤية جديدة للتجارة العالمية.",
-              )}
+              {
+                "Connecting Asian markets with Egyptian ambition. Products, partnerships, and a new perspective on global trade."
+              }
             </p>
             <div className="hero-actions">
               <a className="button light" href="#collection">
-                {t("Explore our collection", "اكتشف منتجاتنا")}
+                {"Explore our collection"}
                 <span>
                   <ArrowUpRight size={19} />
                 </span>
               </a>
               <a className="hero-secondary" href="#sourcing">
-                {t("Find your next opportunity", "اكتشف فرصتك القادمة")}
+                {"Find your next opportunity"}
                 <ArrowRight size={16} />
               </a>
             </div>
@@ -242,57 +225,48 @@ export default function Storefront() {
             <span>01 — IMPORT & EXPORT</span>
             <span>02 — WHOLESALE INGREDIENTS</span>
             <a href="#about">
-              {t("SCROLL TO EXPLORE", "اكتشف المزيد")}
+              {"SCROLL TO EXPLORE"}
               <ArrowRight size={14} />
             </a>
           </div>
         </section>
         <section className="about section" id="about">
           <div className="about-label">
-            <span className="eyebrow">
-              {t("THE SILKRAOD PERSPECTIVE", "رؤية سيلكراود")}
-            </span>
+            <span className="eyebrow">{"THE SILKRAOD PERSPECTIVE"}</span>
             <span className="about-symbol" aria-hidden="true">
               ↗
             </span>
           </div>
           <div className="about-content reveal">
             <h2>
-              {t("A world of potential.", "عالم من الإمكانات.")}
+              {"A world of potential."}
               <br />
-              <em>{t("A partner closer to home.", "شريك أقرب إليك.")}</em>
+              <em>{"A partner closer to home."}</em>
             </h2>
             <p>
-              {t(
-                "The best opportunities don’t always start nearby. Silkraod brings the possibilities of Asian markets to growing businesses in Egypt — starting with a focused collection of BODUO beverage ingredients.",
-                "أفضل الفرص قد تبدأ بعيداً. سيلكراود تقرّب إمكانات الأسواق الآسيوية من المشروعات النامية في مصر، بدءاً بتشكيلة مختارة من مكونات المشروبات من بودو.",
-              )}
+              {
+                "The best opportunities don’t always start nearby. Silkraod brings the possibilities of Asian markets to growing businesses in Egypt — starting with a focused collection of BODUO beverage ingredients."
+              }
             </p>
             <div className="about-services">
-              <span>
-                {t("Asian market sourcing", "توريد من الأسواق الآسيوية")}
-              </span>
-              <span>{t("Wholesale supply", "توريد بالجملة")}</span>
-              <span>
-                {t("Import & export enquiries", "استفسارات الاستيراد والتصدير")}
-              </span>
+              <span>{"Asian market sourcing"}</span>
+              <span>{"Wholesale supply"}</span>
+              <span>{"Import & export enquiries"}</span>
             </div>
           </div>
         </section>
         <section className="collection-feature">
           <div className="feature-copy">
-            <span className="eyebrow">
-              {t("INTRODUCING / THE BODUO EDIT", "نقدم لكم / تشكيلة بودو")}
-            </span>
+            <span className="eyebrow">{"INTRODUCING / THE BODUO EDIT"}</span>
             <h2>
-              {t("The ingredients", "مكونات")}
+              {"The ingredients"}
               <br />
-              {t("of your", "تصنع")}
+              {"of your"}
               <br />
-              <em>{t("next chapter.", "خطوتك القادمة.")}</em>
+              <em>{"next chapter."}</em>
             </h2>
             <a className="text-link" href="#collection">
-              {t("Discover the collection", "اكتشف التشكيلة")}
+              {"Discover the collection"}
               <ArrowUpRight size={20} />
             </a>
           </div>
@@ -321,21 +295,18 @@ export default function Storefront() {
         <section id="collection" className="collection section">
           <div className="section-top reveal">
             <div>
-              <div className="eyebrow">
-                {t("01 / THE WHOLESALE COLLECTION", "٠١ / تشكيلة الجملة")}
-              </div>
+              <div className="eyebrow">{"01 / THE WHOLESALE COLLECTION"}</div>
               <h2>
-                {t("Selected with purpose.", "منتجات مختارة بعناية.")}
+                {"Selected with purpose."}
                 <br />
-                <em>{t("Ready for your business.", "جاهزة لمشروعك.")}</em>
+                <em>{"Ready for your business."}</em>
               </h2>
             </div>
             <div className="section-intro">
               <p>
-                {t(
-                  "Twelve ingredients. Three collections. Explore the BODUO range and build a wholesale enquiry around your business.",
-                  "اثنا عشر منتجاً في ثلاث مجموعات. اكتشف تشكيلة بودو وابدأ طلب عرض أسعار يناسب مشروعك.",
-                )}
+                {
+                  "Twelve ingredients. Three collections. Explore the BODUO range and build a wholesale enquiry around your business."
+                }
               </p>
               <a
                 className="text-link"
@@ -343,7 +314,7 @@ export default function Storefront() {
                 target="_blank"
                 rel="noreferrer"
               >
-                {t("Download the 2026 catalog", "تحميل كتالوج ٢٠٢٦")}
+                {"Download the 2026 catalog"}
                 <Download size={16} />
               </a>
             </div>
@@ -361,7 +332,7 @@ export default function Storefront() {
                   onClick={() => setCategory(c)}
                   aria-pressed={c === category}
                 >
-                  {ar ? arabicCats[i] : c}
+                  {c}
                   {i === 0 && <small>12</small>}
                 </button>
               ))}
@@ -371,7 +342,7 @@ export default function Storefront() {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder={t("Search collection", "ابحث في المنتجات")}
+                placeholder={"Search collection"}
                 aria-label="Search ingredients"
               />
               {query && (
@@ -383,20 +354,28 @@ export default function Storefront() {
           </div>
           <div className="results-count" aria-live="polite">
             {filtered.length}{" "}
-            {t("ingredients / prices on request", "منتج / الأسعار عند الطلب")}
+            {filtered.length === 1 ? "ingredient" : "ingredients"} / prices on
+            request
           </div>
           <div className="product-grid">
-            {filtered.map((p, i) => (
+            {filtered.map((p) => (
               <article
                 key={p.id}
                 className="product-card reveal"
                 style={{ "--product-color": p.color } as React.CSSProperties}
               >
-                <div className="product-visual">
-                  <span className="product-index">
-                    {String(products.indexOf(p) + 1).padStart(2, "0")} / BODUO
-                  </span>
-                  <span className="product-weight">{p.weight}</span>
+                <a
+                  className="product-visual"
+                  href={`${base}/products/${p.id}/`}
+                  aria-label={`View BODUO ${p.name} details`}
+                >
+                  <div className="product-stage-top">
+                    <span className="product-maker">
+                      BODUO<span>THE INGREDIENT COLLECTION</span>
+                    </span>
+                    <span className="product-type">{p.category}</span>
+                  </div>
+                  <span className="product-halo" aria-hidden="true" />
                   <img
                     src={`${base}/products/${p.id}.webp`}
                     alt={`BODUO ${p.name} ${p.weight} packaging`}
@@ -404,50 +383,58 @@ export default function Storefront() {
                     width="360"
                     height="400"
                   />
+                  <span className="product-view">
+                    Explore ingredient <ArrowUpRight size={16} />
+                  </span>
+                </a>
+                <div className="product-details">
+                  <div className="product-title-row">
+                    <h3>
+                      <a href={`${base}/products/${p.id}/`}>{p.name}</a>
+                    </h3>
+                    {cart[p.id] > 0 && (
+                      <span className="product-selected">
+                        <Check size={12} />
+                        {cart[p.id]} in order
+                      </span>
+                    )}
+                  </div>
+                  <p>{p.note}</p>
+                  <dl className="product-specs">
+                    <div>
+                      <dt>Pack size</dt>
+                      <dd>{p.weight}</dd>
+                    </div>
+                    <div>
+                      <dt>Per carton</dt>
+                      <dd>{p.carton} packs</dd>
+                    </div>
+                  </dl>
                   <button
-                    className={`quick-add ${added === p.id ? "is-added" : ""}`}
+                    className={`product-order ${added === p.id ? "is-added" : ""}`}
                     onClick={() => add(p.id)}
                     aria-label={`Add one carton of ${p.name}`}
                   >
-                    {added === p.id ? <Check size={21} /> : <Plus size={21} />}
-                  </button>
-                </div>
-                <div className="product-details">
-                  <span className="product-category">
-                    {ar
-                      ? arabicCats[categories.indexOf(p.category)]
-                      : p.category}
-                  </span>
-                  <h3>
-                    <a href={`${base}/products/${p.id}/`}>
-                      {ar ? p.ar : p.name}
-                    </a>
-                  </h3>
-                  <p>{ar ? `${p.carton} عبوة في الكرتونة` : p.note}</p>
-                  <div className="product-foot">
                     <span>
-                      {p.carton} {t("pcs / carton", "عبوة / كرتونة")}
+                      {added === p.id ? (
+                        <Check size={18} />
+                      ) : (
+                        <Plus size={18} />
+                      )}
+                      {added === p.id ? "Added to your order" : "Add a carton"}
                     </span>
-                    <button onClick={() => add(p.id)}>
-                      {added === p.id
-                        ? t("Added ✓", "تمت الإضافة ✓")
-                        : t("Add to order", "أضف لطلبك")}
-                      <ArrowUpRight size={15} />
-                    </button>
-                  </div>
+                    <span className="product-order-caption">
+                      Enquire for price <ArrowUpRight size={14} />
+                    </span>
+                  </button>
                 </div>
               </article>
             ))}
           </div>
           {filtered.length === 0 && (
             <div className="empty-results">
-              <h3>{t("No ingredients found.", "لا توجد نتائج.")}</h3>
-              <p>
-                {t(
-                  "Try a flavour, product name or item code.",
-                  "جرّب اسم النكهة أو المنتج أو كود الصنف.",
-                )}
-              </p>
+              <h3>{"No ingredients found."}</h3>
+              <p>{"Try a flavour, product name or item code."}</p>
               <button
                 className="button dark"
                 onClick={() => {
@@ -455,15 +442,14 @@ export default function Storefront() {
                   setCategory(categories[0]);
                 }}
               >
-                {t("Show all ingredients", "عرض كل المكونات")}
+                {"Show all ingredients"}
               </button>
             </div>
           )}
           <p className="catalog-note">
-            {t(
-              "Wholesale enquiries only. Prices, stock and delivery arrangements are confirmed by our team on WhatsApp.",
-              "طلبات الجملة فقط. يتم تأكيد الأسعار والتوفر وترتيبات التسليم مع فريقنا عبر واتساب.",
-            )}
+            {
+              "Wholesale enquiries only. Prices, stock and delivery arrangements are confirmed by our team on WhatsApp."
+            }
           </p>
         </section>
         <section id="sourcing" className="sourcing">
@@ -475,25 +461,22 @@ export default function Storefront() {
           />
           <div className="port-overlay" />
           <div className="sourcing-top">
-            <span className="eyebrow">
-              {t("ASIA TO EGYPT. AND BEYOND.", "من آسيا إلى مصر. وما بعدها.")}
-            </span>
+            <span className="eyebrow">{"ASIA TO EGYPT. AND BEYOND."}</span>
             <span>THE NEXT CONNECTION / 02</span>
           </div>
           <div className="sourcing-content reveal">
             <h2>
-              {t("Great business", "الأعمال الكبيرة")}
+              {"Great business"}
               <br />
-              {t("starts with", "تبدأ")}
+              {"starts with"}
               <br />
-              <em>{t("a connection.", "بعلاقة قوية.")}</em>
+              <em>{"a connection."}</em>
             </h2>
             <div className="sourcing-right">
               <p>
-                {t(
-                  "Looking beyond our current collection? Tell us what you need, your quantities, and your timeline. Let’s explore sourcing possibilities in Asian markets together.",
-                  "هل تبحث عن منتجات خارج تشكيلتنا الحالية؟ أخبرنا باحتياجاتك وكمياتك وجدولك الزمني. لنستكشف معاً فرص التوريد من الأسواق الآسيوية.",
-                )}
+                {
+                  "Looking beyond our current collection? Tell us what you need, your quantities, and your timeline. Let’s explore sourcing possibilities in Asian markets together."
+                }
               </p>
               <a
                 className="button light"
@@ -503,7 +486,7 @@ export default function Storefront() {
                 target="_blank"
                 rel="noreferrer"
               >
-                {t("Start a sourcing enquiry", "ابدأ استفسار توريد")}
+                {"Start a sourcing enquiry"}
                 <span>
                   <ArrowUpRight size={19} />
                 </span>
@@ -519,15 +502,12 @@ export default function Storefront() {
           <div className="section-top reveal">
             <div>
               <div className="eyebrow">
-                {t(
-                  "03 / LESS FRICTION. MORE POSSIBILITY.",
-                  "٠٣ / خطوات أقل. فرص أكثر.",
-                )}
+                {"03 / LESS FRICTION. MORE POSSIBILITY."}
               </div>
               <h2>
-                {t("Simple steps.", "خطوات بسيطة.")}
+                {"Simple steps."}
                 <br />
-                <em>{t("A direct conversation.", "تواصل مباشر.")}</em>
+                <em>{"A direct conversation."}</em>
               </h2>
             </div>
             <MessageCircle className="how-icon" strokeWidth={1} />
@@ -536,27 +516,18 @@ export default function Storefront() {
             {[
               {
                 n: "01",
-                title: t("Find your mix", "اختر تشكيلتك"),
-                body: t(
-                  "Explore the collection. Add your ingredients and choose how many cartons you need.",
-                  "اكتشف المنتجات، أضف المكونات وحدد عدد الكراتين.",
-                ),
+                title: "Find your mix",
+                body: "Explore the collection. Add your ingredients and choose how many cartons you need.",
               },
               {
                 n: "02",
-                title: t("Send it our way", "أرسل لنا طلبك"),
-                body: t(
-                  "Open your order and continue to WhatsApp. Your product list comes with you.",
-                  "افتح طلبك وانتقل إلى واتساب. ستجد قائمة المنتجات جاهزة للإرسال.",
-                ),
+                title: "Send it our way",
+                body: "Open your order and continue to WhatsApp. Your product list comes with you.",
               },
               {
                 n: "03",
-                title: t("Let’s make it happen", "لنبدأ معاً"),
-                body: t(
-                  "We’ll discuss prices, availability and delivery with you before confirming your order.",
-                  "نتفق معك على الأسعار والتوفر والتسليم قبل تأكيد الطلب.",
-                ),
+                title: "Let’s make it happen",
+                body: "We’ll discuss prices, availability and delivery with you before confirming your order.",
               },
             ].map((s) => (
               <div key={s.n} className="step reveal">
@@ -572,9 +543,7 @@ export default function Storefront() {
         </section>
         <section className="contact">
           <div className="contact-top">
-            <span className="eyebrow">
-              {t("YOUR NEXT CHAPTER STARTS HERE", "خطوتك القادمة تبدأ هنا")}
-            </span>
+            <span className="eyebrow">{"YOUR NEXT CHAPTER STARTS HERE"}</span>
             <span>LET’S BUILD SOMETHING.</span>
           </div>
           <a
@@ -586,21 +555,16 @@ export default function Storefront() {
             rel="noreferrer"
           >
             <h2>
-              {t("Think bigger.", "فكّر أبعد.")}
+              {"Think bigger."}
               <br />
-              <em>{t("Let’s talk.", "لنتحدث.")}</em>
+              <em>{"Let’s talk."}</em>
             </h2>
             <span className="contact-arrow">
               <ArrowUpRight strokeWidth={1} />
             </span>
           </a>
           <div className="contact-bottom">
-            <p>
-              {t(
-                "One conversation can open a world of possibility.",
-                "محادثة واحدة قد تفتح عالماً من الفرص.",
-              )}
-            </p>
+            <p>{"One conversation can open a world of possibility."}</p>
             <a href="tel:+201004227074" dir="ltr">
               +20 100 422 7074
             </a>
@@ -613,45 +577,41 @@ export default function Storefront() {
             <Brand />
           </a>
           <p>
-            {t("Asian markets. Egyptian ambition.", "أسواق آسيوية. طموح مصري.")}
+            {"Asian markets. Egyptian ambition."}
             <br />
-            {t("A wider world, within reach.", "عالم أوسع، أقرب إليك.")}
+            {"A wider world, within reach."}
           </p>
           <div className="footer-links">
-            <a href="#collection">{t("Collection", "المنتجات")} ↗</a>
+            <a href="#collection">{"Collection"} ↗</a>
             <a
               href={`${base}/silkraod-wholesale-2026.pdf`}
               target="_blank"
               rel="noreferrer"
             >
-              {t("Catalog 2026", "كتالوج ٢٠٢٦")} ↗
+              {"Catalog 2026"} ↗
             </a>
-            <a href="#sourcing">{t("Sourcing", "التوريد")} ↗</a>
+            <a href="#sourcing">{"Sourcing"} ↗</a>
           </div>
         </div>
         <div className="footer-bottom">
           <span>
             © {new Date().getFullYear()} SILKRAOD. ALL RIGHTS RESERVED.
           </span>
-          <span>
-            {t("BASED IN EGYPT. CONNECTED TO ASIA.", "من مصر، نتواصل مع آسيا.")}
-          </span>
-          <a href="#">{t("BACK TO TOP", "العودة للأعلى")} ↑</a>
+          <span>{"BASED IN EGYPT. CONNECTED TO ASIA."}</span>
+          <a href="#">{"BACK TO TOP"} ↑</a>
         </div>
       </footer>
       <div className="toast" role="status" aria-live="polite">
         {added && (
           <>
             <Check size={17} />
-            {t("One carton added to your order", "تمت إضافة كرتونة إلى طلبك")}
-            <button onClick={() => setOpen(true)}>
-              {t("View order", "عرض الطلب")} ↗
-            </button>
+            {"One carton added to your order"}
+            <button onClick={() => setOpen(true)}>{"View order"} ↗</button>
           </>
         )}
       </div>
       <dialog
-        aria-label={t("Your wholesale order", "طلب الجملة")}
+        aria-label={"Your wholesale order"}
         ref={dialog}
         className="order-dialog"
         onCancel={() => setOpen(false)}
@@ -662,11 +622,9 @@ export default function Storefront() {
         <div className="order-panel">
           <div className="order-header">
             <div>
-              <div className="eyebrow">
-                {t("YOUR WHOLESALE ENQUIRY", "خطوة أقرب إلى فرصتك القادمة")}
-              </div>
+              <div className="eyebrow">{"YOUR WHOLESALE ENQUIRY"}</div>
               <h2>
-                {t("Your order", "طلبك")}
+                {"Your order"}
                 <em> ({count})</em>
               </h2>
             </div>
@@ -681,13 +639,8 @@ export default function Storefront() {
           {selected.length === 0 ? (
             <div className="empty-order">
               <ShoppingBag size={45} strokeWidth={1} />
-              <h3>{t("Your collection starts here.", "تشكيلتك تبدأ هنا.")}</h3>
-              <p>
-                {t(
-                  "Add a few ingredients to start your wholesale enquiry.",
-                  "أضف بعض المنتجات لتبدأ طلب عرض أسعار الجملة.",
-                )}
-              </p>
+              <h3>{"Your collection starts here."}</h3>
+              <p>{"Add a few ingredients to start your wholesale enquiry."}</p>
               <button
                 className="button dark"
                 onClick={() => {
@@ -695,7 +648,7 @@ export default function Storefront() {
                   document.getElementById("collection")?.scrollIntoView();
                 }}
               >
-                {t("Explore ingredients", "اكتشف المنتجات")}
+                {"Explore ingredients"}
                 <ArrowUpRight size={18} />
               </button>
             </div>
@@ -710,10 +663,9 @@ export default function Storefront() {
                       style={{ background: p.color }}
                     />
                     <div>
-                      <h3>{ar ? p.ar : p.name}</h3>
+                      <h3>{p.name}</h3>
                       <p>
-                        {p.weight} × {p.carton}{" "}
-                        {t("pcs / carton", "عبوة / كرتونة")}
+                        {p.weight} × {p.carton} {"pcs / carton"}
                       </p>
                       <span className="quantity">
                         <button
@@ -730,7 +682,7 @@ export default function Storefront() {
                         >
                           <Plus size={14} />
                         </button>
-                        <small>{t("cartons", "كرتونة")}</small>
+                        <small>{"cartons"}</small>
                       </span>
                     </div>
                     <button
@@ -751,14 +703,13 @@ export default function Storefront() {
               </div>
               <div className="order-summary">
                 <div>
-                  <span>{t("Total cartons", "إجمالي الكراتين")}</span>
+                  <span>{"Total cartons"}</span>
                   <b>{count}</b>
                 </div>
                 <p>
-                  {t(
-                    "This is a quotation request. Our team will confirm prices, stock and delivery on WhatsApp.",
-                    "هذا طلب عرض أسعار. سيؤكد فريقنا الأسعار والتوفر والتسليم عبر واتساب.",
-                  )}
+                  {
+                    "This is a quotation request. Our team will confirm prices, stock and delivery on WhatsApp."
+                  }
                 </p>
                 <a
                   className="button dark"
@@ -767,14 +718,11 @@ export default function Storefront() {
                   rel="noreferrer"
                 >
                   <MessageCircle size={19} />
-                  {t("Continue on WhatsApp", "متابعة عبر واتساب")}
+                  {"Continue on WhatsApp"}
                   <ArrowUpRight size={19} />
                 </a>
                 <small>
-                  {t(
-                    "Your enquiry opens as a message. Tap send to share it.",
-                    "سيفتح طلبك كرسالة. اضغط إرسال لمشاركتها.",
-                  )}
+                  {"Your enquiry opens as a message. Tap send to share it."}
                 </small>
               </div>
             </>

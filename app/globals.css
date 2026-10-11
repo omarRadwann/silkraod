@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&family=Instrument+Serif:ital@0;1&family=Noto+Sans+Arabic:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&family=Instrument+Serif:ital@0;1&display=swap");
 :root {
   --paper: #f3f2ec;
   --ink: #131b1d;
@@ -6,7 +6,7 @@
   --lime: #d4f59b;
   --line: #d7d9d0;
   --muted: #727972;
-  --font: "Inter", "Noto Sans Arabic", sans-serif;
+  --font: "Inter", sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -61,7 +61,7 @@ h3 {
   font-weight: 450;
 }
 em {
-  font-family: "Instrument Serif", "Noto Sans Arabic", serif;
+  font-family: "Instrument Serif", serif;
   font-weight: 400;
   font-style: italic;
 }

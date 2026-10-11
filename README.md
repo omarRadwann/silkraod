@@ -28,7 +28,7 @@ For a custom domain later, remove `NEXT_PUBLIC_BASE_PATH: /silkraod` from the wo
 
 ## Features
 
-- English / Arabic switch, RTL layout
+- English-only storefront with readable product specifications and carton ordering
 - Twelve products, category filters and name / SKU search
 - Carton quantities with a persistent local browser order
 - WhatsApp quotation handoff; availability and delivery confirmed in conversation
@@ -39,4 +39,4 @@ For a custom domain later, remove `NEXT_PUBLIC_BASE_PATH: /silkraod` from the wo
 - Sitemap and robots.txt generated from the deployment URL
 - Responsive design, keyboard focus, modal focus management and live cart feedback
 
-The ingredient photos are extracted from the supplied catalog. Google Fonts loads Inter, Instrument Serif and Noto Sans Arabic with system fallbacks. The globe uses Natural Earth public-domain land geometry through world-atlas; its connection is an illustration, not a promised shipping itinerary. The [port photograph](https://images.unsplash.com/photo-1494412519320-aa613dfb7738) is stock imagery from Unsplash and does not depict a claimed Silkraod facility. The site does not claim certification, exclusive distribution or delivery guarantees. Instagram is omitted until a verified account is supplied.
+The ingredient photos are extracted from the supplied catalog. Google Fonts loads Inter and Instrument Serif with system fallbacks. The globe uses Natural Earth public-domain land geometry through world-atlas; its connection is an illustration, not a promised shipping itinerary. The [port photograph](https://images.unsplash.com/photo-1494412519320-aa613dfb7738) is stock imagery from Unsplash and does not depict a claimed Silkraod facility. The site does not claim certification, exclusive distribution or delivery guarantees. Instagram is omitted until a verified account is supplied.

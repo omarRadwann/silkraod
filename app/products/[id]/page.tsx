@@ -17,7 +17,7 @@ export async function generateMetadata({
   return p
     ? {
         title: `BODUO ${p.name} ${p.weight} Wholesale in Egypt | Silkraod`,
-        description: `Enquire about BODUO ${p.name} (${p.ar}) in Egypt. ${p.weight} per pack, ${p.carton} packs per carton. Wholesale prices and availability confirmed on WhatsApp.`,
+        description: `Enquire about BODUO ${p.name} in Egypt. ${p.weight} per pack, ${p.carton} packs per carton. Wholesale prices and availability confirmed on WhatsApp.`,
       }
     : {};
 }
@@ -67,9 +67,6 @@ export default async function ProductPage({
         <div className="product-page-copy">
           <span className="eyebrow">BODUO / {p.category.toUpperCase()}</span>
           <h1>{p.name}</h1>
-          <p className="arabic-name" lang="ar" dir="rtl">
-            {p.ar}
-          </p>
           <p>
             {p.note} Part of the Silkraod wholesale ingredient collection for
             beverage businesses in Egypt.
