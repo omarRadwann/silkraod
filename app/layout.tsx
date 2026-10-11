@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Silkraod — From Asia, with possibility.",
     description: "Bubble tea ingredients & China-to-Egypt sourcing.",
     type: "website",
-    images: [{ url: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/og.jpg`, width: 1200, height: 630, alt: 'Silkraod wholesale bubble tea ingredients' }],
+    images: [{ url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_PATH || ""}/og.jpg`, width: 1200, height: 630, alt: 'Silkraod wholesale bubble tea ingredients' }],
   },
   robots: { index: true, follow: true },
   icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/icon.svg` },
