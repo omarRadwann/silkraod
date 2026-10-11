@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { base } from "@/lib/catalog";
+import coords from "@/lib/globe-points.json";
 export default function TradeGlobe() {
   const host = useRef<HTMLDivElement>(null),
     egypt = useRef<HTMLSpanElement>(null),
@@ -97,37 +97,30 @@ export default function TradeGlobe() {
         ),
       );
     }
-    const abort = new AbortController();
-    fetch(`${base}/world-points.json`, { signal: abort.signal })
-      .then((r) => r.json())
-      .then((coords: number[]) => {
-        if (disposed) return;
-        const positions = [];
-        for (let i = 0; i < coords.length; i += 2) {
-          const p = point(coords[i], coords[i + 1], 2.021);
-          positions.push(p.x, p.y, p.z);
-        }
-        const geometry = own(new THREE.BufferGeometry());
-        geometry.setAttribute(
-          "position",
-          new THREE.Float32BufferAttribute(positions, 3),
-        );
-        group.add(
-          new THREE.Points(
-            geometry,
-            mat(
-              new THREE.PointsMaterial({
-                color: 0xa6a18f,
-                size: 0.027,
-                sizeAttenuation: true,
-                transparent: true,
-                opacity: 0.78,
-              }),
-            ),
-          ),
-        );
-      })
-      .catch(() => {});
+    const positions: number[] = [];
+    for (let i = 0; i < coords.length; i += 2) {
+      const p = point(coords[i], coords[i + 1], 2.021);
+      positions.push(p.x, p.y, p.z);
+    }
+    const land = own(new THREE.BufferGeometry());
+    land.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(positions, 3),
+    );
+    group.add(
+      new THREE.Points(
+        land,
+        mat(
+          new THREE.PointsMaterial({
+            color: 0xa6ad95,
+            size: 0.027,
+            sizeAttenuation: true,
+            transparent: true,
+            opacity: 0.85,
+          }),
+        ),
+      ),
+    );
     const cairo = point(30.04, 31.24, 2.04),
       shanghai = point(31.23, 121.47, 2.04);
     const arcPoints = Array.from({ length: 101 }, (_, i) => {
@@ -219,6 +212,7 @@ export default function TradeGlobe() {
           );
         } else moving.forEach((p, i) => p.position.copy(curve.getPoint(i / 3)));
         renderer.render(scene, camera);
+        el.classList.add("globe-ready");
         label(egypt.current, cairo);
         label(china.current, shanghai);
       }
@@ -227,7 +221,7 @@ export default function TradeGlobe() {
     frame = requestAnimationFrame(tick);
     return () => {
       disposed = true;
-      abort.abort();
+
       cancelAnimationFrame(frame);
       ro.disconnect();
       visibility.disconnect();
@@ -236,6 +230,7 @@ export default function TradeGlobe() {
       materials.forEach((m) => m.dispose());
       renderer.dispose();
       renderer.domElement.remove();
+      el.classList.remove("globe-ready");
     };
   }, []);
   return (
@@ -243,20 +238,19 @@ export default function TradeGlobe() {
       className="trade-globe"
       ref={host}
       role="img"
-      aria-label="An interactive globe illustrating imports from China to Egypt"
+      aria-label="An interactive globe illustrating imports from Asia to Egypt"
     >
       <div className="globe-fallback" />
       <span className="globe-pin egypt-pin" ref={egypt}>
         <i />
         <b>EGYPT · DESTINATION</b>
-        <small>30.04° N / 31.24° E</small>
+        <small>FOR YOUR BUSINESS IN EGYPT</small>
       </span>
-      <span className="globe-pin china-pin" ref={china}>
+      <span className="globe-pin asia-pin" ref={china}>
         <i />
-        <b>CHINA · ORIGIN</b>
-        <small>31.23° N / 121.47° E</small>
+        <b>ASIA · ORIGIN</b>
+        <small>ASIAN BEVERAGE INGREDIENTS</small>
       </span>
     </div>
   );
 }
-

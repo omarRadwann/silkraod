@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Brand from "@/components/Brand";
+import IngredientMotion from "@/components/IngredientMotion";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, MessageCircle } from "lucide-react";
 import { products, base, whatsapp } from "@/lib/catalog";
@@ -70,8 +71,9 @@ export default async function ProductPage({
         >
           <span className="detail-edition">BODUO / COLLECTION 2026</span>
           <span className="detail-orbit" aria-hidden="true" />
+          <IngredientMotion product={p} />
           <img
-            src={`${base}/products/${p.id}-source.webp`}
+            src={`${base}/products/${p.id}-2026.webp`}
             alt={`BODUO ${p.name} ${p.weight} pack`}
             width="500"
             height="600"
@@ -147,13 +149,14 @@ export default async function ProductPage({
             .slice(0, 3)
             .map((item) => (
               <a
-                className="related-card" data-category={item.category}
+                className="related-card"
+                data-category={item.category}
                 key={item.id}
                 href={`${base}/products/${item.id}/`}
               >
                 <div style={{ background: item.color }}>
                   <img
-                    src={`${base}/products/${item.id}-source.webp`}
+                    src={`${base}/products/${item.id}-2026.webp`}
                     alt={`BODUO ${item.name}`}
                     loading="lazy"
                     width="300"

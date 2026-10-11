@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { products, base, whatsapp } from "@/lib/catalog";
 import Brand from "./Brand";
+import IngredientMotion from "./IngredientMotion";
+import { HeroIngredients, BeverageStory } from "./BeverageStory";
 const TradeGlobe = dynamic(() => import("./TradeGlobe"), { ssr: false });
 const categories = [
   "All ingredients",
@@ -177,19 +179,19 @@ export default function Storefront() {
           <div className="hero-copy">
             <div className="eyebrow">
               <span className="status-dot" />
-              {"YOUR DIRECT CONNECTION TO CHINA"}
+              {"YOUR DIRECT CONNECTION TO ASIA"}
             </div>
             <h1>
-              From <em>China.</em>
+              From <em>Asia.</em>
               <br />
               To <em>Egypt.</em>
               <br />
-              <span>For your business.</span>
+              <span>For your next menu.</span>
             </h1>
             <p>
-              Discover BODUO wholesale ingredients and explore sourcing
-              opportunities from China. One direct connection for your next move
-              in Egypt.
+              Popping boba, tiger bubble tea and professional powders. Discover
+              Asian beverage ingredients for cafés, tea shops and businesses in
+              Egypt.
             </p>
             <div className="hero-actions">
               <a className="button light" href="#collection">
@@ -205,22 +207,34 @@ export default function Storefront() {
             </div>
           </div>
           <div className="hero-art">
+            <div className="instant-globe" aria-hidden="true">
+              <img
+                src={`${base}/instant-globe.svg`}
+                alt=""
+                width="600"
+                height="600"
+                fetchPriority="high"
+              />
+              <span className="instant-origin">ASIA · ORIGIN</span>
+              <span className="instant-destination">EGYPT · DESTINATION</span>
+            </div>
             <TradeGlobe />
+            <HeroIngredients />
             <div className="globe-orbit-label">
-              CHINA TO EGYPT
+              ASIA TO EGYPT
               <br />
               <span>ONE CLEAR DIRECTION.</span>
             </div>
             <div className="globe-caption">
               <span className="status-dot" />
-              CHINA <i>⟶</i> EGYPT
+              ASIA <i>⟶</i> EGYPT
               <span className="globe-caption-sub">
                 ORIGIN → DESTINATION / ILLUSTRATIVE ROUTE
               </span>
             </div>
           </div>
           <div className="hero-bottom">
-            <span>01 — CHINA → EGYPT</span>
+            <span>01 — ASIA → EGYPT</span>
             <span>02 — WHOLESALE & SOURCING</span>
             <a href="#about">
               {"SCROLL TO EXPLORE"}
@@ -228,105 +242,69 @@ export default function Storefront() {
             </a>
           </div>
         </section>
-        <section className="about section" id="about">
-          <div className="about-label">
-            <span className="eyebrow">{"THE SILK ROAD CONNECTION"}</span>
-            <span className="about-symbol" aria-hidden="true">
-              ↗
+        <section className="about section visual-about" id="about">
+          <div className="about-photograph">
+            <img
+              src={`${base}/beverage-editorial.webp`}
+              alt="Fruit tea, matcha latte and brown sugar bubble tea serving ideas"
+              width="1000"
+              height="700"
+              loading="lazy"
+            />
+            <span className="photo-caption">
+              YOUR NEXT SIGNATURE STARTS HERE · SERVING IDEAS
             </span>
+            <div className="photo-badge">
+              <b>Asia → Egypt</b>
+              <span>Ingredients. Ideas. Possibilities.</span>
+            </div>
           </div>
-          <div className="about-content reveal">
+          <div className="about-content">
+            <span className="eyebrow">THE SILK ROAD CONNECTION</span>
             <h2>
-              {"Global possibilities."}
+              A world of flavour.
               <br />
-              <em>{"Local ambition."}</em>
+              <em>Made for your menu.</em>
             </h2>
             <p>
-              {
-                "Silk Road connects businesses in Egypt with products and sourcing opportunities from China. Explore our current BODUO beverage ingredient range, or talk to us about what your business needs next."
-              }
+              From colourful fruit teas to tiger boba and creamy café
+              favourites. We connect businesses in Egypt with Asian beverage
+              ingredients—and the possibilities they bring.
             </p>
-            <div className="about-services">
-              {[
-                {
-                  n: "01",
-                  title: "Discover",
-                  copy: "A focused BODUO collection for your next menu.",
-                  href: "#collection",
-                },
-                {
-                  n: "02",
-                  title: "Source",
-                  copy: "Explore Asian markets with your business in mind.",
-                  href: "#sourcing",
-                },
-                {
-                  n: "03",
-                  title: "Connect",
-                  copy: "Discuss the details directly with our team.",
-                  href: "#how-it-works",
-                },
-              ].map((service) => (
-                <a className="service-link" key={service.n} href={service.href}>
-                  <span>
-                    {service.n}
-                    <ArrowUpRight size={18} />
-                  </span>
-                  <h3>{service.title}</h3>
-                  <p>{service.copy}</p>
-                </a>
-              ))}
+            <div className="about-mini-products">
+              <img
+                src={`${base}/products/130600910-2026.webp`}
+                alt="Strawberry popping boba"
+                width="110"
+                height="130"
+                loading="lazy"
+              />
+              <img
+                src={`${base}/products/132100600-2026.webp`}
+                alt="Brown sugar syrup"
+                width="100"
+                height="130"
+                loading="lazy"
+              />
+              <img
+                src={`${base}/products/130201335-2026.webp`}
+                alt="Taro powder"
+                width="100"
+                height="130"
+                loading="lazy"
+              />
+              <span>
+                12 ingredients.
+                <br />
+                <b>Your next creation.</b>
+              </span>
             </div>
-          </div>
-        </section>
-        <section className="collection-feature">
-          <span className="edition-mark" aria-hidden="true">
-            THE BODUO EDIT — VOL. 01 / 2026
-          </span>
-          <div className="feature-copy">
-            <span className="eyebrow">{"INTRODUCING / THE BODUO EDIT"}</span>
-            <h2>
-              Better ingredients.
-              <br />
-              <em>Bigger possibilities.</em>
-            </h2>
-            <p className="feature-description">
-              From the first pour to the final topping. Build your next menu
-              with BODUO popping boba, powders and core ingredients.
-            </p>
             <a className="text-link" href="#collection">
-              {"Discover the collection"}
-              <ArrowUpRight size={20} />
+              Find your flavour <ArrowUpRight size={20} />
             </a>
           </div>
-          <div className="feature-products">
-            <span className="feature-watermark" aria-hidden="true">
-              THE BODUO COLLECTION
-            </span>
-            <img
-              className="feature-mango"
-              src={`${base}/products/130600912-source.webp`}
-              alt="BODUO mango popping boba"
-              width="460"
-              height="530"
-            />
-            <img
-              className="feature-berry"
-              src={`${base}/products/130600910-source.webp`}
-              alt="BODUO strawberry popping boba"
-              width="360"
-              height="420"
-            />
-            <div className="feature-caption">
-              <span>
-                MANGO POPPING BOBA <b>1.2 kg</b>
-              </span>
-              <span>
-                STRAWBERRY POPPING BOBA <b>1.2 kg</b>
-              </span>
-            </div>
-          </div>
         </section>
+        <BeverageStory onSelect={setCategory} />
         <section id="collection" className="collection section">
           <div className="section-top reveal">
             <div>
@@ -345,7 +323,7 @@ export default function Storefront() {
               </p>
               <a
                 className="text-link"
-                href={`${base}/silkraod-wholesale-2026.pdf`}
+                href={`${base}/silk-road-asia-collection-2026.pdf`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -401,6 +379,7 @@ export default function Storefront() {
               <article
                 key={p.id}
                 className="product-card reveal"
+                data-id={p.id}
                 data-category={p.category}
                 style={{ "--product-color": p.color } as React.CSSProperties}
               >
@@ -416,10 +395,12 @@ export default function Storefront() {
                     <span className="product-type">{p.category}</span>
                   </div>
                   <span className="product-halo" aria-hidden="true" />
+                  <IngredientMotion product={p} />
                   <img
-                    src={`${base}/products/${p.id}-source.webp`}
+                    src={`${base}/products/${p.id}-2026.webp`}
                     alt={`BODUO ${p.name} ${p.weight} packaging`}
                     loading="lazy"
+                    decoding="async"
                     width="360"
                     height="400"
                   />
@@ -501,7 +482,7 @@ export default function Storefront() {
           />
           <div className="port-overlay" />
           <div className="sourcing-top">
-            <span className="eyebrow">{"FROM CHINA. TO EGYPT."}</span>
+            <span className="eyebrow">{"FROM ASIA. TO EGYPT."}</span>
             <span>THE NEXT CONNECTION / 02</span>
           </div>
           <div className="sourcing-content reveal">
@@ -515,7 +496,7 @@ export default function Storefront() {
             <div className="sourcing-right">
               <p>
                 {
-                  "Your next opportunity might start in China. Tell us the product, quantity and timeline you have in mind. We’ll discuss sourcing possibilities for your business in Egypt."
+                  "Your next opportunity might start in Asia. Tell us the product, quantity and timeline you have in mind. We’ll discuss sourcing possibilities for your business in Egypt."
                 }
               </p>
               <a
@@ -662,14 +643,14 @@ export default function Storefront() {
             <Brand />
           </a>
           <p>
-            {"From China to Egypt."}
+            {"From Asia to Egypt."}
             <br />
             {"A wider world, within reach."}
           </p>
           <div className="footer-links">
             <a href="#collection">{"Collection"} ↗</a>
             <a
-              href={`${base}/silkraod-wholesale-2026.pdf`}
+              href={`${base}/silk-road-asia-collection-2026.pdf`}
               target="_blank"
               rel="noreferrer"
             >
@@ -682,7 +663,7 @@ export default function Storefront() {
           <span>
             © {new Date().getFullYear()} SILK ROAD. ALL RIGHTS RESERVED.
           </span>
-          <span>{"CHINA → EGYPT. DIRECT CONNECTION."}</span>
+          <span>{"ASIA → EGYPT. DIRECT CONNECTION."}</span>
           <a href="#">{"BACK TO TOP"} ↑</a>
         </div>
       </footer>
@@ -767,7 +748,7 @@ export default function Storefront() {
                 {selected.map((p) => (
                   <div key={p.id} className="order-item">
                     <img
-                      src={`${base}/products/${p.id}-source.webp`}
+                      src={`${base}/products/${p.id}-2026.webp`}
                       alt=""
                       style={{ background: p.color }}
                     />

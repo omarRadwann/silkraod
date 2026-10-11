@@ -384,7 +384,7 @@ header {
   margin-top: 13px;
   margin-left: -15px;
 }
-.china-pin {
+.asia-pin {
   margin-left: -95px;
   margin-top: -65px;
 }
@@ -406,7 +406,7 @@ header {
   width: 1px;
   background: #a7bd9366;
 }
-.china-pin i {
+.asia-pin i {
   top: auto;
   bottom: -8px;
   left: auto;
@@ -1800,7 +1800,7 @@ footer {
     font-size: 5px;
     letter-spacing: 0.2px;
   }
-  .china-pin {
+  .asia-pin {
     margin-left: -85px;
     margin-top: -55px;
   }

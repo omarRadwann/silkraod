@@ -265,7 +265,7 @@ header:after {
 .globe-pin i {
   background: #c4b18770;
 }
-.china-pin {
+.asia-pin {
   margin-left: -130px;
 }
 .egypt-pin {
@@ -1559,7 +1559,7 @@ footer {
     font-size: 6px;
     padding: 7px 9px;
   }
-  .china-pin {
+  .asia-pin {
     margin-left: -111px;
     margin-top: -55px;
   }

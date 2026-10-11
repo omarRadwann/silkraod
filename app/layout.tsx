@@ -2,16 +2,17 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./products.css";
 import "./premium.css";
+import "./experience.css";
 export const metadata: Metadata = {
   ...(process.env.NEXT_PUBLIC_SITE_URL
     ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) }
     : {}),
-  title: "Silk Road | From China to Egypt.",
+  title: "Silk Road | From Asia to Egypt.",
   description:
-    "Connecting China with businesses in Egypt. Explore BODUO wholesale beverage ingredients, build an order or discuss your next sourcing opportunity with Silk Road.",
+    "Connecting Asia with businesses in Egypt. Explore BODUO wholesale beverage ingredients, build an order or discuss your next sourcing opportunity with Silk Road.",
   openGraph: {
-    title: "Silk Road — From China to Egypt.",
-    description: "Bubble tea ingredients & China-to-Egypt sourcing.",
+    title: "Silk Road — From Asia to Egypt.",
+    description: "Bubble tea ingredients & Asia-to-Egypt sourcing.",
     type: "website",
     images: [
       {
@@ -30,6 +31,18 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/instant-globe.svg`}
+        />
+        <link
+          rel="preload"
+          as="image"
+          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/silk-road-transparent.webp`}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
