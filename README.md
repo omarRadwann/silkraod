@@ -29,7 +29,9 @@ For a custom domain later, remove `NEXT_PUBLIC_BASE_PATH: /silkraod` from the wo
 ## Features
 
 - English-only storefront with readable product specifications and carton ordering
+- Editorial ivory and evergreen design, serif typography and responsive product studios
 - Twelve products, category filters and name / SKU search
+- Floating enquiry review, ordering FAQ and related ingredient discovery
 - Carton quantities with a persistent local browser order
 - WhatsApp quotation handoff; availability and delivery confirmed in conversation
 - Original catalog download and direct sourcing enquiry

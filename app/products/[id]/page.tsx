@@ -55,8 +55,20 @@ export default async function ProductPage({
           Back to collection
         </a>
       </header>
+      <nav className="product-breadcrumb" aria-label="Breadcrumb">
+        <a href={`${base}/`}>Silkraod</a>
+        <span>/</span>
+        <a href={`${base}/#collection`}>The collection</a>
+        <span>/</span>
+        <span>{p.name}</span>
+      </nav>
       <main className="product-page">
-        <div className="product-page-image" style={{ background: p.color }}>
+        <div
+          className="product-page-image"
+          style={{ "--product-color": p.color } as React.CSSProperties}
+        >
+          <span className="detail-edition">BODUO / COLLECTION 2026</span>
+          <span className="detail-orbit" aria-hidden="true" />
           <img
             src={`${base}/products/${p.id}.webp`}
             alt={`BODUO ${p.name} ${p.weight} pack`}
@@ -111,6 +123,52 @@ export default async function ProductPage({
           </a>
         </div>
       </main>
+      <section className="related section">
+        <div className="related-top">
+          <div>
+            <span className="eyebrow">EXPLORE A LITTLE FURTHER</span>
+            <h2>
+              More for your <em>menu.</em>
+            </h2>
+          </div>
+          <a className="text-link" href={`${base}/#collection`}>
+            The complete collection <ArrowUpRight size={17} />
+          </a>
+        </div>
+        <div className="related-grid">
+          {products
+            .filter((item) => item.id !== p.id)
+            .sort(
+              (a, b) =>
+                Number(b.category === p.category) -
+                Number(a.category === p.category),
+            )
+            .slice(0, 3)
+            .map((item) => (
+              <a
+                className="related-card"
+                key={item.id}
+                href={`${base}/products/${item.id}/`}
+              >
+                <div style={{ background: item.color }}>
+                  <img
+                    src={`${base}/products/${item.id}.webp`}
+                    alt={`BODUO ${item.name}`}
+                    loading="lazy"
+                    width="300"
+                    height="340"
+                  />
+                  <ArrowUpRight size={20} />
+                </div>
+                <span>{item.category}</span>
+                <h3>{item.name}</h3>
+                <p>
+                  {item.weight} / {item.carton} packs per carton
+                </p>
+              </a>
+            ))}
+        </div>
+      </section>
       <footer>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} SILKRAOD</span>

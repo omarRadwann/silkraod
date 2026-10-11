@@ -145,6 +145,7 @@ export default function Storefront() {
             aria-label={`Open order, ${count} cartons`}
           >
             <ShoppingBag size={17} />
+            <span className="bag-label">Your enquiry</span>
             <b>{count}</b>
           </button>
           <a
@@ -249,13 +250,42 @@ export default function Storefront() {
               }
             </p>
             <div className="about-services">
-              <span>{"Asian market sourcing"}</span>
-              <span>{"Wholesale supply"}</span>
-              <span>{"Import & export enquiries"}</span>
+              {[
+                {
+                  n: "01",
+                  title: "Discover",
+                  copy: "A focused BODUO collection for your next menu.",
+                  href: "#collection",
+                },
+                {
+                  n: "02",
+                  title: "Source",
+                  copy: "Explore Asian markets with your business in mind.",
+                  href: "#sourcing",
+                },
+                {
+                  n: "03",
+                  title: "Connect",
+                  copy: "Discuss the details directly with our team.",
+                  href: "#how-it-works",
+                },
+              ].map((service) => (
+                <a className="service-link" key={service.n} href={service.href}>
+                  <span>
+                    {service.n}
+                    <ArrowUpRight size={18} />
+                  </span>
+                  <h3>{service.title}</h3>
+                  <p>{service.copy}</p>
+                </a>
+              ))}
             </div>
           </div>
         </section>
         <section className="collection-feature">
+          <span className="edition-mark" aria-hidden="true">
+            THE BODUO EDIT — VOL. 01 / 2026
+          </span>
           <div className="feature-copy">
             <span className="eyebrow">{"INTRODUCING / THE BODUO EDIT"}</span>
             <h2>
@@ -333,7 +363,11 @@ export default function Storefront() {
                   aria-pressed={c === category}
                 >
                   {c}
-                  {i === 0 && <small>12</small>}
+                  <small>
+                    {i === 0
+                      ? products.length
+                      : products.filter((p) => p.category === c).length}
+                  </small>
                 </button>
               ))}
             </div>
@@ -541,6 +575,48 @@ export default function Storefront() {
             ))}
           </div>
         </section>
+        <section className="questions section" id="questions">
+          <div className="questions-intro">
+            <span className="eyebrow">A FEW THINGS, ANSWERED</span>
+            <h2>
+              Good questions.
+              <br />
+              <em>Clear answers.</em>
+            </h2>
+            <p>
+              Everything starts with a conversation. Here are the details to
+              help you take the first step.
+            </p>
+          </div>
+          <div className="questions-list">
+            {[
+              [
+                "How do I get wholesale pricing?",
+                "Choose your ingredients and carton quantities, then open your enquiry and continue to WhatsApp. Our team will discuss current prices and availability before you confirm anything.",
+              ],
+              [
+                "Can I enquire about several products together?",
+                "Yes. Add different ingredients to your enquiry and choose the number of cartons for each. Your complete product list is included in the WhatsApp message.",
+              ],
+              [
+                "Can you help source other products from Asia?",
+                "We welcome sourcing enquiries beyond the current collection. Share the product, quantities, destination and preferred timeline so we can discuss the possibilities.",
+              ],
+              [
+                "How are delivery and payment arranged?",
+                "Delivery options, timing, payment terms and any applicable charges are discussed directly with our team. Sending an enquiry does not place or pay for an order.",
+              ],
+            ].map(([question, answer]) => (
+              <details key={question}>
+                <summary>
+                  {question}
+                  <Plus size={18} />
+                </summary>
+                <p>{answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
         <section className="contact">
           <div className="contact-top">
             <span className="eyebrow">{"YOUR NEXT CHAPTER STARTS HERE"}</span>
@@ -572,6 +648,9 @@ export default function Storefront() {
         </section>
       </main>
       <footer>
+        <div className="footer-word" aria-hidden="true">
+          SILKRAOD<span>↗</span>
+        </div>
         <div className="footer-top">
           <a href="#" className="wordmark">
             <Brand />
@@ -601,6 +680,30 @@ export default function Storefront() {
           <a href="#">{"BACK TO TOP"} ↑</a>
         </div>
       </footer>
+      {count > 0 && !open && (
+        <button
+          className="enquiry-tray"
+          onClick={() => setOpen(true)}
+          aria-label={`Review enquiry with ${count} cartons`}
+        >
+          <span className="tray-icon">
+            <ShoppingBag size={18} />
+            <b>{count}</b>
+          </span>
+          <span>
+            {" "}
+            Your collection is taking shape
+            <small>
+              {selected.length}{" "}
+              {selected.length === 1 ? "ingredient" : "ingredients"} · {count}{" "}
+              {count === 1 ? "carton" : "cartons"}
+            </small>
+          </span>
+          <span className="tray-action">
+            Review enquiry <ArrowUpRight size={18} />
+          </span>
+        </button>
+      )}
       <div className="toast" role="status" aria-live="polite">
         {added && (
           <>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./products.css";
+import "./premium.css";
 export const metadata: Metadata = {
   ...(process.env.NEXT_PUBLIC_SITE_URL
     ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) }
