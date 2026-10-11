@@ -13,7 +13,7 @@
     border-color 0.3s;
 }
 .product-card:hover {
-  box-shadow: 0 16px 40px #1b292a0c;
+  box-shadow: 0 16px 40px #2523200c;
   border-color: #c1cab7;
 }
 .product-visual {
@@ -60,7 +60,7 @@
 .product-type {
   font-size: 9px;
   padding: 7px 10px;
-  border: 1px solid #1b292a25;
+  border: 1px solid #25232025;
   border-radius: 30px;
   white-space: nowrap;
 }

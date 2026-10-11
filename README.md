@@ -29,7 +29,7 @@ For a custom domain later, remove `NEXT_PUBLIC_BASE_PATH: /silkraod` from the wo
 ## Features
 
 - English-only storefront with readable product specifications and carton ordering
-- Official Silk Road logo, navy/copper palette and clean white product studios
+- Official Silk Road logo, ivory/charcoal/gold palette and clean white product studios
 - Twelve products, category filters and name / SKU search
 - Floating enquiry review, ordering FAQ and related ingredient discovery
 - Carton quantities with a persistent local browser order

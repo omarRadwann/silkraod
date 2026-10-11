@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&display=swap");
 :root {
-  --paper: #f3f2ec;
-  --ink: #131b1d;
-  --dark: #101719;
+  --paper: #baad92;
+  --ink: #1a1816;
+  --dark: #161513;
   --lime: #d4f59b;
   --line: #d7d9d0;
   --muted: #727972;
@@ -112,7 +112,7 @@ header {
   justify-content: space-between;
   gap: 24px;
   padding: 0 5%;
-  background: #101719f5;
+  background: #161513f5;
   color: var(--paper);
   position: sticky;
   top: 0;
@@ -360,7 +360,7 @@ header {
   left: 18%;
   top: 14%;
   border-radius: 50%;
-  background: radial-gradient(circle at 60% 40%, #182725, #101719 70%);
+  background: radial-gradient(circle at 60% 40%, #182725, #161513 70%);
   box-shadow: 0 0 90px #a7db8d08;
   opacity: 0.9;
 }
@@ -586,7 +586,7 @@ h2 em {
 .feature-products {
   position: relative;
   isolation: isolate;
-  background: radial-gradient(ellipse at center, #f6f4eb8a, transparent 63%);
+  background: radial-gradient(ellipse at center, #c4b1878a, transparent 63%);
 }
 .feature-watermark {
   font-size: clamp(110px, 15vw, 250px);
@@ -911,7 +911,7 @@ h2 em {
 .port-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #0b1518ed, #0d1718b3 55%, #1020154d);
+  background: linear-gradient(90deg, #131210ed, #141311b3 55%, #1020154d);
   z-index: -2;
 }
 .sourcing-top,
@@ -966,7 +966,7 @@ h2 em {
 .how {
   padding-top: 90px;
   padding-bottom: 95px;
-  background: #f3f2ec;
+  background: #baad92;
 }
 .how h2 {
   font-size: clamp(35px, 3.7vw, 56px);
@@ -2115,7 +2115,7 @@ footer {
     opacity: 0.35;
   }
   .port-overlay {
-    background: linear-gradient(90deg, #0b1518db, #0d1718a8);
+    background: linear-gradient(90deg, #131210db, #141311a8);
   }
   .how-icon {
     display: none;

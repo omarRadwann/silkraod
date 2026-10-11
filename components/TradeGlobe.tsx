@@ -50,7 +50,7 @@ export default function TradeGlobe() {
     group.add(
       new THREE.Mesh(
         own(new THREE.SphereGeometry(1.995, 64, 64)),
-        mat(new THREE.MeshBasicMaterial({ color: 0x0c1c30 })),
+        mat(new THREE.MeshBasicMaterial({ color: 0x22221f })),
       ),
     );
     const glow = mat(
@@ -59,7 +59,7 @@ export default function TradeGlobe() {
         vertexShader:
           "varying vec3 vNormal; varying vec3 vPosition; void main(){vNormal=normalize(normalMatrix*normal);vec4 p=modelViewMatrix*vec4(position,1.0);vPosition=p.xyz;gl_Position=projectionMatrix*p;}",
         fragmentShader:
-          "varying vec3 vNormal;varying vec3 vPosition;void main(){float rim=pow(1.0-abs(dot(normalize(vNormal),normalize(-vPosition))),4.0);gl_FragColor=vec4(0.35,0.54,0.76,rim*0.18);}",
+          "varying vec3 vNormal;varying vec3 vPosition;void main(){float rim=pow(1.0-abs(dot(normalize(vNormal),normalize(-vPosition))),4.0);gl_FragColor=vec4(0.68,0.64,0.51,rim*0.13);}",
         transparent: true,
         depthWrite: false,
         side: THREE.FrontSide,
@@ -70,7 +70,7 @@ export default function TradeGlobe() {
     );
     const gridmat = mat(
       new THREE.LineBasicMaterial({
-        color: 0x344148,
+        color: 0x49473f,
         transparent: true,
         opacity: 0.38,
       }),
@@ -117,7 +117,7 @@ export default function TradeGlobe() {
             geometry,
             mat(
               new THREE.PointsMaterial({
-                color: 0x8da4bd,
+                color: 0xa6a18f,
                 size: 0.027,
                 sizeAttenuation: true,
                 transparent: true,
@@ -142,13 +142,13 @@ export default function TradeGlobe() {
     group.add(
       new THREE.Mesh(
         own(new THREE.TubeGeometry(curve, 100, 0.009, 6, false)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xe7a86b })),
+        mat(new THREE.MeshBasicMaterial({ color: 0xc1ad7b })),
       ),
     );
     const moving = Array.from({ length: 3 }, () => {
       const mesh = new THREE.Mesh(
         own(new THREE.SphereGeometry(0.025, 10, 10)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xffe9d1 })),
+        mat(new THREE.MeshBasicMaterial({ color: 0xf5efdc })),
       );
       group.add(mesh);
       return mesh;
@@ -156,7 +156,7 @@ export default function TradeGlobe() {
     [cairo, shanghai].forEach((p) => {
       const marker = new THREE.Mesh(
         own(new THREE.SphereGeometry(0.043, 16, 16)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xe7a86b })),
+        mat(new THREE.MeshBasicMaterial({ color: 0xc1ad7b })),
       );
       marker.position.copy(p);
       group.add(marker);
@@ -164,7 +164,7 @@ export default function TradeGlobe() {
         own(new THREE.RingGeometry(0.065, 0.076, 32)),
         mat(
           new THREE.MeshBasicMaterial({
-            color: 0xe7a86b,
+            color: 0xc1ad7b,
             transparent: true,
             opacity: 0.7,
             side: THREE.DoubleSide,
@@ -259,3 +259,4 @@ export default function TradeGlobe() {
     </div>
   );
 }
+
