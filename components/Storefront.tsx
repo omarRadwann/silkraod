@@ -16,7 +16,8 @@ import {
   Download,
 } from "lucide-react";
 import { products, base, whatsapp } from "@/lib/catalog";
-const Pearls = dynamic(() => import("./Pearls"), { ssr: false });
+import Brand from "./Brand";
+const TradeGlobe = dynamic(() => import("./TradeGlobe"), { ssr: false });
 const categories = [
   "All ingredients",
   "Popping boba",
@@ -127,35 +128,22 @@ export default function Storefront() {
       <a className="skip" href="#collection">
         Skip to ingredients
       </a>
-      <div className="announcement">
-        {t("FROM ASIA, WITH POSSIBILITY.", "من آسيا، إلى فرص جديدة.")}
-        <span>{t("WHOLESALE COLLECTION / 2026", "تشكيلة الجملة / ٢٠٢٦")}</span>
-        <a
-          href={whatsapp(
-            "Hello Silkraod! I would like to discuss a wholesale enquiry.",
-          )}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {t("Let’s talk trade", "لنتحدث عن تجارتك")} ↗
-        </a>
-      </div>
       <header>
         <a href="#" className="wordmark" aria-label="Silkraod home">
-          silkraod<span>®</span>
+          <Brand />
         </a>
         <nav
           aria-label="Main navigation"
           className={menu ? "nav mobile-open" : "nav"}
         >
+          <a href="#about" onClick={() => setMenu(false)}>
+            {t("The company", "عن الشركة")}
+          </a>
           <a href="#collection" onClick={() => setMenu(false)}>
-            {t("The collection", "المنتجات")}
+            {t("Our collection", "المنتجات")}
           </a>
           <a href="#sourcing" onClick={() => setMenu(false)}>
-            {t("Beyond borders", "عبر الحدود")}
-          </a>
-          <a href="#how-it-works" onClick={() => setMenu(false)}>
-            {t("How to order", "كيف تطلب")}
+            {t("Global sourcing", "الاستيراد")}
           </a>
         </nav>
         <div className="header-actions">
@@ -164,7 +152,6 @@ export default function Storefront() {
             onClick={() => setAr(!ar)}
             aria-label="Switch language"
           >
-            <Globe size={15} />
             {ar ? "EN" : "عربي"}
           </button>
           <button
@@ -173,10 +160,20 @@ export default function Storefront() {
             onClick={() => setOpen(true)}
             aria-label={`Open order, ${count} cartons`}
           >
-            <ShoppingBag size={18} />
-            <span>{t("Your order", "طلبك")}</span>
+            <ShoppingBag size={17} />
             <b>{count}</b>
           </button>
+          <a
+            className="header-contact"
+            href={whatsapp(
+              "Hello Silkraod! I would like to discuss a trade enquiry.",
+            )}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {t("Let’s talk", "تواصل معنا")}
+            <ArrowUpRight size={15} />
+          </a>
           <button
             className="menu-button"
             aria-label="Toggle navigation"
@@ -189,78 +186,138 @@ export default function Storefront() {
       </header>
       <main>
         <section className="hero">
+          <div className="hero-coordinate">
+            CAIRO, EGYPT <span>30.0444° N / 31.2357° E</span>
+          </div>
           <div className="hero-copy">
             <div className="eyebrow">
               <span className="status-dot" />
-              {t("A NEW ROUTE TO SOMETHING GOOD", "طريق جديد لأفكار تستحق")}
+              {t("THE WORLD IS CLOSER THAN YOU THINK", "العالم أقرب مما تتخيل")}
             </div>
             <h1>
-              {t("Small pearls.", "حبات صغيرة.")}
+              {t("Opportunity,", "فرص جديدة،")}
               <br />
-              <em>{t("Big possibilities.", "فرص كبيرة.")}</em>
+              {t("without", "بلا")}
+              <br />
+              <em>{t("borders.", "حدود.")}</em>
+              <span className="heading-arrow" aria-hidden="true">
+                ↗
+              </span>
             </h1>
             <p>
               {t(
-                "Your next signature drink starts here. Discover bubble tea ingredients from Asia, brought closer to your business in Egypt.",
-                "مشروبك المميز يبدأ هنا. اكتشف مكونات البابل تي من آسيا، أقرب إلى مشروعك في مصر.",
+                "Connecting Asian markets with Egyptian ambition. Products, partnerships, and a new perspective on global trade.",
+                "نربط الأسواق الآسيوية بالطموح المصري. منتجات وشراكات ورؤية جديدة للتجارة العالمية.",
               )}
             </p>
-            <a className="button dark" href="#collection">
-              {t("Explore the ingredients", "اكتشف المكونات")}
-              <ArrowUpRight size={19} />
-            </a>
-            <div className="hero-bottom">
-              <span className="mini-route">
-                CN <span>· · · · ✳ · · · ·</span> EG
-              </span>
-              <span>
-                {t("Sourced in Asia.", "من أسواق آسيا.")}
-                <br />
-                {t("Made for your next chapter.", "لفصل جديد في مشروعك.")}
-              </span>
+            <div className="hero-actions">
+              <a className="button light" href="#collection">
+                {t("Explore our collection", "اكتشف منتجاتنا")}
+                <span>
+                  <ArrowUpRight size={19} />
+                </span>
+              </a>
+              <a className="hero-secondary" href="#sourcing">
+                {t("Find your next opportunity", "اكتشف فرصتك القادمة")}
+                <ArrowRight size={16} />
+              </a>
             </div>
           </div>
           <div className="hero-art">
-            <div className="art-ring ring-one" />
-            <div className="art-ring ring-two" />
-            <span className="art-note">
-              A LITTLE POP.
-              <br />A WHOLE LOT OF POTENTIAL.
-            </span>
-            <div className="hero-circle" />
-            <Pearls />
-            <img
-              className="hero-cup"
-              src={`${base}/products/cup.webp`}
-              alt="Brown sugar bubble tea serving inspiration"
-              fetchPriority="high"
-            />
-            <div className="art-sticker">
-              sip.
+            <TradeGlobe />
+            <div className="globe-orbit-label">
+              A WORLD OF POSSIBILITY
               <br />
-              smile.
-              <br />
-              <i>repeat.</i>
-              <span>↗</span>
+              <span>ONE DIRECT CONNECTION.</span>
             </div>
-            <div className="hero-caption">
-              <span>THE BUBBLE TEA EDIT</span>
-              <span>01 — 12</span>
+            <div className="globe-caption">
+              <span className="status-dot" />
+              CHINA <i>─────────</i> EGYPT
+              <span className="globe-caption-sub">
+                ILLUSTRATIVE TRADE CONNECTION
+              </span>
             </div>
-            <span className="star star-one">✳</span>
-            <span className="star star-two">✳</span>
+          </div>
+          <div className="hero-bottom">
+            <span>01 — IMPORT & EXPORT</span>
+            <span>02 — WHOLESALE INGREDIENTS</span>
+            <a href="#about">
+              {t("SCROLL TO EXPLORE", "اكتشف المزيد")}
+              <ArrowRight size={14} />
+            </a>
           </div>
         </section>
-        <div className="ticker" aria-hidden="true">
-          <div>
-            {Array.from({ length: 4 }, (_, i) => (
-              <span key={i}>
-                POPPING WITH POSSIBILITY <b>✳</b> FROM CHINA TO EGYPT <b>✳</b>{" "}
-                YOUR NEXT SIGNATURE SIP <b>✳</b>{" "}
-              </span>
-            ))}
+        <section className="about section" id="about">
+          <div className="about-label">
+            <span className="eyebrow">
+              {t("THE SILKRAOD PERSPECTIVE", "رؤية سيلكراود")}
+            </span>
+            <span className="about-symbol" aria-hidden="true">
+              ↗
+            </span>
           </div>
-        </div>
+          <div className="about-content reveal">
+            <h2>
+              {t("A world of potential.", "عالم من الإمكانات.")}
+              <br />
+              <em>{t("A partner closer to home.", "شريك أقرب إليك.")}</em>
+            </h2>
+            <p>
+              {t(
+                "The best opportunities don’t always start nearby. Silkraod brings the possibilities of Asian markets to growing businesses in Egypt — starting with a focused collection of BODUO beverage ingredients.",
+                "أفضل الفرص قد تبدأ بعيداً. سيلكراود تقرّب إمكانات الأسواق الآسيوية من المشروعات النامية في مصر، بدءاً بتشكيلة مختارة من مكونات المشروبات من بودو.",
+              )}
+            </p>
+            <div className="about-services">
+              <span>
+                {t("Asian market sourcing", "توريد من الأسواق الآسيوية")}
+              </span>
+              <span>{t("Wholesale supply", "توريد بالجملة")}</span>
+              <span>
+                {t("Import & export enquiries", "استفسارات الاستيراد والتصدير")}
+              </span>
+            </div>
+          </div>
+        </section>
+        <section className="collection-feature">
+          <div className="feature-copy">
+            <span className="eyebrow">
+              {t("INTRODUCING / THE BODUO EDIT", "نقدم لكم / تشكيلة بودو")}
+            </span>
+            <h2>
+              {t("The ingredients", "مكونات")}
+              <br />
+              {t("of your", "تصنع")}
+              <br />
+              <em>{t("next chapter.", "خطوتك القادمة.")}</em>
+            </h2>
+            <a className="text-link" href="#collection">
+              {t("Discover the collection", "اكتشف التشكيلة")}
+              <ArrowUpRight size={20} />
+            </a>
+          </div>
+          <div className="feature-products">
+            <span className="feature-watermark">BODUO</span>
+            <img
+              className="feature-mango"
+              src={`${base}/products/130600912.webp`}
+              alt="BODUO mango popping boba"
+              width="460"
+              height="530"
+            />
+            <img
+              className="feature-berry"
+              src={`${base}/products/130600910.webp`}
+              alt="BODUO strawberry popping boba"
+              width="360"
+              height="420"
+            />
+            <div className="feature-caption">
+              <span>POPPING BOBA / CORE INGREDIENTS / POWDERS</span>
+              <span>COLLECTION 2026</span>
+            </div>
+          </div>
+        </section>
         <section id="collection" className="collection section">
           <div className="section-top reveal">
             <div>
@@ -268,16 +325,16 @@ export default function Storefront() {
                 {t("01 / THE WHOLESALE COLLECTION", "٠١ / تشكيلة الجملة")}
               </div>
               <h2>
-                {t("Good things.", "مكونات مميزة.")}
+                {t("Selected with purpose.", "منتجات مختارة بعناية.")}
                 <br />
-                <em>{t("By the carton.", "بالكرتونة.")}</em>
+                <em>{t("Ready for your business.", "جاهزة لمشروعك.")}</em>
               </h2>
             </div>
             <div className="section-intro">
               <p>
                 {t(
-                  "From the first pop to the final swirl. Meet the ingredients behind a menu they’ll come back for.",
-                  "من أول حبة بوبا إلى آخر لمسة. تعرّف على المكونات التي تصنع مشروبات يعود لها عملاؤك.",
+                  "Twelve ingredients. Three collections. Explore the BODUO range and build a wholesale enquiry around your business.",
+                  "اثنا عشر منتجاً في ثلاث مجموعات. اكتشف تشكيلة بودو وابدأ طلب عرض أسعار يناسب مشروعك.",
                 )}
               </p>
               <a
@@ -314,7 +371,7 @@ export default function Storefront() {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder={t("Find your flavour", "ابحث عن نكهتك")}
+                placeholder={t("Search collection", "ابحث في المنتجات")}
                 aria-label="Search ingredients"
               />
               {query && (
@@ -410,82 +467,52 @@ export default function Storefront() {
           </p>
         </section>
         <section id="sourcing" className="sourcing">
-          <div
-            className="route-art"
-            aria-label="Trade route from China to Egypt"
-          >
-            <div className="route-grid" />
-            <span className="route-label top">
-              EVERY GOOD IDEA
-              <br />
-              DESERVES A WAY FORWARD.
+          <img
+            className="port-image"
+            src={`${base}/port.jpg`}
+            alt="Aerial view of a shipping container terminal"
+            loading="lazy"
+          />
+          <div className="port-overlay" />
+          <div className="sourcing-top">
+            <span className="eyebrow">
+              {t("ASIA TO EGYPT. AND BEYOND.", "من آسيا إلى مصر. وما بعدها.")}
             </span>
-            <svg
-              viewBox="0 0 600 450"
-              role="img"
-              aria-label="An illustrated route connecting Egypt and China"
-            >
-              <path
-                d="M80 320 Q220 40 490 155"
-                stroke="#ee6b3e"
-                strokeWidth="2"
-                strokeDasharray="5 7"
-                fill="none"
-              />
-              <circle cx="80" cy="320" r="9" fill="#f9edce" />
-              <circle cx="80" cy="320" r="23" fill="none" stroke="#c7b68e" />
-              <circle cx="490" cy="155" r="9" fill="#ee6b3e" />
-              <circle cx="490" cy="155" r="23" fill="none" stroke="#ee6b3e" />
-              <text x="58" y="368" fill="#f9edce" fontSize="26">
-                EGYPT
-              </text>
-              <text x="450" y="112" fill="#f9edce" fontSize="26">
-                CHINA
-              </text>
-              <text x="252" y="160" fill="#ee6b3e" fontSize="48">
-                ↙
-              </text>
-            </svg>
-            <span className="route-label bottom">
-              31°12′ E — 121°28′ E<span>CONNECTED BY POSSIBILITY.</span>
-            </span>
+            <span>THE NEXT CONNECTION / 02</span>
           </div>
-          <div className="sourcing-copy reveal">
-            <div className="eyebrow">
-              {t("02 / BEYOND THE INGREDIENTS", "٠٢ / أبعد من المكونات")}
-            </div>
+          <div className="sourcing-content reveal">
             <h2>
-              {t("Your ambition.", "طموحك.")}
+              {t("Great business", "الأعمال الكبيرة")}
               <br />
-              <em>{t("Our next route.", "وجهتنا القادمة.")}</em>
+              {t("starts with", "تبدأ")}
+              <br />
+              <em>{t("a connection.", "بعلاقة قوية.")}</em>
             </h2>
-            <p>
-              {t(
-                "Silkraod connects opportunity in Asian markets with growing businesses in Egypt. Our current collection is just the beginning.",
-                "سيلكراود تربط فرص الأسواق الآسيوية بالمشروعات الطموحة في مصر. وتشكيلتنا الحالية ليست سوى البداية.",
-              )}
-            </p>
-            <p>
-              {t(
-                "Have a product in mind? Tell us what you’re looking for, your quantities and your timeline. Let’s explore the possibilities together.",
-                "هل تبحث عن منتج معين؟ أخبرنا عن المنتج والكميات والجدول الزمني، ولنستكشف الفرص معاً.",
-              )}
-            </p>
-            <a
-              className="button cream"
-              href={whatsapp(
-                "Hello Silkraod! I have a sourcing enquiry.\nProduct:\nQuantity:\nDestination:\nTimeline:",
-              )}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {t("Let’s talk sourcing", "تحدث معنا عن الاستيراد")}
-              <ArrowUpRight size={20} />
-            </a>
-            <div className="sourcing-tags">
-              <span>IMPORT & EXPORT</span>
-              <span>ASIA ↔ EGYPT</span>
+            <div className="sourcing-right">
+              <p>
+                {t(
+                  "Looking beyond our current collection? Tell us what you need, your quantities, and your timeline. Let’s explore sourcing possibilities in Asian markets together.",
+                  "هل تبحث عن منتجات خارج تشكيلتنا الحالية؟ أخبرنا باحتياجاتك وكمياتك وجدولك الزمني. لنستكشف معاً فرص التوريد من الأسواق الآسيوية.",
+                )}
+              </p>
+              <a
+                className="button light"
+                href={whatsapp(
+                  "Hello Silkraod! I have a sourcing enquiry.\nProduct:\nQuantity:\nDestination:\nTimeline:",
+                )}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t("Start a sourcing enquiry", "ابدأ استفسار توريد")}
+                <span>
+                  <ArrowUpRight size={19} />
+                </span>
+              </a>
             </div>
+          </div>
+          <div className="sourcing-footer">
+            <span>SOURCING / IMPORT / EXPORT</span>
+            <span>YOUR AMBITION. OUR NEXT CONVERSATION.</span>
           </div>
         </section>
         <section id="how-it-works" className="how section">
@@ -498,9 +525,9 @@ export default function Storefront() {
                 )}
               </div>
               <h2>
-                {t("Your next order,", "طلبك القادم،")}
+                {t("Simple steps.", "خطوات بسيطة.")}
                 <br />
-                <em>{t("a conversation away.", "يبدأ بمحادثة.")}</em>
+                <em>{t("A direct conversation.", "تواصل مباشر.")}</em>
               </h2>
             </div>
             <MessageCircle className="how-icon" strokeWidth={1} />
@@ -544,57 +571,72 @@ export default function Storefront() {
           </div>
         </section>
         <section className="contact">
-          <span className="eyebrow">
-            {t("THE NEXT BIG THING STARTS SMALL.", "كل فرصة كبيرة تبدأ بخطوة.")}
-          </span>
-          <h2>
-            {t("Let’s make", "لنصنع")}
-            <br />
-            <em>{t("something pop.", "شيئاً مميزاً.")}</em>
-          </h2>
+          <div className="contact-top">
+            <span className="eyebrow">
+              {t("YOUR NEXT CHAPTER STARTS HERE", "خطوتك القادمة تبدأ هنا")}
+            </span>
+            <span>LET’S BUILD SOMETHING.</span>
+          </div>
           <a
-            className="button dark"
+            className="contact-title"
             href={whatsapp(
-              "Hello Silkraod! I would like to learn more about your wholesale ingredients.",
+              "Hello Silkraod! I would like to discuss a wholesale or sourcing enquiry.",
             )}
             target="_blank"
             rel="noreferrer"
           >
-            <MessageCircle size={19} />
-            {t("Say hello on WhatsApp", "تواصل معنا عبر واتساب")}
-            <ArrowUpRight size={19} />
+            <h2>
+              {t("Think bigger.", "فكّر أبعد.")}
+              <br />
+              <em>{t("Let’s talk.", "لنتحدث.")}</em>
+            </h2>
+            <span className="contact-arrow">
+              <ArrowUpRight strokeWidth={1} />
+            </span>
           </a>
-          <span className="contact-flower" aria-hidden="true">
-            ✳
-          </span>
+          <div className="contact-bottom">
+            <p>
+              {t(
+                "One conversation can open a world of possibility.",
+                "محادثة واحدة قد تفتح عالماً من الفرص.",
+              )}
+            </p>
+            <a href="tel:+201004227074" dir="ltr">
+              +20 100 422 7074
+            </a>
+          </div>
         </section>
       </main>
       <footer>
         <div className="footer-top">
           <a href="#" className="wordmark">
-            silkraod<span>®</span>
+            <Brand />
           </a>
           <p>
-            {t("From Asia, with possibility.", "من آسيا، إلى فرص جديدة.")}
+            {t("Asian markets. Egyptian ambition.", "أسواق آسيوية. طموح مصري.")}
             <br />
-            {t("Import. Export. Grow.", "استيراد. تصدير. نمو.")}
+            {t("A wider world, within reach.", "عالم أوسع، أقرب إليك.")}
           </p>
-          <a href="tel:+201004227074" dir="ltr">
-            +20 100 422 7074 ↗
-          </a>
+          <div className="footer-links">
+            <a href="#collection">{t("Collection", "المنتجات")} ↗</a>
+            <a
+              href={`${base}/silkraod-wholesale-2026.pdf`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t("Catalog 2026", "كتالوج ٢٠٢٦")} ↗
+            </a>
+            <a href="#sourcing">{t("Sourcing", "التوريد")} ↗</a>
+          </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} SILKRAOD</span>
+          <span>
+            © {new Date().getFullYear()} SILKRAOD. ALL RIGHTS RESERVED.
+          </span>
           <span>
             {t("BASED IN EGYPT. CONNECTED TO ASIA.", "من مصر، نتواصل مع آسيا.")}
           </span>
-          <a
-            href={`${base}/silkraod-wholesale-2026.pdf`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {t("Wholesale catalog", "كتالوج الجملة")} ↗
-          </a>
+          <a href="#">{t("BACK TO TOP", "العودة للأعلى")} ↑</a>
         </div>
       </footer>
       <div className="toast" role="status" aria-live="polite">
@@ -621,10 +663,7 @@ export default function Storefront() {
           <div className="order-header">
             <div>
               <div className="eyebrow">
-                {t(
-                  "A LITTLE CLOSER TO YOUR NEXT BIG THING",
-                  "خطوة أقرب إلى فرصتك القادمة",
-                )}
+                {t("YOUR WHOLESALE ENQUIRY", "خطوة أقرب إلى فرصتك القادمة")}
               </div>
               <h2>
                 {t("Your order", "طلبك")}
@@ -642,7 +681,7 @@ export default function Storefront() {
           {selected.length === 0 ? (
             <div className="empty-order">
               <ShoppingBag size={45} strokeWidth={1} />
-              <h3>{t("Room for possibility.", "مساحة لفرص جديدة.")}</h3>
+              <h3>{t("Your collection starts here.", "تشكيلتك تبدأ هنا.")}</h3>
               <p>
                 {t(
                   "Add a few ingredients to start your wholesale enquiry.",

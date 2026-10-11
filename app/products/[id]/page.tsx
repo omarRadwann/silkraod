@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Brand from "@/components/Brand";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, MessageCircle } from "lucide-react";
 import { products, base, whatsapp } from "@/lib/catalog";
@@ -47,7 +48,7 @@ export default async function ProductPage({
       />
       <header>
         <a href={`${base}/`} className="wordmark">
-          silkraod<span>®</span>
+          <Brand />
         </a>
         <a className="text-link" href={`${base}/#collection`}>
           <ArrowLeft size={16} />
