@@ -172,7 +172,7 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
     let pointerX = 0,
       pointerY = 0;
     // Follow the cursor across the opening, with rotation constrained to keep the route legible.
-    const interaction = el.closest(".gateway") || el;
+    const interaction = el.closest(".collection-hero, .gateway") || el;
     const move = (event: Event) => {
       const e = event as PointerEvent;
       if (e.pointerType === "touch" || reduced) return;

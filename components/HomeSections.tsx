@@ -7,7 +7,6 @@ import {
 import { base, whatsapp } from "@/lib/catalog";
 import Brand from "./Brand";
 import CollectionHero from "./CollectionHero";
-import GlobeExperience from "./GlobeExperience";
 import { ProductImage } from "./ResponsiveImage";
 export function Introduction() {
   return (
@@ -173,9 +172,6 @@ export function ClosingSections() {
             <em>Let’s source it.</em>
           </h2>
           <div className="sourcing-right">
-            <div className="sourcing-route-map">
-              <GlobeExperience compact />
-            </div>
             <p>
               A different ingredient, a custom specification, or a product
               beyond our catalog. Share your requirements and we’ll discuss

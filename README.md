@@ -66,8 +66,10 @@ Mobile includes swipeable collection photography and category filters, touch-fri
 
 Verified at 320, 390, 430, 768, 1024 and 1440px widths plus 844×390 landscape: no horizontal page overflow. Production build, TypeScript, order unit tests and all twelve product routes pass. Asset byte comparisons measure delivered files, not a real-device Core Web Vitals score.
 
-## Photography-led collection hero
+## Combined globe and collection hero
 
-`CollectionHero.tsx` presents Brown Sugar, Matcha and Taro serving inspiration with original BODUO package links. It uses the existing illustrative beverage photography and a short crossfade, with reduced-motion support. The rejected procedural drink and layer controls have been removed. The hero does not load WebGL; the supporting Asia-to-Egypt globe remains deferred in the custom-sourcing section.
+`CollectionHero.tsx` combines the original interactive Asia-to-Egypt globe with a small serving photograph and matching original BODUO product links. Menu choices sit above the imagery, directly under the introduction. Layout checks include shorter desktop viewports so choices remain visible without scrolling. The globe starts with its SVG and upgrades on capable desktops; reduced-motion and mobile keep the fallback.
 
-Supplier packaging, the original menu PDF, product catalog and WhatsApp enquiry flow are preserved.
+`IngredientMotion.tsx` maps each of the seven popping-boba product IDs to a distinct flavor-specific illustrative serving image. Green apple, lychee, strawberry, passion fruit, mango, blueberry and peach each have independent generated photographs, stored as optimized WebP variants. These are serving inspiration, not supplier package photography. Original package artwork is unchanged. Hero imagery and flavor-card imagery share the same responsive image helper.
+
+The original PDF, twelve products, custom sourcing and WhatsApp enquiry flow are preserved.
