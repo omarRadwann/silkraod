@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_PATH || ""}/og.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "Silk Road wholesale bubble tea ingredients",
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_PATH || ""}/visuals/tiger-ritual.webp`,
+        width: 1000,
+        height: 1250,
+        alt: "Silk Road — brown sugar milk tea serving inspiration",
       },
     ],
   },
@@ -32,6 +32,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/visuals/tiger-ritual.webp`}
+        />
         <link
           rel="preload"
           as="image"

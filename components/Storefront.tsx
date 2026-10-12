@@ -17,7 +17,7 @@ import {
 import { products, base, whatsapp } from "@/lib/catalog";
 import Brand from "./Brand";
 import IngredientMotion from "./IngredientMotion";
-import { HeroIngredients, BeverageStory } from "./BeverageStory";
+import { BeverageStory } from "./BeverageStory";
 const TradeGlobe = dynamic(() => import("./TradeGlobe"), { ssr: false });
 const categories = [
   "All ingredients",
@@ -173,72 +173,77 @@ export default function Storefront() {
       </header>
       <main>
         <section className="hero">
-          <div className="hero-coordinate">
-            CAIRO, EGYPT <span>30.0444° N / 31.2357° E</span>
-          </div>
           <div className="hero-copy">
             <div className="eyebrow">
-              <span className="status-dot" />
-              {"YOUR DIRECT CONNECTION TO ASIA"}
+              SILK ROAD / ASIAN BEVERAGE INGREDIENTS
             </div>
             <h1>
-              From <em>Asia.</em>
+              Extraordinary
               <br />
-              To <em>Egypt.</em>
+              ingredients.
               <br />
-              <span>For your next menu.</span>
+              <em>New possibilities.</em>
             </h1>
             <p>
-              Popping boba, tiger bubble tea and professional powders. Discover
-              Asian beverage ingredients for cafés, tea shops and businesses in
-              Egypt.
+              From Asia to your next signature drink. Discover professional
+              beverage ingredients for cafés and businesses in Egypt.
             </p>
             <div className="hero-actions">
               <a className="button light" href="#collection">
-                {"Explore our collection"}
-                <span>
-                  <ArrowUpRight size={19} />
-                </span>
+                Explore the collection <ArrowUpRight size={19} />
               </a>
-              <a className="hero-secondary" href="#sourcing">
-                {"Find your next opportunity"}
-                <ArrowRight size={16} />
+              <a
+                className="hero-secondary"
+                href={`${base}/silk-road-asia-collection-2026.pdf`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                2026 catalog <Download size={15} />
               </a>
+            </div>
+            <div className="hero-route">
+              <div className="hero-art">
+                <div className="instant-globe" aria-hidden="true">
+                  <img
+                    src={`${base}/instant-globe.svg`}
+                    alt=""
+                    width="600"
+                    height="600"
+                    fetchPriority="high"
+                  />
+                </div>
+                <TradeGlobe />
+              </div>
+              <div className="route-copy">
+                <span>YOUR DIRECT CONNECTION</span>
+                <b>
+                  Asia <ArrowRight size={22} /> Egypt
+                </b>
+                <p>
+                  Wholesale ingredients.
+                  <br />A world of flavour, closer to you.
+                </p>
+              </div>
             </div>
           </div>
-          <div className="hero-art">
-            <div className="instant-globe" aria-hidden="true">
-              <img
-                src={`${base}/instant-globe.svg`}
-                alt=""
-                width="600"
-                height="600"
-                fetchPriority="high"
-              />
-              <span className="instant-origin">ASIA · ORIGIN</span>
-              <span className="instant-destination">EGYPT · DESTINATION</span>
-            </div>
-            <TradeGlobe />
-            <HeroIngredients />
-            <div className="globe-orbit-label">
-              ASIA TO EGYPT
-              <br />
-              <span>ONE CLEAR DIRECTION.</span>
-            </div>
-            <div className="globe-caption">
-              <span className="status-dot" />
-              ASIA <i>⟶</i> EGYPT
-              <span className="globe-caption-sub">
-                ORIGIN → DESTINATION / ILLUSTRATIVE ROUTE
-              </span>
+          <div className="hero-photograph">
+            <img
+              src={`${base}/visuals/tiger-ritual.webp`}
+              alt="Iced brown sugar milk tea with tapioca pearls — serving inspiration"
+              width="1000"
+              height="1250"
+              fetchPriority="high"
+            />
+            <div className="hero-photo-caption">
+              <span>THE START OF SOMETHING GOOD</span>
+              <b>Your next signature.</b>
+              <small>Brown sugar milk tea · Serving inspiration</small>
             </div>
           </div>
           <div className="hero-bottom">
-            <span>01 — ASIA → EGYPT</span>
-            <span>02 — WHOLESALE & SOURCING</span>
+            <span>POPPING BOBA / TAPIOCA / SYRUP / POWDERS</span>
             <a href="#about">
-              {"SCROLL TO EXPLORE"}
-              <ArrowRight size={14} />
+              EXPLORE SILK ROAD <ArrowRight size={14} />
             </a>
           </div>
         </section>

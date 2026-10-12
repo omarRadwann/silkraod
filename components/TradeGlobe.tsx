@@ -5,7 +5,7 @@ import coords from "@/lib/globe-points.json";
 export default function TradeGlobe() {
   const host = useRef<HTMLDivElement>(null),
     egypt = useRef<HTMLSpanElement>(null),
-    china = useRef<HTMLSpanElement>(null);
+    asia = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = host.current;
     if (!el) return;
@@ -50,7 +50,7 @@ export default function TradeGlobe() {
     group.add(
       new THREE.Mesh(
         own(new THREE.SphereGeometry(1.995, 64, 64)),
-        mat(new THREE.MeshBasicMaterial({ color: 0x22221f })),
+        mat(new THREE.MeshBasicMaterial({ color: 0x101e30 })),
       ),
     );
     const glow = mat(
@@ -59,7 +59,7 @@ export default function TradeGlobe() {
         vertexShader:
           "varying vec3 vNormal; varying vec3 vPosition; void main(){vNormal=normalize(normalMatrix*normal);vec4 p=modelViewMatrix*vec4(position,1.0);vPosition=p.xyz;gl_Position=projectionMatrix*p;}",
         fragmentShader:
-          "varying vec3 vNormal;varying vec3 vPosition;void main(){float rim=pow(1.0-abs(dot(normalize(vNormal),normalize(-vPosition))),4.0);gl_FragColor=vec4(0.68,0.64,0.51,rim*0.13);}",
+          "varying vec3 vNormal;varying vec3 vPosition;void main(){float rim=pow(1.0-abs(dot(normalize(vNormal),normalize(-vPosition))),4.0);gl_FragColor=vec4(0.67,0.76,0.9,rim*0.13);}",
         transparent: true,
         depthWrite: false,
         side: THREE.FrontSide,
@@ -70,7 +70,7 @@ export default function TradeGlobe() {
     );
     const gridmat = mat(
       new THREE.LineBasicMaterial({
-        color: 0x49473f,
+        color: 0x355274,
         transparent: true,
         opacity: 0.38,
       }),
@@ -112,7 +112,7 @@ export default function TradeGlobe() {
         land,
         mat(
           new THREE.PointsMaterial({
-            color: 0xa6ad95,
+            color: 0x9caab9,
             size: 0.027,
             sizeAttenuation: true,
             transparent: true,
@@ -135,7 +135,7 @@ export default function TradeGlobe() {
     group.add(
       new THREE.Mesh(
         own(new THREE.TubeGeometry(curve, 100, 0.009, 6, false)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xc1ad7b })),
+        mat(new THREE.MeshBasicMaterial({ color: 0xd99a6c })),
       ),
     );
     const moving = Array.from({ length: 3 }, () => {
@@ -149,7 +149,7 @@ export default function TradeGlobe() {
     [cairo, shanghai].forEach((p) => {
       const marker = new THREE.Mesh(
         own(new THREE.SphereGeometry(0.043, 16, 16)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xc1ad7b })),
+        mat(new THREE.MeshBasicMaterial({ color: 0xd99a6c })),
       );
       marker.position.copy(p);
       group.add(marker);
@@ -157,7 +157,7 @@ export default function TradeGlobe() {
         own(new THREE.RingGeometry(0.065, 0.076, 32)),
         mat(
           new THREE.MeshBasicMaterial({
-            color: 0xc1ad7b,
+            color: 0xd99a6c,
             transparent: true,
             opacity: 0.7,
             side: THREE.DoubleSide,
@@ -214,7 +214,7 @@ export default function TradeGlobe() {
         renderer.render(scene, camera);
         el.classList.add("globe-ready");
         label(egypt.current, cairo);
-        label(china.current, shanghai);
+        label(asia.current, shanghai);
       }
       frame = requestAnimationFrame(tick);
     };
@@ -246,7 +246,7 @@ export default function TradeGlobe() {
         <b>EGYPT · DESTINATION</b>
         <small>FOR YOUR BUSINESS IN EGYPT</small>
       </span>
-      <span className="globe-pin asia-pin" ref={china}>
+      <span className="globe-pin asia-pin" ref={asia}>
         <i />
         <b>ASIA · ORIGIN</b>
         <small>ASIAN BEVERAGE INGREDIENTS</small>
