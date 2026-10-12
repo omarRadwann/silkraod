@@ -4,6 +4,7 @@ import { ArrowUpRight, Plus, Check } from "lucide-react";
 import { base, type Product } from "@/lib/catalog";
 import IngredientMotion from "./IngredientMotion";
 import { ProductImage } from "./ResponsiveImage";
+import { usePointerTilt } from "@/hooks/usePointerTilt";
 type Props = {
   product: Product;
   quantity: number;
@@ -16,6 +17,7 @@ export default memo(function ProductCard({
   added,
   onAdd,
 }: Props) {
+  const tilt = usePointerTilt<HTMLAnchorElement>();
   return (
     <article
       className="product-card reveal"
@@ -24,6 +26,7 @@ export default memo(function ProductCard({
       style={{ "--product-color": p.color } as React.CSSProperties}
     >
       <a
+        {...tilt}
         className="product-visual"
         href={`${base}/products/${p.id}/`}
         aria-label={`View BODUO ${p.name} details`}

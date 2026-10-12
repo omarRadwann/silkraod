@@ -8,6 +8,7 @@ import {
 import { base, whatsapp } from "@/lib/catalog";
 import Brand from "./Brand";
 import GlobeExperience from "./GlobeExperience";
+import FeaturedProducts from "./FeaturedProducts";
 import { ProductImage } from "./ResponsiveImage";
 export function Introduction() {
   return (
@@ -45,44 +46,7 @@ export function Introduction() {
           <div className="gateway-scene">
             <span className="scene-caption">CONNECTED BY POSSIBILITY</span>
             <GlobeExperience />
-            <div
-              className="gateway-products"
-              aria-label="Explore our ingredient collections"
-            >
-              <a href={`${base}/products/130600912/`}>
-                <ProductImage
-                  id="130600912"
-                  sizes="(max-width: 600px) 23vw, 115px"
-                  alt="BODUO mango popping boba"
-                  loading="eager"
-                />
-                <span>
-                  Mango popping boba <ArrowUpRight size={13} />
-                </span>
-              </a>
-              <a href={`${base}/products/132100600/`}>
-                <ProductImage
-                  id="132100600"
-                  sizes="(max-width: 600px) 23vw, 115px"
-                  alt="BODUO brown sugar syrup"
-                  loading="eager"
-                />
-                <span>
-                  Brown sugar syrup <ArrowUpRight size={13} />
-                </span>
-              </a>
-              <a href={`${base}/products/130201334/`}>
-                <ProductImage
-                  id="130201334"
-                  sizes="(max-width: 600px) 23vw, 115px"
-                  alt="BODUO matcha powder"
-                  loading="eager"
-                />
-                <span>
-                  Signature matcha <ArrowUpRight size={13} />
-                </span>
-              </a>
-            </div>
+            <FeaturedProducts />
           </div>
         </div>
         <div className="gateway-bottom">

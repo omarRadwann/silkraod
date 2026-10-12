@@ -171,12 +171,29 @@ export default function TradeGlobe() {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let pointerX = 0,
       pointerY = 0;
-    const move = (e: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      pointerX = (e.clientX - r.left) / r.width - 0.5;
-      pointerY = (e.clientY - r.top) / r.height - 0.5;
+    // Follow the cursor across the opening, with rotation constrained to keep the route legible.
+    const interaction = el.closest(".gateway") || el;
+    const move = (event: Event) => {
+      const e = event as PointerEvent;
+      if (e.pointerType === "touch" || reduced) return;
+      const r = interaction.getBoundingClientRect();
+      pointerX = THREE.MathUtils.clamp(
+        ((e.clientX - r.left) / r.width - 0.5) * 2,
+        -1,
+        1,
+      );
+      pointerY = THREE.MathUtils.clamp(
+        ((e.clientY - r.top) / r.height - 0.5) * 2,
+        -1,
+        1,
+      );
     };
-    el.addEventListener("pointermove", move);
+    const leave = () => {
+      pointerX = 0;
+      pointerY = 0;
+    };
+    interaction.addEventListener("pointermove", move, { passive: true });
+    interaction.addEventListener("pointerleave", leave);
     let width = 1,
       height = 1,
       lastRender = -Infinity;
@@ -190,11 +207,11 @@ export default function TradeGlobe() {
       if (!reduced) {
         group.rotation.y +=
           (-1.23 +
-            pointerX * 0.17 +
+            pointerX * 0.4 +
             Math.sin(time * 0.00012) * 0.045 -
             group.rotation.y) *
           0.07;
-        group.rotation.x += (-pointerY * 0.09 - group.rotation.x) * 0.07;
+        group.rotation.x += (-pointerY * 0.23 - group.rotation.x) * 0.09;
         moving.forEach((p, i) =>
           p.position.copy(curve.getPoint((time * 0.000045 + i / 3) % 1)),
         );
@@ -254,7 +271,8 @@ export default function TradeGlobe() {
       ro.disconnect();
       visibility.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      el.removeEventListener("pointermove", move);
+      interaction.removeEventListener("pointermove", move);
+      interaction.removeEventListener("pointerleave", leave);
       owned.forEach((g) => g.dispose());
       materials.forEach((m) => m.dispose());
       renderer.dispose();

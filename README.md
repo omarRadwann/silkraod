@@ -69,3 +69,7 @@ Verified at 320, 390, 430, 768, 1024 and 1440px widths plus 844×390 landscape: 
 ## Unified trade-scene revision
 
 The opening combines a large animated globe with original featured packages and direct product-detail links. It replaces the tight hero photograph crop and separate globe section. The header is more compact; editorial section spacing and product-card typography are consistent. Mobile catalog introduction and anchor offsets bring products into view sooner. Media-query changes now remove the desktop WebGL enhancement and restore the lightweight SVG map when a viewport narrows or reduced motion is enabled.
+
+## Cursor interaction and clean package stages
+
+The hero uses an uninterrupted navy background without a container-bound glow. Featured products are blueberry popping boba, non-dairy creamer and taro powder. The desktop globe follows the pointer across the entire hero with smooth, bounded rotation and a reset on pointer exit. Product stages use a shared pointer-tilt hook with frame-coalesced CSS updates and preserved original packaging; the old drop-shadow filters are removed. Touch input and reduced-motion preferences keep static package perspectives and the lightweight globe fallback.
