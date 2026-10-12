@@ -1,70 +1,18 @@
 import {
   ArrowUpRight,
   ArrowRight,
-  Download,
   MessageCircle,
   Plus,
 } from "lucide-react";
 import { base, whatsapp } from "@/lib/catalog";
 import Brand from "./Brand";
+import SignatureStudio from "./SignatureStudio";
 import GlobeExperience from "./GlobeExperience";
-import FeaturedProducts from "./FeaturedProducts";
 import { ProductImage } from "./ResponsiveImage";
 export function Introduction() {
   return (
     <>
-      <section className="gateway" aria-labelledby="gateway-title">
-        <div className="gateway-inner">
-          <div className="gateway-copy">
-            <span className="gateway-kicker">
-              <i /> ASIAN MARKETS. EGYPTIAN POSSIBILITIES.
-            </span>
-            <h1 id="gateway-title">
-              A world of flavour.
-              <br />
-              <em>Within your reach.</em>
-            </h1>
-            <p>
-              Exceptional beverage ingredients, sourced from Asia for businesses
-              in Egypt. Discover your next signature—or let us source something
-              entirely your own.
-            </p>
-            <div className="gateway-actions">
-              <a className="button light" href="#collection">
-                Discover the collection <ArrowUpRight size={19} />
-              </a>
-              <a className="gateway-link" href="#services">
-                Custom sourcing <ArrowUpRight size={17} />
-              </a>
-            </div>
-            <div className="gateway-note">
-              <span>FROM ASIA</span>
-              <ArrowRight size={28} />
-              <span>TO EGYPT</span>
-            </div>
-          </div>
-          <div className="gateway-scene">
-            <span className="scene-caption">CONNECTED BY POSSIBILITY</span>
-            <GlobeExperience />
-            <FeaturedProducts />
-          </div>
-        </div>
-        <div className="gateway-bottom">
-          <span>
-            <b>01</b> Wholesale ingredients
-          </span>
-          <span>
-            <b>02</b> Orders made for your business
-          </span>
-          <a
-            href={`${base}/silk-road-asia-collection-2026.pdf`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore the 2026 catalog <Download size={16} />
-          </a>
-        </div>
-      </section>
+      <SignatureStudio />
       <section className="about section visual-about" id="about">
         <div className="about-photograph">
           <img
@@ -225,6 +173,9 @@ export function ClosingSections() {
             <em>Let’s source it.</em>
           </h2>
           <div className="sourcing-right">
+            <div className="sourcing-route-map">
+              <GlobeExperience compact />
+            </div>
             <p>
               A different ingredient, a custom specification, or a product
               beyond our catalog. Share your requirements and we’ll discuss

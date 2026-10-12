@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import coords from "@/lib/globe-points.json";
-export default function TradeGlobe() {
+export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
   const host = useRef<HTMLDivElement>(null),
     egypt = useRef<HTMLSpanElement>(null),
     asia = useRef<HTMLSpanElement>(null);
@@ -290,12 +290,12 @@ export default function TradeGlobe() {
       <div className="globe-fallback" />
       <span className="globe-pin egypt-pin" ref={egypt}>
         <i />
-        <b>EGYPT · DESTINATION</b>
+        <b>{compact ? "EGYPT" : "EGYPT · DESTINATION"}</b>
         <small>FOR YOUR BUSINESS IN EGYPT</small>
       </span>
       <span className="globe-pin asia-pin" ref={asia}>
         <i />
-        <b>ASIA · ORIGIN</b>
+        <b>{compact ? "ASIA" : "ASIA · ORIGIN"}</b>
         <small>ASIAN BEVERAGE INGREDIENTS</small>
       </span>
     </div>

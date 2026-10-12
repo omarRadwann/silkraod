@@ -56,7 +56,7 @@ Prompt set: photorealistic luxury beverage and ingredient photography, vertical 
 
 ## Responsive architecture and performance
 
-`app/page.tsx` renders marketing and service sections on the server through `HomeSections`. The client storefront coordinates a focused catalog, header and persistent wholesale-order hook. The order dialog loads on demand; pure cart validation and WhatsApp formatting live in `lib/order.ts` and have Node unit tests. Styles are consolidated in `app/globals.css`.
+`app/page.tsx` renders marketing and service sections on the server through `HomeSections`. The client storefront coordinates a focused catalog, header and persistent wholesale-order hook. The order dialog loads on demand; pure cart validation and WhatsApp formatting live in `lib/order.ts` and have Node unit tests. Shared styles are in `app/globals.css`; the Signature Studio has its own component stylesheet.
 
 The globe has an immediate animated SVG with an optional Three.js enhancement for visible desktop maps with fine pointers. Phones, reduced-motion preferences and slow connections keep the lightweight map. The 3D renderer caps pixel density and frame rate, suspends work offscreen or in background tabs, and disposes resources.
 
@@ -66,10 +66,12 @@ Mobile includes swipeable collection photography and category filters, touch-fri
 
 Verified at 320, 390, 430, 768, 1024 and 1440px widths plus 844×390 landscape: no horizontal page overflow. Production build, TypeScript, order unit tests and all twelve product routes pass. Asset byte comparisons measure delivered files, not a real-device Core Web Vitals score.
 
-## Unified trade-scene revision
+## Signature Studio
 
-The opening combines a large animated globe with original featured packages and direct product-detail links. It replaces the tight hero photograph crop and separate globe section. The header is more compact; editorial section spacing and product-card typography are consistent. Mobile catalog introduction and anchor offsets bring products into view sooner. Media-query changes now remove the desktop WebGL enhancement and restore the lightweight SVG map when a viewport narrows or reduced motion is enabled.
+The opening is an interactive ingredient study built in Three.js: choose Brown Sugar, Matcha or Taro, then separate the ice, poured drink and tapioca layers. `components/SignatureStudio.tsx` renders the complete editorial layout, controls and exact BODUO product links; `components/SignatureScene.tsx` owns the procedural glass, liquid shader, instanced pearls and condensation, lighting and resource lifecycle. Signature content and product references live in `lib/signatures.ts`; the isolated visual system is in `components/signature-studio.css`.
 
-## Cursor interaction and clean package stages
+The scene is illustrative serving inspiration, not a recipe, nutrition claim or representation of a finished product for sale. Supplier packaging remains the original artwork. Existing AI serving photography supplies the initial view and the complete phone, reduced-motion, slow-connection and WebGL-failure experience. Flavor selection and product links work in these modes; the layer control appears only when the 3D view is ready.
 
-The hero uses an uninterrupted navy background without a container-bound glow. Featured products are blueberry popping boba, non-dairy creamer and taro powder. The desktop globe follows the pointer across the entire hero with smooth, bounded rotation and a reset on pointer exit. Product stages use a shared pointer-tilt hook with frame-coalesced CSS updates and preserved original packaging; the old drop-shadow filters are removed. Touch input and reduced-motion preferences keep static package perspectives and the lightweight globe fallback.
+Three.js loads only for a visible studio at 760px and above, with reduced motion disabled and without Save Data / slow 2G. Rendering is capped at 30fps and DPR 1.5, pauses offscreen and in background tabs, and stops when the user pauses motion once an interaction has settled. Resizing into the phone breakpoint removes the renderer. Geometries, materials, environment textures and the WebGL context are disposed on unmount. No external models or textures are fetched for the scene.
+
+The Asia-to-Egypt globe now accompanies the custom-sourcing section and remains deferred until that section approaches the viewport. Product cards retain the shared pointer-tilt treatment and exact packaging. The enquiry cart, WhatsApp handoff and downloadable original PDF are unchanged.

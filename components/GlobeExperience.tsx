@@ -5,7 +5,7 @@ import { base } from "@/lib/catalog";
 const TradeGlobe = dynamic(() => import("./TradeGlobe"), { ssr: false });
 
 /** Always show the SVG. Upgrade visible desktop maps after the critical render. */
-export default function GlobeExperience() {
+export default function GlobeExperience({ compact = false }: { compact?: boolean }) {
   const host = useRef<HTMLDivElement>(null);
   const [enhance, setEnhance] = useState(false);
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function GlobeExperience() {
           EGYPT<span>DESTINATION</span>
         </span>
       </div>
-      {enhance && <TradeGlobe />}
+      {enhance && <TradeGlobe compact={compact} />}
       <span className="globe-footnote">
         ASIA → EGYPT · ILLUSTRATIVE TRADE CONNECTION
       </span>
