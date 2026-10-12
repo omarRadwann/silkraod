@@ -37,7 +37,7 @@ export default function CollectionHero() {
         </div>
       </div>
       <div className="collection-hero-editorial">
-        <span className="collection-hero-route-caption">ASIAN ORIGINS. EGYPTIAN POSSIBILITIES.</span>
+        <span className="collection-hero-route-caption">A DIRECT CONNECTION. A WORLD OF FLAVOUR.</span>
         <div className="collection-hero-globe"><GlobeExperience compact /></div>
         {signatures.map((item, index) => <div key={item.name} className="hero-scene" data-active={selected === index} aria-hidden={selected !== index}>
         <div className="collection-hero-photo">
@@ -48,7 +48,7 @@ export default function CollectionHero() {
         <a className="hero-featured-pack" tabIndex={selected === index ? 0 : -1} href={`${base}/products/${item.products[0].id}/`}>
           <span className="hero-pack-floor" aria-hidden="true" />
           <ProductImage id={item.products[0].id} alt={`Explore ${item.products[0].name}`} sizes="(max-width: 760px) 90px, 140px" loading="eager" />
-          <span className="hero-pack-label"><span><small>THE INGREDIENT</small>{item.products[0].name}</span><ArrowUpRight size={14} /></span>
+          <span className="hero-pack-label"><span><small>FROM ORIGIN TO YOUR MENU</small>{item.products[0].name}</span><ArrowUpRight size={14} /></span>
         </a>
         </div>)}
 

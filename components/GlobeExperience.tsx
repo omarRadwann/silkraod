@@ -26,8 +26,6 @@ export default function GlobeExperience({ compact = false }: { compact?: boolean
   return <div className="hero-art stable-globe" ref={host} onPointerMove={move} onPointerLeave={reset}>
     <div className="instant-globe">
       <img src={`${base}/instant-globe.svg`} alt="World map showing the trade route from Asia to Egypt" width="600" height="600" decoding="async" />
-      <span className="map-origin">ASIA<span>ORIGIN</span></span>
-      <span className="map-destination">EGYPT<span>DESTINATION</span></span>
     </div>
     {!compact && <span className="globe-footnote">ASIA → EGYPT · ILLUSTRATIVE TRADE CONNECTION</span>}
   </div>;
