@@ -43,12 +43,13 @@ export default function CollectionHero() {
         <div className="collection-hero-photo">
           <ServingImage name={item.photo} alt={`${item.name} beverage serving inspiration`} sizes="(max-width: 760px) 30vw, 225px" loading="eager" fetchPriority={index === 0 ? "high" : "low"} />
 
-          <div className="collection-hero-caption"><span>SERVING INSPIRATION</span><h2>{item.name}</h2></div>
+          
         </div>
+        <div className="signature-story"><span className="signature-eyebrow">0{index + 1} / SERVING INSPIRATION</span><h2>{item.name}</h2><p>{item.subtitle}</p><span className="signature-detail">Made possible with<br />{item.products[0].name}</span></div>
         <a className="hero-featured-pack" tabIndex={selected === index ? 0 : -1} href={`${base}/products/${item.products[0].id}/`}>
           <span className="hero-pack-floor" aria-hidden="true" />
           <ProductImage id={item.products[0].id} alt={`Explore ${item.products[0].name}`} sizes="(max-width: 760px) 90px, 140px" loading="eager" />
-          <span className="hero-pack-label"><span><small>FROM ORIGIN TO YOUR MENU</small>{item.products[0].name}</span><ArrowUpRight size={14} /></span>
+          <span className="hero-pack-label"><span>View ingredient</span><ArrowUpRight size={14} /></span>
         </a>
         </div>)}
 
