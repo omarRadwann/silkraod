@@ -1,10 +1,9 @@
 "use client";
-import { memo, useState } from "react";
+import { memo, useState, useEffect, useRef } from "react";
 import { ArrowUpRight, Plus, Check } from "lucide-react";
 import { base, type Product } from "@/lib/catalog";
 import IngredientMotion from "./IngredientMotion";
 import { ProductImage } from "./ResponsiveImage";
-import { usePointerTilt } from "@/hooks/usePointerTilt";
 type Props = {
   product: Product;
   quantity: number;
@@ -17,17 +16,25 @@ export default memo(function ProductCard({
   added,
   onAdd,
 }: Props) {
-  const tilt = usePointerTilt<HTMLAnchorElement>();
+  const card = useRef<HTMLElement>(null);
   const [preview, setPreview] = useState(false);
+  useEffect(() => {
+    if (!matchMedia("(hover: hover)").matches || !card.current) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setPreview(true); observer.disconnect(); }
+    }, { rootMargin: "400px" });
+    observer.observe(card.current);
+    return () => observer.disconnect();
+  }, []);
   return (
     <article
+      ref={card}
       className="product-card reveal"
       data-id={p.id}
       data-category={p.category}
       style={{ "--product-color": p.color } as React.CSSProperties}
     >
       <a
-        {...tilt}
         onPointerEnter={(event) => { if (event.pointerType !== "touch") setPreview(true); }}
         onFocus={() => setPreview(true)}
         className="product-visual"
@@ -42,7 +49,7 @@ export default memo(function ProductCard({
         </div>
         <span className="product-halo" aria-hidden="true" />
         <span className="package-contact-shadow" aria-hidden="true" />
-        {preview && <IngredientMotion product={p} />}
+        {preview && <IngredientMotion product={p} compact />}
         <ProductImage
           id={p.id}
           alt={`BODUO ${p.name} ${p.weight} packaging`}

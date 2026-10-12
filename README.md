@@ -79,3 +79,7 @@ The original PDF, twelve products, custom sourcing and WhatsApp enquiry flow are
 The Three.js runtime is no longer included in the production client bundles. The globe projects the same geographic point data directly onto Canvas 2D, with idle rendering suspended. Product-card serving imagery mounts only on pointer entry or keyboard focus. A resized responsive official logo and WebP port background reduce image transfer. Actual product packaging uses CSS perspective with local soft contact shadows; the hero presents the selected package alongside its serving inspiration. No synthetic package artwork or drink mesh is used.
 
 Measured across all emitted JS chunks: 1,191,012 to 647,729 bytes (45.6% less); gzip 333,273 to 201,649 bytes (39.5% less). These are build-file measurements, not a Lighthouse score or real-device Core Web Vitals measurement. Port background: 737,888 to 254,308 bytes. Mobile logo candidate: 13,154 bytes versus the former 55,336-byte source.
+
+### Smooth interaction revision
+
+Catalog packages remain upright. Small 240 × 320 WebP serving previews are prepared within 400px of the viewport on hover-capable devices and revealed only after loading. The eleven previews total 112 KB. Hero scenes stay mounted and crossfade using opacity; package and photograph rotation is disabled. The interactive globe remains unchanged.

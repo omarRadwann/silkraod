@@ -5805,11 +5805,12 @@ html {
   .sourcing-route-map .hero-art { width: 240px; height: 220px; }
 }
 
-/* Contained catalog stages: package artwork stays intact, with local contact light. */
-.product-card[data-category] .product-visual{perspective:1000px;background:radial-gradient(ellipse at 38% 23%,#ffffff 0%,#f1f4f7 58%,#e4eaf0 100%)}
-.package-contact-shadow{position:absolute;bottom:19%;left:31%;width:38%;height:22px;border-radius:50%;background:radial-gradient(ellipse,#25395128,transparent 68%);transform:rotate(-5deg);z-index:1;pointer-events:none;transition:transform .3s,opacity .3s}
-.product-card[data-category] .product-visual>img{position:absolute;z-index:2;filter:none;transform:perspective(900px) rotateY(-18deg) rotateX(4deg) rotateZ(-5deg) translateZ(18px);transition:transform .28s ease-out}
-.product-card:nth-child(even) .product-visual>img{transform:perspective(900px) rotateY(16deg) rotateX(4deg) rotateZ(4deg) translateZ(18px)}
-.product-card:is(:hover,:focus-within) .product-visual>img{transform:perspective(900px) translate(-10%,-12px) rotateY(var(--tilt-y,-5deg)) rotateX(var(--tilt-x,4deg)) rotateZ(-3deg) translateZ(42px)}
-.product-card:is(:hover,:focus-within) .package-contact-shadow{transform:translateX(-20%) scale(.85);opacity:.55}
-@media(prefers-reduced-motion:reduce),(hover:none){.product-card[data-category] .product-visual>img,.product-card:is(:hover,:focus-within) .product-visual>img{transform:none!important;transition:none}.package-contact-shadow{display:none}}
+/* Upright supplier artwork with a small, prepared serving preview. */
+.product-card[data-category] .product-visual{perspective:none;background:radial-gradient(ellipse at 38% 23%,#fff 0%,#f1f4f7 58%,#e4eaf0 100%)}
+.package-contact-shadow{display:none}
+.product-card[data-category] .product-visual>img,.product-card:nth-child(even) .product-visual>img{position:absolute;z-index:2;filter:none;transform:none;transition:transform .24s ease}
+.product-card[data-category]:is(:hover,:focus-within) .product-visual>img{transform:translateX(-7%)}
+.product-card .ingredient-motion>img{transform:none!important;transition:opacity .22s ease;object-position:center}
+.product-card .ingredient-motion>span{transition:opacity .22s ease}
+.ingredient-motion:not(.is-ready)>img,.ingredient-motion:not(.is-ready)>span{opacity:0!important}
+@media(prefers-reduced-motion:reduce),(hover:none){.product-card[data-category]:is(:hover,:focus-within) .product-visual>img{transform:none!important;transition:none}}
