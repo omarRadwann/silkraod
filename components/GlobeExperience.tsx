@@ -18,7 +18,6 @@ export default function GlobeExperience() {
       }
     ).connection;
     if (
-      !preference.matches ||
       connection?.saveData ||
       /(^2g$|slow-2g)/.test(connection?.effectiveType || "")
     )
@@ -26,7 +25,7 @@ export default function GlobeExperience() {
     let timer: ReturnType<typeof setTimeout> | undefined;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || timer) return;
+        if (!entry.isIntersecting || !preference.matches || timer) return;
         timer = setTimeout(() => {
           if (preference.matches) setEnhance(true);
         }, 700);
@@ -34,9 +33,18 @@ export default function GlobeExperience() {
       },
       { rootMargin: "80px" },
     );
-    if (host.current) observer.observe(host.current);
+    const update = () => {
+      if (timer) clearTimeout(timer);
+      timer = undefined;
+      observer.disconnect();
+      if (!preference.matches) setEnhance(false);
+      else if (host.current) observer.observe(host.current);
+    };
+    update();
+    preference.addEventListener("change", update);
     return () => {
       observer.disconnect();
+      preference.removeEventListener("change", update);
       if (timer) clearTimeout(timer);
     };
   }, []);

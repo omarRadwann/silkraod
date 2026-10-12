@@ -65,3 +65,7 @@ Product packages have native responsive WebP sources at 160, 320, 480 and origin
 Mobile includes swipeable collection photography and category filters, touch-friendly controls, safe-area spacing, a full-height enquiry dialog and readable search fields. Custom orders and sourcing beyond beverages have direct WhatsApp briefs for specifications, quantities, destination and timing.
 
 Verified at 320, 390, 430, 768, 1024 and 1440px widths plus 844×390 landscape: no horizontal page overflow. Production build, TypeScript, order unit tests and all twelve product routes pass. Asset byte comparisons measure delivered files, not a real-device Core Web Vitals score.
+
+## Unified trade-scene revision
+
+The opening combines a large animated globe with original featured packages and direct product-detail links. It replaces the tight hero photograph crop and separate globe section. The header is more compact; editorial section spacing and product-card typography are consistent. Mobile catalog introduction and anchor offsets bring products into view sooner. Media-query changes now remove the desktop WebGL enhancement and restore the lightweight SVG map when a viewport narrows or reduced motion is enabled.

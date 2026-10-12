@@ -25,15 +25,15 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
           <div>
             <div className="eyebrow">{"01 / THE WHOLESALE COLLECTION"}</div>
             <h2>
-              {"Selected with purpose."}
+              {"The ingredient collection."}
               <br />
-              <em>{"Ready for your business."}</em>
+              <em>{"Make it your own."}</em>
             </h2>
           </div>
           <div className="section-intro">
             <p>
               {
-                "Twelve ingredients. Three collections. Explore the BODUO range and build a wholesale enquiry around your business."
+                "Explore 12 BODUO ingredients. Select your flavours and carton quantities to request a wholesale quote."
               }
             </p>
             <a

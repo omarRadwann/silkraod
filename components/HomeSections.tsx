@@ -8,74 +8,97 @@ import {
 import { base, whatsapp } from "@/lib/catalog";
 import Brand from "./Brand";
 import GlobeExperience from "./GlobeExperience";
-import { ServingImage, ProductImage } from "./ResponsiveImage";
+import { ProductImage } from "./ResponsiveImage";
 export function Introduction() {
   return (
     <>
-      <section className="hero">
-        <div className="hero-copy">
-          <div className="eyebrow">SILK ROAD / ASIAN BEVERAGE INGREDIENTS</div>
-          <h1>
-            Extraordinary
-            <br />
-            ingredients.
-            <br />
-            <em>New possibilities.</em>
-          </h1>
-          <p>
-            From Asia to your next signature drink. Discover professional
-            beverage ingredients for cafés and businesses in Egypt.
-          </p>
-          <div className="hero-actions">
-            <a className="button light" href="#collection">
-              Explore the collection <ArrowUpRight size={19} />
-            </a>
-            <a
-              className="hero-secondary"
-              href={`${base}/silk-road-asia-collection-2026.pdf`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              2026 catalog <Download size={15} />
-            </a>
-          </div>
-        </div>
-        <div className="hero-photograph">
-          <ServingImage
-            name="tiger-ritual"
-            alt="Iced brown sugar milk tea with tapioca pearls — serving inspiration"
-            loading="eager"
-            fetchPriority="high"
-            sizes="(max-width: 600px) 88vw, 48vw"
-          />
-          <div className="hero-photo-caption">
-            <span>THE START OF SOMETHING GOOD</span>
-            <b>Your next signature.</b>
-            <small>Brown sugar milk tea · Serving inspiration</small>
-          </div>
-        </div>
-        <div className="hero-route">
-          <GlobeExperience />
-          <div className="route-copy">
-            <span>YOUR DIRECT CONNECTION / ASIA → EGYPT</span>
-            <h2>
-              Asian markets.
+      <section className="gateway" aria-labelledby="gateway-title">
+        <div className="gateway-inner">
+          <div className="gateway-copy">
+            <span className="gateway-kicker">
+              <i /> ASIAN MARKETS. EGYPTIAN POSSIBILITIES.
+            </span>
+            <h1 id="gateway-title">
+              A world of flavour.
               <br />
-              <em>Egyptian ambition.</em>
-            </h2>
+              <em>Within your reach.</em>
+            </h1>
             <p>
-              Exceptional beverage ingredients. Custom sourcing for your next
-              idea. We connect your business with the possibilities of Asia.
+              Exceptional beverage ingredients, sourced from Asia for businesses
+              in Egypt. Discover your next signature—or let us source something
+              entirely your own.
             </p>
-            <div className="route-tags">
-              <span>Beverage ingredients</span>
-              <span>Custom orders</span>
-              <span>Import & export</span>
+            <div className="gateway-actions">
+              <a className="button light" href="#collection">
+                Discover the collection <ArrowUpRight size={19} />
+              </a>
+              <a className="gateway-link" href="#services">
+                Custom sourcing <ArrowUpRight size={17} />
+              </a>
             </div>
-            <a className="text-link" href="#services">
-              Explore our services <ArrowUpRight size={16} />
-            </a>
+            <div className="gateway-note">
+              <span>FROM ASIA</span>
+              <ArrowRight size={28} />
+              <span>TO EGYPT</span>
+            </div>
           </div>
+          <div className="gateway-scene">
+            <span className="scene-caption">CONNECTED BY POSSIBILITY</span>
+            <GlobeExperience />
+            <div
+              className="gateway-products"
+              aria-label="Explore our ingredient collections"
+            >
+              <a href={`${base}/products/130600912/`}>
+                <ProductImage
+                  id="130600912"
+                  sizes="(max-width: 600px) 23vw, 115px"
+                  alt="BODUO mango popping boba"
+                  loading="eager"
+                />
+                <span>
+                  Mango popping boba <ArrowUpRight size={13} />
+                </span>
+              </a>
+              <a href={`${base}/products/132100600/`}>
+                <ProductImage
+                  id="132100600"
+                  sizes="(max-width: 600px) 23vw, 115px"
+                  alt="BODUO brown sugar syrup"
+                  loading="eager"
+                />
+                <span>
+                  Brown sugar syrup <ArrowUpRight size={13} />
+                </span>
+              </a>
+              <a href={`${base}/products/130201334/`}>
+                <ProductImage
+                  id="130201334"
+                  sizes="(max-width: 600px) 23vw, 115px"
+                  alt="BODUO matcha powder"
+                  loading="eager"
+                />
+                <span>
+                  Signature matcha <ArrowUpRight size={13} />
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="gateway-bottom">
+          <span>
+            <b>01</b> Wholesale ingredients
+          </span>
+          <span>
+            <b>02</b> Orders made for your business
+          </span>
+          <a
+            href={`${base}/silk-road-asia-collection-2026.pdf`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Explore the 2026 catalog <Download size={16} />
+          </a>
         </div>
       </section>
       <section className="about section visual-about" id="about">
@@ -98,7 +121,7 @@ export function Introduction() {
         <div className="about-content">
           <span className="eyebrow">THE SILK ROAD CONNECTION</span>
           <h2>
-            A world of flavour.
+            Asian ingredients.
             <br />
             <em>Made for your menu.</em>
           </h2>
