@@ -56,7 +56,7 @@ Prompt set: photorealistic luxury beverage and ingredient photography, vertical 
 
 ## Responsive architecture and performance
 
-`app/page.tsx` renders marketing and service sections on the server through `HomeSections`. The client storefront coordinates a focused catalog, header and persistent wholesale-order hook. The order dialog loads on demand; pure cart validation and WhatsApp formatting live in `lib/order.ts` and have Node unit tests. Shared styles are in `app/globals.css`; the Signature Studio has its own component stylesheet.
+`app/page.tsx` renders marketing and service sections on the server through `HomeSections`. The client storefront coordinates a focused catalog, header and persistent wholesale-order hook. The order dialog loads on demand; pure cart validation and WhatsApp formatting live in `lib/order.ts` and have Node unit tests. Shared styles are in `app/globals.css`; the collection hero has its own component stylesheet.
 
 The globe has an immediate animated SVG with an optional Three.js enhancement for visible desktop maps with fine pointers. Phones, reduced-motion preferences and slow connections keep the lightweight map. The 3D renderer caps pixel density and frame rate, suspends work offscreen or in background tabs, and disposes resources.
 
@@ -66,12 +66,8 @@ Mobile includes swipeable collection photography and category filters, touch-fri
 
 Verified at 320, 390, 430, 768, 1024 and 1440px widths plus 844×390 landscape: no horizontal page overflow. Production build, TypeScript, order unit tests and all twelve product routes pass. Asset byte comparisons measure delivered files, not a real-device Core Web Vitals score.
 
-## Signature Studio
+## Photography-led collection hero
 
-The opening is an interactive ingredient study built in Three.js: choose Brown Sugar, Matcha or Taro, then separate the ice, poured drink and tapioca layers. `components/SignatureStudio.tsx` renders the complete editorial layout, controls and exact BODUO product links; `components/SignatureScene.tsx` owns the procedural glass, liquid shader, instanced pearls and condensation, lighting and resource lifecycle. Signature content and product references live in `lib/signatures.ts`; the isolated visual system is in `components/signature-studio.css`.
+`CollectionHero.tsx` presents Brown Sugar, Matcha and Taro serving inspiration with original BODUO package links. It uses the existing illustrative beverage photography and a short crossfade, with reduced-motion support. The rejected procedural drink and layer controls have been removed. The hero does not load WebGL; the supporting Asia-to-Egypt globe remains deferred in the custom-sourcing section.
 
-The scene is illustrative serving inspiration, not a recipe, nutrition claim or representation of a finished product for sale. Supplier packaging remains the original artwork. Existing AI serving photography supplies the initial view and the complete phone, reduced-motion, slow-connection and WebGL-failure experience. Flavor selection and product links work in these modes; the layer control appears only when the 3D view is ready.
-
-Three.js loads only for a visible studio at 760px and above, with reduced motion disabled and without Save Data / slow 2G. Rendering is capped at 30fps and DPR 1.5, pauses offscreen and in background tabs, and stops when the user pauses motion once an interaction has settled. Resizing into the phone breakpoint removes the renderer. Geometries, materials, environment textures and the WebGL context are disposed on unmount. No external models or textures are fetched for the scene.
-
-The Asia-to-Egypt globe now accompanies the custom-sourcing section and remains deferred until that section approaches the viewport. Product cards retain the shared pointer-tilt treatment and exact packaging. The enquiry cart, WhatsApp handoff and downloadable original PDF are unchanged.
+Supplier packaging, the original menu PDF, product catalog and WhatsApp enquiry flow are preserved.

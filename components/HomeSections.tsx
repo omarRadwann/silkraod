@@ -6,13 +6,13 @@ import {
 } from "lucide-react";
 import { base, whatsapp } from "@/lib/catalog";
 import Brand from "./Brand";
-import SignatureStudio from "./SignatureStudio";
+import CollectionHero from "./CollectionHero";
 import GlobeExperience from "./GlobeExperience";
 import { ProductImage } from "./ResponsiveImage";
 export function Introduction() {
   return (
     <>
-      <SignatureStudio />
+      <CollectionHero />
       <section className="about section visual-about" id="about">
         <div className="about-photograph">
           <img
