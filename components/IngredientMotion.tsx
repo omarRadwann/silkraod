@@ -26,7 +26,7 @@ export default function IngredientMotion({ product, compact = false }: { product
             : "tiger-ritual";
   return (
     <span className={`ingredient-motion ${ready ? "is-ready" : ""}`} aria-hidden="true">
-      {compact ? <img src={`${base}/visuals/${scene}-preview.webp`} alt="" width="240" height="320" loading="eager" decoding="async" onLoad={() => setReady(true)} /> : <ServingImage
+      {compact ? <img src={`${base}/visuals/${scene}-preview-320.webp`} srcSet={`${base}/visuals/${scene}-preview-320.webp 320w, ${base}/visuals/${scene}-preview-640.webp 640w`} sizes="(max-width: 560px) 38vw, (max-width: 1000px) 20vw, 14vw" alt="" width="240" height="320" loading="eager" decoding="async" onLoad={() => setReady(true)} /> : <ServingImage
         name={scene}
         onLoad={() => setReady(true)}
         sizes="(max-width: 560px) 26vw, 12vw"

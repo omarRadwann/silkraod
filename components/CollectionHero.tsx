@@ -48,7 +48,7 @@ export default function CollectionHero() {
         <a className="hero-featured-pack" tabIndex={selected === index ? 0 : -1} href={`${base}/products/${item.products[0].id}/`}>
           <span className="hero-pack-floor" aria-hidden="true" />
           <ProductImage id={item.products[0].id} alt={`Explore ${item.products[0].name}`} sizes="(max-width: 760px) 90px, 140px" loading="eager" />
-          <span className="hero-pack-label">THE INGREDIENT<ArrowUpRight size={14} /></span>
+          <span className="hero-pack-label"><span><small>THE INGREDIENT</small>{item.products[0].name}</span><ArrowUpRight size={14} /></span>
         </a>
         </div>)}
 

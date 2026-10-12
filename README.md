@@ -36,7 +36,7 @@ For a custom domain later, remove `NEXT_PUBLIC_BASE_PATH: /silkraod` from the wo
 - Carton quantities with a persistent local browser order
 - WhatsApp quotation handoff; availability and delivery confirmed in conversation
 - Original catalog download and direct sourcing enquiry
-- Lazy loaded geographic Three.js globe with a directional Asia-to-Egypt animation, WebGL fallback and reduced motion support
+- Single SVG Asia-to-Egypt globe with subtle pointer translation and reduced-motion support; no renderer swap or continuous drawing loop.
 - Static rendered content, metadata and Open Graph information
 - Twelve individual product pages with structured product data
 - Sitemap and robots.txt generated from the deployment URL
@@ -44,7 +44,7 @@ For a custom domain later, remove `NEXT_PUBLIC_BASE_PATH: /silkraod` from the wo
 
 The product images and official logo use the original embedded artwork and transparency masks from the supplied catalog. Source images are encoded as WebP for delivery; labels and packaging are preserved. Inter is self-hosted through next/font/local with a system fallback. The globe uses Natural Earth public-domain land geometry through world-atlas; its connection is an illustration, not a promised shipping itinerary. The [port photograph](https://images.unsplash.com/photo-1494412519320-aa613dfb7738) is stock imagery from Unsplash and does not depict a claimed Silk Road facility. The site does not claim certification, exclusive distribution or delivery guarantees. Instagram is omitted until a verified account is supplied.
 
-The 2026 Asia menu is available as `public/silk-road-asia-collection-2026.pdf`. All twelve package images and the tiger-boba / powder serving visuals are extracted directly from that menu, with optimized WebP delivery. The logo retains the embedded original artwork and alpha mask. An animated SVG world-map preview is rendered in the initial HTML, with an optional Canvas 2D projected-globe enhancement; land coordinates ship in the deferred chunk without a separate fetch. Product hover and keyboard-focus treatments gently lift the original pack and reveal a photographic serving panel. Artificial pearls, powder streams and syrup drawings have been removed. Mobile shows the image panel without requiring hover; reduced motion is respected.
+The 2026 Asia menu is available as `public/silk-road-asia-collection-2026.pdf`. All twelve package images and the tiger-boba / powder serving visuals are extracted directly from that menu, with optimized WebP delivery. The logo retains the embedded original artwork and alpha mask. The globe is the same SVG from first paint onward. Original packages remain upright, with photographic serving panels and reduced-motion support.
 
 `public/beverage-editorial.webp` is an AI-generated serving illustration (built-in image generation). Prompt: Premium beverage editorial photograph, warm ivory studio, tiger brown-sugar milk tea with tapioca, iced matcha latte, strawberry fruit tea with popping boba, mango and strawberry, matcha in a black scoop; no people, logos, labels or text. Actual package artwork is not generated.
 
@@ -58,7 +58,7 @@ Prompt set: photorealistic luxury beverage and ingredient photography, vertical 
 
 `app/page.tsx` renders marketing and service sections on the server through `HomeSections`. The client storefront coordinates a focused catalog, header and persistent wholesale-order hook. The order dialog loads on demand; pure cart validation and WhatsApp formatting live in `lib/order.ts` and have Node unit tests. Shared styles are in `app/globals.css`; the collection hero has its own component stylesheet.
 
-The globe has an immediate animated SVG with an optional Canvas 2D projected-globe enhancement for visible desktop maps with fine pointers. Phones, reduced-motion preferences and slow connections keep the lightweight map. The projected globe caps pixel density at 1.25 and draws at most 24fps during interaction. It stops entirely after the interaction settles, offscreen or in background tabs.
+The globe uses one sharp SVG on every device. A small pointer translation uses at most one queued DOM update per frame; it has no idle animation loop, canvas or WebGL renderer.
 
 Product packages have native responsive WebP sources at 160, 320, 480 and original widths; serving photographs have 380, 640 and 1000px sources. Images retain their original proportions and transparency. Local fonts avoid an external font request. Hero photography is eager; collection imagery is lazy. The catalog PDF downloads only when requested.
 
@@ -68,7 +68,7 @@ Verified at 320, 390, 430, 768, 1024 and 1440px widths plus 844×390 landscape: 
 
 ## Combined globe and collection hero
 
-`CollectionHero.tsx` combines a lightweight interactive Asia-to-Egypt globe with a small serving photograph and matching original BODUO product links. Menu choices sit above the imagery, directly under the introduction. Layout checks include shorter desktop viewports so choices remain visible without scrolling. The globe starts with its SVG and upgrades on capable desktops; reduced-motion and mobile keep the fallback.
+`CollectionHero.tsx` pairs the globe with a fixed foreground panel containing serving photography and original product artwork. Isolated stacking contexts keep that panel in front during opacity crossfades. Menu controls remain near the introduction.
 
 `IngredientMotion.tsx` maps each of the seven popping-boba product IDs to a distinct flavor-specific illustrative serving image. Green apple, lychee, strawberry, passion fruit, mango, blueberry and peach each have independent generated photographs, stored as optimized WebP variants. These are serving inspiration, not supplier package photography. Original package artwork is unchanged. Hero imagery and flavor-card imagery share the same responsive image helper.
 
@@ -76,10 +76,10 @@ The original PDF, twelve products, custom sourcing and WhatsApp enquiry flow are
 
 ## Performance and package depth
 
-The Three.js runtime is no longer included in the production client bundles. The globe projects the same geographic point data directly onto Canvas 2D, with idle rendering suspended. Product-card serving imagery mounts only on pointer entry or keyboard focus. A resized responsive official logo and WebP port background reduce image transfer. Actual product packaging uses CSS perspective with local soft contact shadows; the hero presents the selected package alongside its serving inspiration. No synthetic package artwork or drink mesh is used.
+The Three.js runtime is not included in client bundles. Serving previews prepare within 400px of the viewport, and display only once loaded. Original supplier artwork remains upright. Responsive logos and a WebP port background reduce transfers.
 
 Measured across all emitted JS chunks: 1,191,012 to 647,729 bytes (45.6% less); gzip 333,273 to 201,649 bytes (39.5% less). These are build-file measurements, not a Lighthouse score or real-device Core Web Vitals measurement. Port background: 737,888 to 254,308 bytes. Mobile logo candidate: 13,154 bytes versus the former 55,336-byte source.
 
 ### Smooth interaction revision
 
-Catalog packages remain upright. Small 240 × 320 WebP serving previews are prepared within 400px of the viewport on hover-capable devices and revealed only after loading. The eleven previews total 112 KB. Hero scenes stay mounted and crossfade using opacity; package and photograph rotation is disabled. The interactive globe remains unchanged.
+Catalog packages remain upright. Serving previews have 320px and 640px responsive variants encoded at WebP quality 83 from original source files. Hero scenes remain mounted and crossfade using opacity. Package and photograph rotation is disabled.
