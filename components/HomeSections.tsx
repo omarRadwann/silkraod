@@ -151,7 +151,7 @@ export function ClosingSections() {
       <section id="sourcing" className="sourcing">
         <img
           className="port-image"
-          src={`${base}/port.jpg`}
+          src={`${base}/port-optimized.webp`}
           alt="Aerial view of a shipping container terminal"
           width="1600"
           height="1067"

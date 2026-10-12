@@ -6,11 +6,13 @@ import { base } from "@/lib/catalog";
 import { signatures } from "@/lib/signatures";
 import { ProductImage, ServingImage } from "./ResponsiveImage";
 import GlobeExperience from "./GlobeExperience";
+import { usePointerTilt } from "@/hooks/usePointerTilt";
 import "./collection-hero.css";
 
 export default function CollectionHero() {
   const [selected, setSelected] = useState(0);
   const signature = signatures[selected];
+  const stage = usePointerTilt<HTMLDivElement>();
 
   return (
     <section className="collection-hero" aria-labelledby="collection-hero-title">
@@ -36,7 +38,7 @@ export default function CollectionHero() {
           </div>
         </div>
       </div>
-      <div className="collection-hero-editorial">
+      <div className="collection-hero-editorial" {...stage}>
         <span className="collection-hero-route-caption">ASIAN ORIGINS. EGYPTIAN POSSIBILITIES.</span>
         <div className="collection-hero-globe"><GlobeExperience compact /></div>
         <div className="collection-hero-photo" key={signature.photo}>
@@ -44,6 +46,11 @@ export default function CollectionHero() {
 
           <div className="collection-hero-caption"><span>SERVING INSPIRATION</span><h2>{signature.name}</h2></div>
         </div>
+        <a className="hero-featured-pack" href={`${base}/products/${signature.products[0].id}/`}>
+          <span className="hero-pack-floor" aria-hidden="true" />
+          <ProductImage id={signature.products[0].id} alt={`Explore ${signature.products[0].name}`} sizes="(max-width: 760px) 90px, 140px" loading="eager" />
+          <span className="hero-pack-label">THE INGREDIENT<ArrowUpRight size={14} /></span>
+        </a>
 
       </div>
       <div className="collection-hero-footer"><span>Original BODUO ingredients.<i />Possibilities beyond the catalog.</span><a href={`${base}/silk-road-asia-collection-2026.pdf`} target="_blank" rel="noreferrer">2026 wholesale catalog<Download size={16} /></a></div>

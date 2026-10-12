@@ -1,5 +1,5 @@
 "use client";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { ArrowUpRight, Plus, Check } from "lucide-react";
 import { base, type Product } from "@/lib/catalog";
 import IngredientMotion from "./IngredientMotion";
@@ -18,6 +18,7 @@ export default memo(function ProductCard({
   onAdd,
 }: Props) {
   const tilt = usePointerTilt<HTMLAnchorElement>();
+  const [preview, setPreview] = useState(false);
   return (
     <article
       className="product-card reveal"
@@ -27,6 +28,8 @@ export default memo(function ProductCard({
     >
       <a
         {...tilt}
+        onPointerEnter={(event) => { if (event.pointerType !== "touch") setPreview(true); }}
+        onFocus={() => setPreview(true)}
         className="product-visual"
         href={`${base}/products/${p.id}/`}
         aria-label={`View BODUO ${p.name} details`}
@@ -38,7 +41,8 @@ export default memo(function ProductCard({
           <span className="product-type">{p.category}</span>
         </div>
         <span className="product-halo" aria-hidden="true" />
-        <IngredientMotion product={p} />
+        <span className="package-contact-shadow" aria-hidden="true" />
+        {preview && <IngredientMotion product={p} />}
         <ProductImage
           id={p.id}
           alt={`BODUO ${p.name} ${p.weight} packaging`}

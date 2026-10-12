@@ -3,7 +3,9 @@ export default function Brand() {
   return (
     <span className="brand">
       <img
-        src={`${base}/silk-road-transparent.webp`}
+        src={`${base}/silk-road-transparent-160.webp`}
+        srcSet={`${base}/silk-road-transparent-160.webp 160w, ${base}/silk-road-transparent-288.webp 288w`}
+        sizes="(max-width: 600px) 70px, 100px"
         alt="Silk Road Import & Export official logo"
         width="288"
         height="310"

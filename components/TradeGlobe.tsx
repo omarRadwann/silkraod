@@ -1,303 +1,105 @@
 "use client";
 import { useEffect, useRef } from "react";
-import * as THREE from "three";
 import coords from "@/lib/globe-points.json";
+
+type Point = [number, number, number];
+const point = (lat: number, lon: number): Point => {
+  const a = lat * Math.PI / 180, b = lon * Math.PI / 180;
+  return [Math.cos(a) * Math.sin(b), Math.sin(a), Math.cos(a) * Math.cos(b)];
+};
+const land: Point[] = [];
+for (let i = 0; i < coords.length; i += 2) land.push(point(coords[i], coords[i + 1]));
+const origin = point(31.23, 121.47), destination = point(30.04, 31.24);
+const route: Point[] = Array.from({ length: 65 }, (_, i) => {
+  const t = i / 64, p = origin.map((v, j) => v + (destination[j] - v) * t) as Point;
+  const length = Math.hypot(...p), radius = 1.025 + Math.sin(t * Math.PI) * .25;
+  return p.map(v => v / length * radius) as Point;
+});
+const grid: Point[][] = [];
+for (let lat = -60; lat <= 60; lat += 30) grid.push(Array.from({ length: 73 }, (_, i) => point(lat, i * 5)));
+for (let lon = 0; lon < 360; lon += 45) grid.push(Array.from({ length: 37 }, (_, i) => point(i * 5 - 90, lon)));
+
+/** Small projected globe. Draws only during interaction, resize or a brief opening transition. */
 export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
-  const host = useRef<HTMLDivElement>(null),
-    egypt = useRef<HTMLSpanElement>(null),
-    asia = useRef<HTMLSpanElement>(null);
+  const host = useRef<HTMLDivElement>(null), egypt = useRef<HTMLSpanElement>(null), asia = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = host.current;
     if (!el) return;
-    let disposed = false,
-      frame = 0,
-      active = true;
-    let renderer: THREE.WebGLRenderer;
-    try {
-      renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true,
-        powerPreference: "low-power",
-      });
-    } catch {
-      return;
-    }
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
-    el.appendChild(renderer.domElement);
-    const scene = new THREE.Scene(),
-      camera = new THREE.PerspectiveCamera(39, 1, 0.1, 100);
-    camera.position.set(0, 0.25, 6.8);
-    const group = new THREE.Group();
-    group.rotation.y = -1.23;
-    group.rotation.z = -0.09;
-    scene.add(group);
-    const owned: THREE.BufferGeometry[] = [],
-      materials: THREE.Material[] = [];
-    const own = <T extends THREE.BufferGeometry>(g: T) => {
-      owned.push(g);
-      return g;
-    };
-    const mat = <T extends THREE.Material>(m: T) => {
-      materials.push(m);
-      return m;
-    };
-    const point = (lat: number, lon: number, r = 2) =>
-      new THREE.Vector3(
-        Math.cos((lat * Math.PI) / 180) * Math.sin((lon * Math.PI) / 180) * r,
-        Math.sin((lat * Math.PI) / 180) * r,
-        Math.cos((lat * Math.PI) / 180) * Math.cos((lon * Math.PI) / 180) * r,
-      );
-    group.add(
-      new THREE.Mesh(
-        own(new THREE.SphereGeometry(1.995, 64, 64)),
-        mat(new THREE.MeshBasicMaterial({ color: 0x101e30 })),
-      ),
-    );
-    const glow = mat(
-      new THREE.ShaderMaterial({
-        uniforms: {},
-        vertexShader:
-          "varying vec3 vNormal; varying vec3 vPosition; void main(){vNormal=normalize(normalMatrix*normal);vec4 p=modelViewMatrix*vec4(position,1.0);vPosition=p.xyz;gl_Position=projectionMatrix*p;}",
-        fragmentShader:
-          "varying vec3 vNormal;varying vec3 vPosition;void main(){float rim=pow(1.0-abs(dot(normalize(vNormal),normalize(-vPosition))),4.0);gl_FragColor=vec4(0.67,0.76,0.9,rim*0.13);}",
-        transparent: true,
-        depthWrite: false,
-        side: THREE.FrontSide,
-      }),
-    );
-    group.add(
-      new THREE.Mesh(own(new THREE.SphereGeometry(2.015, 64, 64)), glow),
-    );
-    const gridmat = mat(
-      new THREE.LineBasicMaterial({
-        color: 0x355274,
-        transparent: true,
-        opacity: 0.38,
-      }),
-    );
-    for (let lat = -60; lat <= 60; lat += 30) {
-      const pts = Array.from({ length: 181 }, (_, i) =>
-        point(lat, i * 2, 2.007),
-      );
-      group.add(
-        new THREE.Line(
-          own(new THREE.BufferGeometry().setFromPoints(pts)),
-          gridmat,
-        ),
-      );
-    }
-    for (let lon = 0; lon < 360; lon += 30) {
-      const pts = Array.from({ length: 91 }, (_, i) =>
-        point(i * 2 - 90, lon, 2.007),
-      );
-      group.add(
-        new THREE.Line(
-          own(new THREE.BufferGeometry().setFromPoints(pts)),
-          gridmat,
-        ),
-      );
-    }
-    const positions: number[] = [];
-    for (let i = 0; i < coords.length; i += 2) {
-      const p = point(coords[i], coords[i + 1], 2.021);
-      positions.push(p.x, p.y, p.z);
-    }
-    const land = own(new THREE.BufferGeometry());
-    land.setAttribute(
-      "position",
-      new THREE.Float32BufferAttribute(positions, 3),
-    );
-    group.add(
-      new THREE.Points(
-        land,
-        mat(
-          new THREE.PointsMaterial({
-            color: 0x9caab9,
-            size: 0.027,
-            sizeAttenuation: true,
-            transparent: true,
-            opacity: 0.85,
-          }),
-        ),
-      ),
-    );
-    const cairo = point(30.04, 31.24, 2.04),
-      shanghai = point(31.23, 121.47, 2.04);
-    const arcPoints = Array.from({ length: 101 }, (_, i) => {
-      const t = i / 100;
-      return shanghai
-        .clone()
-        .lerp(cairo, t)
-        .normalize()
-        .multiplyScalar(2.04 + Math.sin(t * Math.PI) * 0.54);
-    });
-    const curve = new THREE.CatmullRomCurve3(arcPoints);
-    group.add(
-      new THREE.Mesh(
-        own(new THREE.TubeGeometry(curve, 100, 0.009, 6, false)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xd99a6c })),
-      ),
-    );
-    const moving = Array.from({ length: 3 }, () => {
-      const mesh = new THREE.Mesh(
-        own(new THREE.SphereGeometry(0.025, 10, 10)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xf5efdc })),
-      );
-      group.add(mesh);
-      return mesh;
-    });
-    [cairo, shanghai].forEach((p) => {
-      const marker = new THREE.Mesh(
-        own(new THREE.SphereGeometry(0.043, 16, 16)),
-        mat(new THREE.MeshBasicMaterial({ color: 0xd99a6c })),
-      );
-      marker.position.copy(p);
-      group.add(marker);
-      const ring = new THREE.Mesh(
-        own(new THREE.RingGeometry(0.065, 0.076, 32)),
-        mat(
-          new THREE.MeshBasicMaterial({
-            color: 0xd99a6c,
-            transparent: true,
-            opacity: 0.7,
-            side: THREE.DoubleSide,
-          }),
-        ),
-      );
-      ring.position.copy(p);
-      ring.lookAt(p.clone().multiplyScalar(2));
-      group.add(ring);
-    });
+    const canvas = document.createElement("canvas"), ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+    el.prepend(canvas);
+    let width = 1, height = 1, frame = 0, last = 0, active = true, disposed = false;
+    let x = 0, y = 0, targetX = 0, targetY = 0, frames = 0;
+    let animateUntil = performance.now() + 1500;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let pointerX = 0,
-      pointerY = 0;
-    // Follow the cursor across the opening, with rotation constrained to keep the route legible.
     const interaction = el.closest(".collection-hero, .gateway") || el;
-    const move = (event: Event) => {
-      const e = event as PointerEvent;
-      if (e.pointerType === "touch" || reduced) return;
-      const r = interaction.getBoundingClientRect();
-      pointerX = THREE.MathUtils.clamp(
-        ((e.clientX - r.left) / r.width - 0.5) * 2,
-        -1,
-        1,
-      );
-      pointerY = THREE.MathUtils.clamp(
-        ((e.clientY - r.top) / r.height - 0.5) * 2,
-        -1,
-        1,
-      );
-    };
-    const leave = () => {
-      pointerX = 0;
-      pointerY = 0;
-    };
-    interaction.addEventListener("pointermove", move, { passive: true });
-    interaction.addEventListener("pointerleave", leave);
-    let width = 1,
-      height = 1,
-      lastRender = -Infinity;
-    const projected = new THREE.Vector3();
-    const label = (node: HTMLSpanElement | null, p: THREE.Vector3) => {
-      if (!node) return;
-      projected.copy(p).applyMatrix4(group.matrixWorld).project(camera);
-      node.style.transform = `translate(${((projected.x + 1) * width) / 2}px,${((-projected.y + 1) * height) / 2}px)`;
-    };
-    const render = (time: number) => {
-      if (!reduced) {
-        group.rotation.y +=
-          (-1.23 +
-            pointerX * 0.4 +
-            Math.sin(time * 0.00012) * 0.045 -
-            group.rotation.y) *
-          0.07;
-        group.rotation.x += (-pointerY * 0.23 - group.rotation.x) * 0.09;
-        moving.forEach((p, i) =>
-          p.position.copy(curve.getPoint((time * 0.000045 + i / 3) % 1)),
-        );
-      } else moving.forEach((p, i) => p.position.copy(curve.getPoint(i / 3)));
-      renderer.render(scene, camera);
-      el.classList.add("globe-ready");
-      label(egypt.current, cairo);
-      label(asia.current, shanghai);
+    let bounds = interaction.getBoundingClientRect();
+    const draw = (time: number) => {
+      const cy = Math.cos(-1.23 + x), sy = Math.sin(-1.23 + x), cx = Math.cos(y), sx = Math.sin(y);
+      const cz = Math.cos(-.09), sz = Math.sin(-.09), radius = Math.min(width, height) * .425;
+      const centerX = width * .5, centerY = height * .55;
+      const project = (p: Point): Point => {
+        const rx = p[0] * cy + p[2] * sy, rz = -p[0] * sy + p[2] * cy;
+        const ry = p[1] * cx - rz * sx, depth = p[1] * sx + rz * cx;
+        return [centerX + (rx * cz - ry * sz) * radius, centerY - (rx * sz + ry * cz) * radius, depth];
+      };
+      ctx.clearRect(0, 0, width, height);
+      const shade = ctx.createRadialGradient(centerX - radius * .35, centerY - radius * .4, 0, centerX, centerY, radius);
+      shade.addColorStop(0, "#172c40"); shade.addColorStop(.7, "#102134"); shade.addColorStop(1, "#0c1a2b");
+      ctx.fillStyle = shade; ctx.strokeStyle = "#45617c55"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(centerX, centerY, radius, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = "#38516b66"; ctx.lineWidth = .65;
+      for (const line of grid) {
+        ctx.beginPath(); let started = false;
+        for (const p of line) { const q = project(p); if (q[2] > 0) { if (started) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]); started = true; } else started = false; }
+        ctx.stroke();
+      }
+      // Group dots by depth to avoid thousands of fill-style changes.
+      for (let band = 0; band < 4; band++) {
+        ctx.fillStyle = ["#6e849548", "#8096a96e", "#a0b1be8c", "#bec9d3ab"][band]; ctx.beginPath();
+        for (const p of land) { const q = project(p); if (q[2] <= 0 || Math.min(3, Math.floor(q[2] * 4)) !== band) continue; ctx.moveTo(q[0] + .75, q[1]); ctx.arc(q[0], q[1], .65 + band * .1, 0, Math.PI * 2); }
+        ctx.fill();
+      }
+      ctx.strokeStyle = "#dca777"; ctx.lineWidth = 1.8; ctx.beginPath();
+      route.forEach((p, i) => { const q = project(p); if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]); }); ctx.stroke();
+      for (let i = 0; i < 3; i++) {
+        const index = Math.floor(((time * .00009 + i / 3) % 1) * 64), q = project(route[index]);
+        ctx.fillStyle = "#f6e7cd"; ctx.beginPath(); ctx.arc(q[0], q[1], 2.7, 0, Math.PI * 2); ctx.fill();
+      }
+      for (const [p, label] of [[destination, egypt.current], [origin, asia.current]] as const) {
+        const q = project(p); ctx.fillStyle = "#d9a273"; ctx.beginPath(); ctx.arc(q[0], q[1], 4.4, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#d9a27388"; ctx.beginPath(); ctx.arc(q[0], q[1], 8, 0, Math.PI * 2); ctx.stroke();
+        if (label) { label.style.left = `${q[0]}px`; label.style.top = `${q[1] + 18}px`; }
+      }
+      el.classList.add("globe-ready"); el.dataset.frames = String(++frames);
     };
     const tick = (time: number) => {
       frame = 0;
       if (disposed || !active || document.hidden) return;
-      // Thirty rendered frames per second are enough for this calm route animation.
-      if (time - lastRender >= 1000 / 30) {
-        render(time);
-        lastRender = time;
-      }
-      if (!reduced) frame = requestAnimationFrame(tick);
+      if (time - last < 1000 / 24) { frame = requestAnimationFrame(tick); return; }
+      last = time; x += (targetX - x) * .2; y += (targetY - y) * .2;
+      draw(time);
+      if (!reduced && (time < animateUntil || Math.abs(targetX - x) + Math.abs(targetY - y) > .001)) frame = requestAnimationFrame(tick);
     };
-    const schedule = () => {
-      if (!frame && !disposed && active && !document.hidden)
-        frame = requestAnimationFrame(tick);
+    const wake = () => { if (!frame && active && !disposed && !document.hidden) frame = requestAnimationFrame(tick); };
+    const move = (event: Event) => {
+      const e = event as PointerEvent; if (e.pointerType === "touch" || reduced) return;
+      targetX = Math.max(-1, Math.min(1, ((e.clientX - bounds.left) / bounds.width - .5) * 2)) * .26;
+      targetY = Math.max(-1, Math.min(1, ((e.clientY - bounds.top) / bounds.height - .5) * 2)) * .12;
+      animateUntil = performance.now() + 500; wake();
     };
-    const resize = () => {
-      width = Math.max(1, el.clientWidth);
-      height = Math.max(1, el.clientHeight);
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
-      renderer.setSize(width, height);
-      camera.aspect = width / height;
-      camera.position.z = Math.max(6.8, 6.55 / camera.aspect);
-      camera.updateProjectionMatrix();
-      lastRender = -Infinity;
-      schedule();
-    };
-    const visibility = new IntersectionObserver(([entry]) => {
-      active = entry.isIntersecting;
-      if (!active) {
-        cancelAnimationFrame(frame);
-        frame = 0;
-      } else schedule();
-    });
-    const onVisibility = () => {
-      if (document.hidden) {
-        cancelAnimationFrame(frame);
-        frame = 0;
-      } else schedule();
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-    const ro = new ResizeObserver(resize);
-    ro.observe(el);
-    visibility.observe(el);
-    resize();
-    return () => {
-      disposed = true;
-
-      cancelAnimationFrame(frame);
-      ro.disconnect();
-      visibility.disconnect();
-      document.removeEventListener("visibilitychange", onVisibility);
-      interaction.removeEventListener("pointermove", move);
-      interaction.removeEventListener("pointerleave", leave);
-      owned.forEach((g) => g.dispose());
-      materials.forEach((m) => m.dispose());
-      renderer.dispose();
-      renderer.domElement.remove();
-      el.classList.remove("globe-ready");
-    };
+    const enter = () => { bounds = interaction.getBoundingClientRect(); };
+    const leave = () => { targetX = 0; targetY = 0; animateUntil = 0; wake(); };
+    const resize = () => { width = el.clientWidth; height = el.clientHeight; const dpr = Math.min(devicePixelRatio, 1.25); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); canvas.style.width = `${width}px`; canvas.style.height = `${height}px`; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); bounds = interaction.getBoundingClientRect(); wake(); };
+    const visibility = new IntersectionObserver(([entry]) => { active = entry.isIntersecting; if (active) wake(); else { cancelAnimationFrame(frame); frame = 0; } });
+    const onVisibility = () => { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; } else wake(); };
+    const observer = new ResizeObserver(resize); observer.observe(el); visibility.observe(el);
+    interaction.addEventListener("pointerenter", enter); interaction.addEventListener("pointermove", move, { passive: true }); interaction.addEventListener("pointerleave", leave);
+    document.addEventListener("visibilitychange", onVisibility); resize();
+    return () => { disposed = true; cancelAnimationFrame(frame); observer.disconnect(); visibility.disconnect(); document.removeEventListener("visibilitychange", onVisibility); interaction.removeEventListener("pointerenter", enter); interaction.removeEventListener("pointermove", move); interaction.removeEventListener("pointerleave", leave); canvas.remove(); el.classList.remove("globe-ready"); };
   }, []);
-  return (
-    <div
-      className="trade-globe"
-      ref={host}
-      role="img"
-      aria-label="An interactive globe illustrating imports from Asia to Egypt"
-    >
-      <div className="globe-fallback" />
-      <span className="globe-pin egypt-pin" ref={egypt}>
-        <i />
-        <b>{compact ? "EGYPT" : "EGYPT · DESTINATION"}</b>
-        <small>FOR YOUR BUSINESS IN EGYPT</small>
-      </span>
-      <span className="globe-pin asia-pin" ref={asia}>
-        <i />
-        <b>{compact ? "ASIA" : "ASIA · ORIGIN"}</b>
-        <small>ASIAN BEVERAGE INGREDIENTS</small>
-      </span>
-    </div>
-  );
+  return <div className="trade-globe" ref={host} role="img" aria-label="Interactive globe showing imports from Asia to Egypt">
+    <span className="globe-pin egypt-pin" ref={egypt}><b>{compact ? "EGYPT" : "EGYPT · DESTINATION"}</b></span>
+    <span className="globe-pin asia-pin" ref={asia}><b>{compact ? "ASIA" : "ASIA · ORIGIN"}</b></span>
+  </div>;
 }
