@@ -5814,3 +5814,9 @@ html {
 .product-card .ingredient-motion>span{transition:opacity .22s ease}
 .ingredient-motion:not(.is-ready)>img,.ingredient-motion:not(.is-ready)>span{opacity:0!important}
 @media(prefers-reduced-motion:reduce),(hover:none){.product-card[data-category]:is(:hover,:focus-within) .product-visual>img{transform:none!important;transition:none}}
+
+/* Crisp, immediate previews and restrained final catalog detailing. */
+.product-card .ingredient-motion>img,.product-card .ingredient-motion>span{transition:opacity .12s ease}
+.product-card{border-color:#dce3e9;box-shadow:0 3px 14px #10223804}
+.product-card:focus-within{border-color:#b49373}
+.product-type{border-radius:3px}

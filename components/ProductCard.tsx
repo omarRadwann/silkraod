@@ -20,11 +20,12 @@ export default memo(function ProductCard({
   const [preview, setPreview] = useState(false);
   useEffect(() => {
     if (!matchMedia("(hover: hover)").matches || !card.current) return;
+    const timer = setTimeout(() => setPreview(true), 1000);
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setPreview(true); observer.disconnect(); }
-    }, { rootMargin: "400px" });
+    }, { rootMargin: "1800px" });
     observer.observe(card.current);
-    return () => observer.disconnect();
+    return () => { clearTimeout(timer); observer.disconnect(); };
   }, []);
   return (
     <article

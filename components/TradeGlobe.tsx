@@ -19,7 +19,7 @@ const grid: Point[][] = [];
 for (let lat = -60; lat <= 60; lat += 30) grid.push(Array.from({ length: 73 }, (_, i) => point(lat, i * 5)));
 for (let lon = 0; lon < 360; lon += 45) grid.push(Array.from({ length: 37 }, (_, i) => point(i * 5 - 90, lon)));
 
-/** Small projected globe. Draws only during interaction, resize or a brief opening transition. */
+/** Lightweight projected globe. Bounded rotation keeps the trade route in view; suspends offscreen. */
 export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
   const host = useRef<HTMLDivElement>(null), egypt = useRef<HTMLSpanElement>(null), asia = useRef<HTMLSpanElement>(null);
   useEffect(() => {
@@ -30,12 +30,12 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
     el.prepend(canvas);
     let width = 1, height = 1, frame = 0, last = 0, active = true, disposed = false;
     let x = 0, y = 0, targetX = 0, targetY = 0, frames = 0;
-    let animateUntil = performance.now() + 1500;
+    let spin = 0, hovering = false;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const interaction = el.closest(".collection-hero, .gateway") || el;
+    const interaction = el;
     let bounds = interaction.getBoundingClientRect();
     const draw = (time: number) => {
-      const cy = Math.cos(-1.23 + x), sy = Math.sin(-1.23 + x), cx = Math.cos(y), sx = Math.sin(y);
+      const cy = Math.cos(-1.23 + x + Math.sin(spin) * .22), sy = Math.sin(-1.23 + x + Math.sin(spin) * .22), cx = Math.cos(y), sx = Math.sin(y);
       const cz = Math.cos(-.09), sz = Math.sin(-.09), radius = Math.min(width, height) * .425;
       const centerX = width * .5, centerY = height * .55;
       const project = (p: Point): Point => {
@@ -54,20 +54,23 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
         for (const p of line) { const q = project(p); if (q[2] > 0) { if (started) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]); started = true; } else started = false; }
         ctx.stroke();
       }
+      const projectedLand = land.map(project);
       // Group dots by depth to avoid thousands of fill-style changes.
       for (let band = 0; band < 4; band++) {
         ctx.fillStyle = ["#6e849548", "#8096a96e", "#a0b1be8c", "#bec9d3ab"][band]; ctx.beginPath();
-        for (const p of land) { const q = project(p); if (q[2] <= 0 || Math.min(3, Math.floor(q[2] * 4)) !== band) continue; ctx.moveTo(q[0] + .75, q[1]); ctx.arc(q[0], q[1], .65 + band * .1, 0, Math.PI * 2); }
+        for (const q of projectedLand) { if (q[2] <= 0 || Math.min(3, Math.floor(q[2] * 4)) !== band) continue; ctx.moveTo(q[0] + .75, q[1]); ctx.arc(q[0], q[1], .65 + band * .1, 0, Math.PI * 2); }
         ctx.fill();
       }
       ctx.strokeStyle = "#dca777"; ctx.lineWidth = 1.8; ctx.beginPath();
-      route.forEach((p, i) => { const q = project(p); if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]); }); ctx.stroke();
+      let routeStarted = false;
+      route.forEach(p => { const q = project(p); if (q[2] < 0) { routeStarted = false; return; } if (!routeStarted) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]); routeStarted = true; }); ctx.stroke();
       for (let i = 0; i < 3; i++) {
         const index = Math.floor(((time * .00009 + i / 3) % 1) * 64), q = project(route[index]);
+        if (q[2] < 0) continue;
         ctx.fillStyle = "#f6e7cd"; ctx.beginPath(); ctx.arc(q[0], q[1], 2.7, 0, Math.PI * 2); ctx.fill();
       }
       for (const [p, label] of [[destination, egypt.current], [origin, asia.current]] as const) {
-        const q = project(p); ctx.fillStyle = "#d9a273"; ctx.beginPath(); ctx.arc(q[0], q[1], 4.4, 0, Math.PI * 2); ctx.fill();
+        const q = project(p); if (label) label.style.opacity = q[2] > .08 ? "1" : "0"; if (q[2] < 0) continue; ctx.fillStyle = "#d9a273"; ctx.beginPath(); ctx.arc(q[0], q[1], 4.4, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#d9a27388"; ctx.beginPath(); ctx.arc(q[0], q[1], 8, 0, Math.PI * 2); ctx.stroke();
         if (label) { label.style.left = `${q[0]}px`; label.style.top = `${q[1] + 18}px`; }
       }
@@ -76,21 +79,22 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
     const tick = (time: number) => {
       frame = 0;
       if (disposed || !active || document.hidden) return;
-      if (time - last < 1000 / 24) { frame = requestAnimationFrame(tick); return; }
+      if (time - last < 1000 / 30) { frame = requestAnimationFrame(tick); return; }
+      if (!reduced && !hovering && last) spin += Math.min(time - last, 100) * .000045;
       last = time; x += (targetX - x) * .2; y += (targetY - y) * .2;
       draw(time);
-      if (!reduced && (time < animateUntil || Math.abs(targetX - x) + Math.abs(targetY - y) > .001)) frame = requestAnimationFrame(tick);
+      if (!reduced) frame = requestAnimationFrame(tick);
     };
     const wake = () => { if (!frame && active && !disposed && !document.hidden) frame = requestAnimationFrame(tick); };
     const move = (event: Event) => {
       const e = event as PointerEvent; if (e.pointerType === "touch" || reduced) return;
       targetX = Math.max(-1, Math.min(1, ((e.clientX - bounds.left) / bounds.width - .5) * 2)) * .26;
       targetY = Math.max(-1, Math.min(1, ((e.clientY - bounds.top) / bounds.height - .5) * 2)) * .12;
-      animateUntil = performance.now() + 500; wake();
+      wake();
     };
-    const enter = () => { bounds = interaction.getBoundingClientRect(); };
-    const leave = () => { targetX = 0; targetY = 0; animateUntil = 0; wake(); };
-    const resize = () => { width = el.clientWidth; height = el.clientHeight; const dpr = Math.min(devicePixelRatio, 1.25); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); canvas.style.width = `${width}px`; canvas.style.height = `${height}px`; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); bounds = interaction.getBoundingClientRect(); wake(); };
+    const enter = () => { hovering = true; bounds = interaction.getBoundingClientRect(); };
+    const leave = () => { hovering = false; targetX = 0; targetY = 0; wake(); };
+    const resize = () => { width = el.clientWidth; height = el.clientHeight; const dpr = Math.min(devicePixelRatio, 1.5); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); canvas.style.width = `${width}px`; canvas.style.height = `${height}px`; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); bounds = interaction.getBoundingClientRect(); wake(); };
     const visibility = new IntersectionObserver(([entry]) => { active = entry.isIntersecting; if (active) wake(); else { cancelAnimationFrame(frame); frame = 0; } });
     const onVisibility = () => { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; } else wake(); };
     const observer = new ResizeObserver(resize); observer.observe(el); visibility.observe(el);
