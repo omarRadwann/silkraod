@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ProductImage } from "@/components/ResponsiveImage";
 import Brand from "@/components/Brand";
 import IngredientMotion from "@/components/IngredientMotion";
 import { notFound } from "next/navigation";
@@ -72,8 +73,11 @@ export default async function ProductPage({
           <span className="detail-edition">BODUO / COLLECTION 2026</span>
           <span className="detail-orbit" aria-hidden="true" />
           <IngredientMotion product={p} />
-          <img
-            src={`${base}/products/${p.id}-2026.webp`}
+          <ProductImage
+            id={p.id}
+            sizes="(max-width: 800px) 65vw, 30vw"
+            loading="eager"
+            fetchPriority="high"
             alt={`BODUO ${p.name} ${p.weight} pack`}
             width="500"
             height="600"
@@ -155,8 +159,8 @@ export default async function ProductPage({
                 href={`${base}/products/${item.id}/`}
               >
                 <div style={{ background: item.color }}>
-                  <img
-                    src={`${base}/products/${item.id}-2026.webp`}
+                  <ProductImage
+                    id={item.id}
                     alt={`BODUO ${item.name}`}
                     loading="lazy"
                     width="300"

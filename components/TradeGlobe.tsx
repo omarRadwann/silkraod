@@ -177,54 +177,83 @@ export default function TradeGlobe() {
       pointerY = (e.clientY - r.top) / r.height - 0.5;
     };
     el.addEventListener("pointermove", move);
-    const resize = () => {
-      renderer.setSize(el.clientWidth, el.clientHeight);
-      camera.aspect = el.clientWidth / el.clientHeight;
-      camera.position.z = Math.max(6.8, 6.55 / camera.aspect);
-      camera.updateProjectionMatrix();
-    };
-    resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(el);
-    const visibility = new IntersectionObserver(
-      ([entry]) => (active = entry.isIntersecting),
-    );
-    visibility.observe(el);
+    let width = 1,
+      height = 1,
+      lastRender = -Infinity;
+    const projected = new THREE.Vector3();
     const label = (node: HTMLSpanElement | null, p: THREE.Vector3) => {
       if (!node) return;
-      const world = group.localToWorld(p.clone());
-      const proj = world.project(camera);
-      node.style.opacity = "1";
-      node.style.transform = `translate(${((proj.x + 1) * el.clientWidth) / 2}px,${((-proj.y + 1) * el.clientHeight) / 2}px)`;
+      projected.copy(p).applyMatrix4(group.matrixWorld).project(camera);
+      node.style.transform = `translate(${((projected.x + 1) * width) / 2}px,${((-projected.y + 1) * height) / 2}px)`;
+    };
+    const render = (time: number) => {
+      if (!reduced) {
+        group.rotation.y +=
+          (-1.23 +
+            pointerX * 0.17 +
+            Math.sin(time * 0.00012) * 0.045 -
+            group.rotation.y) *
+          0.07;
+        group.rotation.x += (-pointerY * 0.09 - group.rotation.x) * 0.07;
+        moving.forEach((p, i) =>
+          p.position.copy(curve.getPoint((time * 0.000045 + i / 3) % 1)),
+        );
+      } else moving.forEach((p, i) => p.position.copy(curve.getPoint(i / 3)));
+      renderer.render(scene, camera);
+      el.classList.add("globe-ready");
+      label(egypt.current, cairo);
+      label(asia.current, shanghai);
     };
     const tick = (time: number) => {
-      if (active) {
-        if (!reduced) {
-          group.rotation.y +=
-            (-1.23 +
-              pointerX * 0.17 +
-              Math.sin(time * 0.00012) * 0.045 -
-              group.rotation.y) *
-            0.035;
-          group.rotation.x += (-pointerY * 0.09 - group.rotation.x) * 0.035;
-          moving.forEach((p, i) =>
-            p.position.copy(curve.getPoint((time * 0.000045 + i / 3) % 1)),
-          );
-        } else moving.forEach((p, i) => p.position.copy(curve.getPoint(i / 3)));
-        renderer.render(scene, camera);
-        el.classList.add("globe-ready");
-        label(egypt.current, cairo);
-        label(asia.current, shanghai);
+      frame = 0;
+      if (disposed || !active || document.hidden) return;
+      // Thirty rendered frames per second are enough for this calm route animation.
+      if (time - lastRender >= 1000 / 30) {
+        render(time);
+        lastRender = time;
       }
-      frame = requestAnimationFrame(tick);
+      if (!reduced) frame = requestAnimationFrame(tick);
     };
-    frame = requestAnimationFrame(tick);
+    const schedule = () => {
+      if (!frame && !disposed && active && !document.hidden)
+        frame = requestAnimationFrame(tick);
+    };
+    const resize = () => {
+      width = Math.max(1, el.clientWidth);
+      height = Math.max(1, el.clientHeight);
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.position.z = Math.max(6.8, 6.55 / camera.aspect);
+      camera.updateProjectionMatrix();
+      lastRender = -Infinity;
+      schedule();
+    };
+    const visibility = new IntersectionObserver(([entry]) => {
+      active = entry.isIntersecting;
+      if (!active) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else schedule();
+    });
+    const onVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else schedule();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    const ro = new ResizeObserver(resize);
+    ro.observe(el);
+    visibility.observe(el);
+    resize();
     return () => {
       disposed = true;
 
       cancelAnimationFrame(frame);
       ro.disconnect();
       visibility.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       el.removeEventListener("pointermove", move);
       owned.forEach((g) => g.dispose());
       materials.forEach((m) => m.dispose());

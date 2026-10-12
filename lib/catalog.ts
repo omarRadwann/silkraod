@@ -1,9 +1,16 @@
+export const categories = [
+  "All ingredients",
+  "Popping boba",
+  "Core ingredients",
+  "Powders",
+] as const;
+export type Category = (typeof categories)[number];
 export const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export type Product = {
   id: string;
   name: string;
   ar: string;
-  category: string;
+  category: Exclude<Category, "All ingredients">;
   weight: string;
   carton: number;
   color: string;

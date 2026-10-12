@@ -1,5 +1,6 @@
-import { base, type Product } from "@/lib/catalog";
+import { type Product } from "@/lib/catalog";
 /** Serving photography remains separate from the original supplier pack. */
+import { ServingImage } from "./ResponsiveImage";
 export default function IngredientMotion({ product }: { product: Product }) {
   const scene =
     product.category === "Popping boba"
@@ -13,8 +14,9 @@ export default function IngredientMotion({ product }: { product: Product }) {
             : "tiger-ritual";
   return (
     <span className="ingredient-motion" aria-hidden="true">
-      <img
-        src={`${base}/visuals/${scene}.webp`}
+      <ServingImage
+        name={scene}
+        sizes="(max-width: 560px) 26vw, 12vw"
         alt=""
         width="400"
         height="500"

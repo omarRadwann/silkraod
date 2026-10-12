@@ -1,8 +1,18 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+const inter = localFont({
+  src: "../public/fonts/inter-latin-variable.woff2",
+  variable: "--font-inter",
+  weight: "400 700",
+  display: "swap",
+});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#101e30",
+};
 import "./globals.css";
-import "./products.css";
-import "./premium.css";
-import "./experience.css";
 export const metadata: Metadata = {
   ...(process.env.NEXT_PUBLIC_SITE_URL
     ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) }
@@ -30,18 +40,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
-        <link
-          rel="preload"
-          as="image"
-          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/visuals/tiger-ritual.webp`}
-        />
-        <link
-          rel="preload"
-          as="image"
-          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/instant-globe.svg`}
-        />
         <link
           rel="preload"
           as="image"

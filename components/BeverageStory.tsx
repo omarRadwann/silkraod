@@ -1,4 +1,5 @@
-import { base } from "@/lib/catalog";
+import type { Category } from "@/lib/catalog";
+import { ServingImage } from "./ResponsiveImage";
 const collections = [
   {
     category: "Popping boba",
@@ -24,11 +25,11 @@ const collections = [
     alt: "Copper scoop of matcha beside an iced matcha latte",
     label: "03 / THE CAFÉ COLLECTION",
   },
-];
+] as const;
 export function BeverageStory({
   onSelect,
 }: {
-  onSelect: (category: string) => void;
+  onSelect: (category: Category) => void;
 }) {
   return (
     <section
@@ -42,7 +43,12 @@ export function BeverageStory({
             A taste of <em>what’s next.</em>
           </h2>
         </div>
-        <p>Explore the ingredients behind your next signature drink.</p>
+        <div>
+          <p>Explore the ingredients behind your next signature drink.</p>
+          <span className="swipe-hint" aria-hidden="true">
+            Swipe to discover the collections →
+          </span>
+        </div>
       </div>
       <div className="story-grid">
         {collections.map((c) => (
@@ -52,8 +58,8 @@ export function BeverageStory({
             href="#collection"
             onClick={() => onSelect(c.category)}
           >
-            <img
-              src={`${base}/visuals/${c.photo}.webp`}
+            <ServingImage
+              name={c.photo}
               alt={c.alt}
               width="600"
               height="750"
