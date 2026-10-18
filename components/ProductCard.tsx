@@ -1,5 +1,5 @@
 "use client";
-import { memo, useState, useEffect, useRef } from "react";
+import { memo } from "react";
 import { ArrowUpRight, Plus, Check } from "lucide-react";
 import { base, type Product } from "@/lib/catalog";
 import IngredientMotion from "./IngredientMotion";
@@ -16,27 +16,14 @@ export default memo(function ProductCard({
   added,
   onAdd,
 }: Props) {
-  const card = useRef<HTMLElement>(null);
-  const [preview, setPreview] = useState(false);
-  useEffect(() => {
-    if (!matchMedia("(hover: hover)").matches || !card.current) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setPreview(true); observer.disconnect(); }
-    }, { rootMargin: "900px" });
-    observer.observe(card.current);
-    return () => { observer.disconnect(); };
-  }, []);
   return (
     <article
-      ref={card}
       className="product-card reveal"
       data-id={p.id}
       data-category={p.category}
       style={{ "--product-color": p.color } as React.CSSProperties}
     >
       <a
-        onPointerEnter={(event) => { if (event.pointerType !== "touch") setPreview(true); }}
-        onFocus={() => { if (matchMedia("(hover: hover)").matches) setPreview(true); }}
         className="product-visual"
         href={`${base}/products/${p.id}/`}
         aria-label={`View BODUO ${p.name} details`}
@@ -49,7 +36,7 @@ export default memo(function ProductCard({
         </div>
         <span className="product-halo" aria-hidden="true" />
         <span className="package-contact-shadow" aria-hidden="true" />
-        {preview && <IngredientMotion product={p} compact />}
+        <IngredientMotion product={p} compact />
         <ProductImage
           id={p.id}
           alt={`BODUO ${p.name} ${p.weight} packaging`}

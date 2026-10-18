@@ -3116,7 +3116,7 @@ h2 em {
   z-index: 1;
   overflow: hidden;
 }
-.ingredient-motion > img {
+.ingredient-motion img {
   position: absolute;
   right: 0;
   top: 0;
@@ -3141,11 +3141,11 @@ h2 em {
   opacity: 0;
   transition: opacity 0.5s;
 }
-.product-card:is(:hover, :focus-within) .ingredient-motion > img {
+.product-card:is(:hover, :focus-within) .ingredient-motion img {
   opacity: 1;
   transform: translateX(0) scale(1);
 }
-.product-page-image:is(:hover, :focus-within) .ingredient-motion > img {
+.product-page-image:is(:hover, :focus-within) .ingredient-motion img {
   opacity: 1;
   transform: translateX(0) scale(1);
 }
@@ -3338,7 +3338,7 @@ h2 em {
 .product-page-image:hover > img {
   transform: translateX(-8%) rotate(-2deg);
 }
-.product-page-image .ingredient-motion > img {
+.product-page-image .ingredient-motion img {
   width: 32%;
 }
 .product-page-image .ingredient-motion > span {
@@ -3485,7 +3485,7 @@ h2 em {
   .enquiry-tray {
     width: 450px;
   }
-  .product-page-image .ingredient-motion > img {
+  .product-page-image .ingredient-motion img {
     opacity: 1;
     transform: none;
   }
@@ -3625,7 +3625,7 @@ h2 em {
   .product-order {
     padding-block: 16px;
   }
-  .ingredient-motion > img {
+  .ingredient-motion img {
     width: 30%;
     opacity: 1;
     transform: none;
@@ -3682,7 +3682,7 @@ h2 em {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ingredient-motion > img {
+  .ingredient-motion img {
     transition: none;
   }
   .product-visual > img {
@@ -4524,7 +4524,7 @@ img {
     height: 34px;
     padding: 7px;
   }
-  .ingredient-motion > img {
+  .ingredient-motion img {
     width: 30%;
     opacity: 1;
     transform: none;
@@ -4878,7 +4878,7 @@ img {
     width: 65%;
     margin-right: 15%;
   }
-  .product-page-image .ingredient-motion > img {
+  .product-page-image .ingredient-motion img {
     width: 30%;
   }
   .product-page-copy h1 {
@@ -4973,7 +4973,7 @@ img {
     width: 65%;
     transform: none !important;
   }
-  .ingredient-motion > img {
+  .ingredient-motion img {
     opacity: 1;
     transform: none;
   }
@@ -5810,13 +5810,13 @@ html {
 .package-contact-shadow{display:none}
 .product-card[data-category] .product-visual>img,.product-card:nth-child(even) .product-visual>img{position:absolute;z-index:2;filter:none;transform:none;transition:transform .24s ease}
 .product-card[data-category]:is(:hover,:focus-within) .product-visual>img{transform:translateX(-7%)}
-.product-card .ingredient-motion>img{transform:none!important;transition:opacity .22s ease;object-position:center}
+.product-card .ingredient-motion img{transform:none!important;transition:opacity .22s ease;object-position:center}
 .product-card .ingredient-motion>span{transition:opacity .22s ease}
 .ingredient-motion:not(.is-ready)>img,.ingredient-motion:not(.is-ready)>span{opacity:0!important}
 @media(prefers-reduced-motion:reduce),(hover:none){.product-card[data-category]:is(:hover,:focus-within) .product-visual>img{transform:none!important;transition:none}}
 
 /* Crisp, immediate previews and restrained final catalog detailing. */
-.product-card .ingredient-motion>img,.product-card .ingredient-motion>span{transition:opacity .12s ease}
+.product-card .ingredient-motion img,.product-card .ingredient-motion>span{transition:opacity .12s ease}
 .product-card{border-color:#dce3e9;box-shadow:0 3px 14px #10223804}
 .product-card:focus-within{border-color:#b49373}
 .product-type{border-radius:3px}
@@ -5830,3 +5830,8 @@ header .nav.mobile-open{top:100%}
 
 /* All product categories remain visible on small screens. */
 @media(max-width:760px){.catalog-toolbar .filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;scroll-snap-type:none;gap:8px}.catalog-toolbar .filters button{justify-content:space-between;min-width:0;padding:11px 12px;font-size:12px;white-space:normal}.catalog-toolbar .filters button small{flex-shrink:0}}
+
+/* Keep packages stable until the native-lazy preview is ready. */
+.product-card[data-category]:is(:hover,:focus-within) .product-visual>img{transform:none}
+@media(hover:hover) and (pointer:fine){.product-card[data-category]:is(:hover,:focus-within) .product-visual:has(.ingredient-motion.is-ready)>img{transform:translateX(-7%)}}
+@media(hover:none),(pointer:coarse){.product-card .ingredient-motion{display:none}}
