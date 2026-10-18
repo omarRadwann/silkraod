@@ -21,7 +21,7 @@ for (let lon = 0; lon < 360; lon += 45) grid.push(Array.from({ length: 37 }, (_,
 
 /** Lightweight projected globe. Bounded rotation keeps the trade route in view; suspends offscreen. */
 export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
-  const host = useRef<HTMLDivElement>(null), egypt = useRef<HTMLSpanElement>(null), asia = useRef<HTMLSpanElement>(null);
+  const host = useRef<HTMLDivElement>(null), egypt = useRef<HTMLSpanElement>(null), china = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = host.current;
     if (!el) return;
@@ -69,7 +69,7 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
         if (q[2] < 0) continue;
         ctx.fillStyle = "#f6e7cd"; ctx.beginPath(); ctx.arc(q[0], q[1], 2.7, 0, Math.PI * 2); ctx.fill();
       }
-      for (const [p, label] of [[destination, egypt.current], [origin, asia.current]] as const) {
+      for (const [p, label] of [[destination, egypt.current], [origin, china.current]] as const) {
         const q = project(p); if (label) label.style.opacity = q[2] > .08 ? "1" : "0"; if (q[2] < 0) continue; ctx.fillStyle = "#d9a273"; ctx.beginPath(); ctx.arc(q[0], q[1], 4.4, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#d9a27388"; ctx.beginPath(); ctx.arc(q[0], q[1], 8, 0, Math.PI * 2); ctx.stroke();
         if (label) { label.style.left = `${q[0]}px`; label.style.top = `${q[1] + 18}px`; }
@@ -106,8 +106,8 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
     document.addEventListener("visibilitychange", onVisibility); resize();
     return () => { disposed = true; cancelAnimationFrame(frame); observer.disconnect(); visibility.disconnect(); document.removeEventListener("visibilitychange", onVisibility); interaction.removeEventListener("pointerenter", enter); interaction.removeEventListener("pointermove", move); interaction.removeEventListener("pointerleave", leave); canvas.remove(); el.classList.remove("globe-ready"); };
   }, []);
-  return <div className="trade-globe" ref={host} role="img" aria-label="Interactive globe showing imports from Asia to Egypt">
+  return <div className="trade-globe" ref={host} role="img" aria-label="Interactive globe showing imports from China to Egypt">
     <span className="globe-pin egypt-pin" ref={egypt}><b>{compact ? "EGYPT" : "EGYPT · DESTINATION"}</b></span>
-    <span className="globe-pin asia-pin" ref={asia}><b>{compact ? "ASIA" : "ASIA · ORIGIN"}</b></span>
+    <span className="globe-pin china-pin" ref={china}><b>{compact ? "CHINA" : "CHINA · ORIGIN"}</b></span>
   </div>;
 }

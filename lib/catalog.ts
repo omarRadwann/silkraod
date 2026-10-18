@@ -139,4 +139,4 @@ export const products: Product[] = [
   },
 ];
 export const whatsapp = (message: string) =>
-  `https://wa.me/201004227074?text=${encodeURIComponent(message)}`;
+  `https://wa.me/201097477503?text=${encodeURIComponent(message)}`;

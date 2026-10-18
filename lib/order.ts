@@ -40,5 +40,5 @@ export function buildOrderUrl(
         `${cart[p.id]} item(s) × ${p.name} | ${p.weight} each | SKU ${p.id}`,
     );
   const message = `Hello Silk Road! I would like a wholesale quotation and availability for:\n\n${lines.join("\n")}\n\nBusiness name:\nDelivery city:\nPreferred delivery date:`;
-  return `https://wa.me/201004227074?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/201097477503?text=${encodeURIComponent(message)}`;
 }

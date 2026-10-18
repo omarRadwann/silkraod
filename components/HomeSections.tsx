@@ -25,20 +25,20 @@ export function Introduction() {
             YOUR NEXT SIGNATURE STARTS HERE · SERVING IDEAS
           </span>
           <div className="photo-badge">
-            <b>Asia → Egypt</b>
+            <b>China → Egypt</b>
             <span>Ingredients. Ideas. Possibilities.</span>
           </div>
         </div>
         <div className="about-content">
           <span className="eyebrow">THE SILK ROAD CONNECTION</span>
           <h2>
-            Asian ingredients.
+            Chinese ingredients.
             <br />
             <em>Made for your menu.</em>
           </h2>
           <p>
             From colourful fruit teas to tiger boba and creamy café favourites.
-            We connect businesses in Egypt with Asian beverage ingredients—and
+            We connect businesses in Egypt with Chinese beverage ingredients—and
             the possibilities they bring.
           </p>
           <div className="about-mini-products">
@@ -95,7 +95,7 @@ export function ClosingSections() {
           </div>
           <p className="services-intro">
             Our collection is just the beginning. We source and import products
-            across Asian markets to match your specific business needs.
+            across Chinese markets to match your specific business needs.
           </p>
         </div>
         <div className="service-grid">
@@ -118,11 +118,11 @@ export function ClosingSections() {
             },
             {
               number: "03",
-              title: "Sourcing across Asia",
-              body: "Beyond beverages: explore products from Asian markets for your business in Egypt. Tell us what you’re looking for and we’ll discuss sourcing and import arrangements.",
+              title: "Sourcing across China",
+              body: "Beyond beverages: explore products from Chinese markets for your business in Egypt. Tell us what you’re looking for and we’ll discuss sourcing and import arrangements.",
               label: "Start a sourcing enquiry",
               href: whatsapp(
-                "Hello Silk Road! Please help me source a product from Asia.\nProduct:\nSpecifications / reference:\nQuantity:\nDestination:\nTimeline:",
+                "Hello Silk Road! Please help me source a product from China.\nProduct:\nSpecifications / reference:\nQuantity:\nDestination:\nTimeline:",
               ),
             },
           ].map((service) => (
@@ -160,7 +160,7 @@ export function ClosingSections() {
         />
         <div className="port-overlay" />
         <div className="sourcing-top">
-          <span className="eyebrow">FROM ASIA. TO EGYPT.</span>
+          <span className="eyebrow">FROM CHINA. TO EGYPT.</span>
           <span>MADE FOR YOUR BUSINESS / 02</span>
         </div>
         <div className="sourcing-content">
@@ -175,7 +175,7 @@ export function ClosingSections() {
             <p>
               A different ingredient, a custom specification, or a product
               beyond our catalog. Share your requirements and we’ll discuss
-              options from Asian markets, quantities and delivery to Egypt.
+              options from Chinese markets, quantities and delivery to Egypt.
             </p>
             <a
               className="button light"
@@ -253,7 +253,11 @@ export function ClosingSections() {
         <div className="questions-list">
           {[
             [
-              "How do I get wholesale pricing?",
+              "Can I order individual products?",
+              "Yes. Each quantity is one tub, bag or bottle at the listed pack size, not a full carton. You can combine different products in one enquiry.",
+            ],
+            [
+              "How do I get pricing?",
               "Choose your ingredients and item quantities, then open your enquiry and continue to WhatsApp. Our team will discuss current prices and availability before you confirm anything.",
             ],
             [
@@ -261,8 +265,8 @@ export function ClosingSections() {
               "Yes. Add different ingredients to your enquiry and choose the number of items for each. Your complete product list is included in the WhatsApp message.",
             ],
             [
-              "Can you help source other products from Asia?",
-              "Yes. We source across Asian markets beyond our beverage collection. Share the product, specifications or reference, quantities, destination and preferred timeline. We’ll discuss sourcing options and import arrangements for your business.",
+              "Can you help source other products from China?",
+              "Yes. We source across Chinese markets beyond our beverage collection. Share the product, specifications or reference, quantities, destination and preferred timeline. We’ll discuss sourcing options and import arrangements for your business.",
             ],
             [
               "How are delivery and payment arranged?",
@@ -303,8 +307,8 @@ export function ClosingSections() {
         </a>
         <div className="contact-bottom">
           <p>{"One conversation can open a world of possibility."}</p>
-          <a href="tel:+201004227074" dir="ltr">
-            +20 100 422 7074
+          <a href="tel:+201097477503" dir="ltr">
+            +20 109 747 7503
           </a>
         </div>
       </section>
@@ -317,21 +321,21 @@ export function SiteFooter() {
       {" "}
       <footer>
         <div className="footer-word" aria-hidden="true">
-          SILKRAOD<span>↗</span>
+          SILK ROAD<span>↗</span>
         </div>
         <div className="footer-top">
           <a href="#" className="wordmark">
             <Brand />
           </a>
           <p>
-            {"From Asia to Egypt."}
+            {"From China to Egypt."}
             <br />
             {"A wider world, within reach."}
           </p>
           <div className="footer-links">
             <a href="#collection">{"Collection"} ↗</a>
             <a
-              href={`${base}/silk-road-asia-collection-2026.pdf`}
+              href={`${base}/silk-road-collection-2026.pdf`}
               target="_blank"
               rel="noreferrer"
             >
@@ -344,7 +348,7 @@ export function SiteFooter() {
           <span>
             © {new Date().getFullYear()} SILK ROAD. ALL RIGHTS RESERVED.
           </span>
-          <span>{"ASIA → EGYPT. DIRECT CONNECTION."}</span>
+          <span>{"CHINA → EGYPT. DIRECT CONNECTION."}</span>
           <a href="#">{"BACK TO TOP"} ↑</a>
         </div>
       </footer>

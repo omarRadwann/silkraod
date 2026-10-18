@@ -28,7 +28,7 @@ test("WhatsApp handoff contains every selected SKU, pack and item quantity", () 
     { id: "B2", name: "Mango", weight: "1.2 kg", carton: 12 },
   ];
   const url = new URL(buildOrderUrl(selected, { A1: 2, B2: 3 }));
-  assert.equal(url.origin + url.pathname, "https://wa.me/201004227074");
+  assert.equal(url.origin + url.pathname, "https://wa.me/201097477503");
   const text = url.searchParams.get("text");
   assert.match(
     text,

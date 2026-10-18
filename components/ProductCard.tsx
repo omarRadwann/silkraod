@@ -20,12 +20,11 @@ export default memo(function ProductCard({
   const [preview, setPreview] = useState(false);
   useEffect(() => {
     if (!matchMedia("(hover: hover)").matches || !card.current) return;
-    const timer = setTimeout(() => setPreview(true), 1000);
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setPreview(true); observer.disconnect(); }
-    }, { rootMargin: "1800px" });
+    }, { rootMargin: "900px" });
     observer.observe(card.current);
-    return () => { clearTimeout(timer); observer.disconnect(); };
+    return () => { observer.disconnect(); };
   }, []);
   return (
     <article
@@ -37,7 +36,7 @@ export default memo(function ProductCard({
     >
       <a
         onPointerEnter={(event) => { if (event.pointerType !== "touch") setPreview(true); }}
-        onFocus={() => setPreview(true)}
+        onFocus={() => { if (matchMedia("(hover: hover)").matches) setPreview(true); }}
         className="product-visual"
         href={`${base}/products/${p.id}/`}
         aria-label={`View BODUO ${p.name} details`}

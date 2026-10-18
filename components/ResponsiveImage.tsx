@@ -6,6 +6,7 @@ export function ProductImage({
   sizes = "(max-width: 560px) 58vw, (max-width: 900px) 30vw, 22vw",
   ...props
 }: ImageProps & { id: string }) {
+  const revision = id === "132100600" ? "?v=clean-label-2" : "";
   const originalWidth = id.startsWith("130600")
     ? 625
     : id === "130500521"
@@ -13,8 +14,8 @@ export function ProductImage({
       : 592;
   return (
     <img
-      src={`${base}/products/${id}-480.webp`}
-      srcSet={`${base}/products/${id}-160.webp 160w, ${base}/products/${id}-320.webp 320w, ${base}/products/${id}-480.webp 480w, ${base}/products/${id}-2026.webp ${originalWidth}w`}
+      src={`${base}/products/${id}-480.webp${revision}`}
+      srcSet={`${base}/products/${id}-160.webp${revision} 160w, ${base}/products/${id}-320.webp${revision} 320w, ${base}/products/${id}-480.webp${revision} 480w, ${base}/products/${id}-2026.webp${revision} ${originalWidth}w`}
       sizes={sizes}
       width="360"
       height="400"

@@ -180,7 +180,7 @@ export default async function ProductPage({
       <footer>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} SILK ROAD</span>
-          <a href="tel:+201004227074">+20 100 422 7074 ↗</a>
+          <a href="tel:+201097477503">+20 109 747 7503 ↗</a>
         </div>
       </footer>
     </>

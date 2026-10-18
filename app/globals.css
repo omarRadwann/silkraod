@@ -203,7 +203,7 @@ header {
   margin-top: 13px;
   margin-left: -15px;
 }
-.asia-pin {
+.china-pin {
   margin-top: -65px;
 }
 .globe-pin small {
@@ -217,7 +217,7 @@ header {
   height: 8px;
   width: 1px;
 }
-.asia-pin i {
+.china-pin i {
   top: auto;
   bottom: -8px;
   left: auto;
@@ -1287,7 +1287,7 @@ header:after {
 .globe-pin i {
   background: #c4b18770;
 }
-.asia-pin {
+.china-pin {
   margin-left: -130px;
 }
 .egypt-pin {
@@ -2106,7 +2106,7 @@ footer {
     font-size: 6px;
     padding: 7px 9px;
   }
-  .asia-pin {
+  .china-pin {
     margin-left: -111px;
     margin-top: -55px;
   }
@@ -3950,7 +3950,7 @@ img {
   color: #f1c6a3;
   letter-spacing: 1px;
 }
-.trade-globe .asia-pin {
+.trade-globe .china-pin {
   margin-left: -100px;
   margin-top: 14px;
 }
@@ -5827,3 +5827,6 @@ header .brand>img{width:108px;height:108px;object-fit:contain}
 html{scroll-padding-top:138px}
 header .nav.mobile-open{top:100%}
 @media(max-width:760px){header{height:calc(96px + env(safe-area-inset-top));min-height:96px;padding:env(safe-area-inset-top) 6vw 0}header .brand>img{width:86px;height:86px}html{scroll-padding-top:calc(112px + env(safe-area-inset-top))}}
+
+/* All product categories remain visible on small screens. */
+@media(max-width:760px){.catalog-toolbar .filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;scroll-snap-type:none;gap:8px}.catalog-toolbar .filters button{justify-content:space-between;min-width:0;padding:11px 12px;font-size:12px;white-space:normal}.catalog-toolbar .filters button small{flex-shrink:0}}

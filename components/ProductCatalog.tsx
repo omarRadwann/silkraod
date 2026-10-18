@@ -33,12 +33,12 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
           <div className="section-intro">
             <p>
               {
-                "Explore 12 BODUO ingredients. Select your flavours and item quantities to request a wholesale quote."
+                "Explore 12 BODUO ingredients. Choose individual tubs, bags or bottles, then request prices on WhatsApp."
               }
             </p>
             <a
               className="text-link"
-              href={`${base}/silk-road-asia-collection-2026.pdf`}
+              href={`${base}/silk-road-collection-2026.pdf`}
               target="_blank"
               rel="noreferrer"
             >
@@ -113,7 +113,7 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
         )}
         <p className="catalog-note">
           {
-            "Wholesale enquiries only. Prices, stock and delivery arrangements are confirmed by our team on WhatsApp."
+            "Products are available individually at the listed pack size. Prices, stock and delivery are confirmed on WhatsApp before you place an order."
           }
         </p>
       </section>
