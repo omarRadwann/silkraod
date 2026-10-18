@@ -5825,4 +5825,5 @@ html {
 header{height:118px;min-height:118px}
 header .brand>img{width:108px;height:108px;object-fit:contain}
 html{scroll-padding-top:138px}
-@media(max-width:760px){header{height:96px;min-height:96px;padding-inline:6vw}header .brand>img{width:86px;height:86px}html{scroll-padding-top:112px}}
+header .nav.mobile-open{top:100%}
+@media(max-width:760px){header{height:calc(96px + env(safe-area-inset-top));min-height:96px;padding:env(safe-area-inset-top) 6vw 0}header .brand>img{width:86px;height:86px}html{scroll-padding-top:calc(112px + env(safe-area-inset-top))}}
