@@ -5,7 +5,8 @@ import { ShoppingBag, ArrowUpRight, Check } from "lucide-react";
 import SiteHeader from "./SiteHeader";
 import ProductCatalog from "./ProductCatalog";
 import { useWholesaleOrder } from "@/hooks/useWholesaleOrder";
-const OrderDialog = dynamic(() => import("./OrderDialog"), { ssr: false });
+const loadOrderDialog = () => import("./OrderDialog");
+const OrderDialog = dynamic(loadOrderDialog, { ssr: false });
 export default function Storefront({
   introduction,
   closing,
@@ -22,7 +23,7 @@ export default function Storefront({
       <a className="skip" href="#collection">
         Skip to ingredients
       </a>
-      <SiteHeader count={count} onOpen={() => setOpen(true)} />
+      <SiteHeader count={count} onOpen={() => setOpen(true)} onOrderIntent={loadOrderDialog} />
       <main>
         {introduction}
         <ProductCatalog cart={cart} added={added} onAdd={add} />
@@ -32,6 +33,9 @@ export default function Storefront({
       {count > 0 && !open && (
         <button
           className="enquiry-tray"
+          onPointerEnter={loadOrderDialog}
+          onFocus={loadOrderDialog}
+          onTouchStart={loadOrderDialog}
           onClick={() => setOpen(true)}
           aria-label={`Review enquiry with ${count} items`}
         >

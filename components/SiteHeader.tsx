@@ -6,9 +6,11 @@ import { whatsapp } from "@/lib/catalog";
 export default function SiteHeader({
   count,
   onOpen,
+  onOrderIntent,
 }: {
   count: number;
   onOpen: () => void;
+  onOrderIntent?: () => void;
 }) {
   const [menu, setMenu] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -46,6 +48,9 @@ export default function SiteHeader({
       <div className="header-actions">
         <button
           className="bag-button"
+          onPointerEnter={onOrderIntent}
+          onFocus={onOrderIntent}
+          onTouchStart={onOrderIntent}
           onClick={onOpen}
           aria-label={`Open order, ${count} ${count === 1 ? "item" : "items"}`}
         >

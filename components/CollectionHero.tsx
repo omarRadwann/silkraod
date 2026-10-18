@@ -20,7 +20,7 @@ export default function CollectionHero() {
         <span className="collection-hero-route-caption">YOUR CONNECTION TO CHINA</span>
         <div className="collection-hero-globe"><GlobeExperience compact /></div>
       </div>
-      <div className="collection-hero-footer"><span>Choose individual products. Or tell us what you need sourced.</span><a href={`${base}/silk-road-collection-2026.pdf?v=per-piece-no-date`} target="_blank" rel="noreferrer">Explore the 2026 catalog<Download size={16} /></a></div>
+      <div className="collection-hero-footer"><span>Choose individual products. Or tell us what you need sourced.</span><a href={`${base}/silk-road-collection-2026.pdf?v=web-optimized-2026`} target="_blank" rel="noreferrer">Explore the 2026 catalog<Download size={16} /></a></div>
     </section>
   );
 }

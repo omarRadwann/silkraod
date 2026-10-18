@@ -29,23 +29,27 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
     if (!ctx) return;
     el.prepend(canvas);
     let width = 1, height = 1, frame = 0, last = 0, active = true, disposed = false;
-    let x = 0, y = 0, targetX = 0, targetY = 0, frames = 0;
+    let x = 0, y = 0, targetX = 0, targetY = 0;
     let spin = 0, interactionUntil = 0;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const interaction = el.closest(".collection-hero-editorial") || el;
     let bounds = interaction.getBoundingClientRect();
+    // Reuse projection buffers: no per-dot arrays are allocated during animation.
+    const projectedLand = land.map(() => [0, 0, 0] as Point);
+    const scratch: Point = [0, 0, 0];
+    let shade: CanvasGradient | null = null;
     const draw = (time: number) => {
       const cy = Math.cos(-1.23 + x + Math.sin(spin) * .12), sy = Math.sin(-1.23 + x + Math.sin(spin) * .12), cx = Math.cos(y), sx = Math.sin(y);
       const cz = Math.cos(-.09), sz = Math.sin(-.09), radius = Math.min(width, height) * .425;
       const centerX = width * .5, centerY = height * .55;
-      const project = (p: Point): Point => {
+      const project = (p: Point, output: Point = scratch): Point => {
         const rx = p[0] * cy + p[2] * sy, rz = -p[0] * sy + p[2] * cy;
         const ry = p[1] * cx - rz * sx, depth = p[1] * sx + rz * cx;
-        return [centerX + (rx * cz - ry * sz) * radius, centerY - (rx * sz + ry * cz) * radius, depth];
+        output[0] = centerX + (rx * cz - ry * sz) * radius; output[1] = centerY - (rx * sz + ry * cz) * radius; output[2] = depth; return output;
       };
       ctx.clearRect(0, 0, width, height);
-      const shade = ctx.createRadialGradient(centerX - radius * .35, centerY - radius * .4, 0, centerX, centerY, radius);
-      shade.addColorStop(0, "#172c40"); shade.addColorStop(.7, "#102134"); shade.addColorStop(1, "#0c1a2b");
+      if (!shade) { shade = ctx.createRadialGradient(centerX - radius * .35, centerY - radius * .4, 0, centerX, centerY, radius);
+      shade.addColorStop(0, "#172c40"); shade.addColorStop(.7, "#102134"); shade.addColorStop(1, "#0c1a2b"); }
       ctx.fillStyle = shade; ctx.strokeStyle = "#45617c55"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.arc(centerX, centerY, radius, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       ctx.strokeStyle = "#38516b66"; ctx.lineWidth = .65;
@@ -54,7 +58,7 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
         for (const p of line) { const q = project(p); if (q[2] > 0) { if (started) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]); started = true; } else started = false; }
         ctx.stroke();
       }
-      const projectedLand = land.map(project);
+      for (let i = 0; i < land.length; i++) project(land[i], projectedLand[i]);
       // Group dots by depth to avoid thousands of fill-style changes.
       for (let band = 0; band < 4; band++) {
         ctx.fillStyle = ["#6e849548", "#8096a96e", "#a0b1be8c", "#bec9d3ab"][band]; ctx.beginPath();
@@ -74,7 +78,7 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
         ctx.strokeStyle = "#d9a27388"; ctx.beginPath(); ctx.arc(q[0], q[1], 8, 0, Math.PI * 2); ctx.stroke();
         if (label) { label.style.left = `${q[0]}px`; label.style.top = `${q[1] + 18}px`; }
       }
-      el.classList.add("globe-ready"); el.dataset.frames = String(++frames);
+      if (!el.classList.contains("globe-ready")) el.classList.add("globe-ready");
     };
     const tick = (time: number) => {
       frame = 0;
@@ -98,7 +102,7 @@ export default function TradeGlobe({ compact = false }: { compact?: boolean }) {
     };
     const enter = () => { bounds = interaction.getBoundingClientRect(); };
     const leave = () => { targetX = 0; targetY = 0; wake(); };
-    const resize = () => { width = el.clientWidth; height = el.clientHeight; const dpr = Math.min(devicePixelRatio, 1.5); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); canvas.style.width = `${width}px`; canvas.style.height = `${height}px`; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); bounds = interaction.getBoundingClientRect(); wake(); };
+    const resize = () => { shade = null; width = el.clientWidth; height = el.clientHeight; const dpr = Math.min(devicePixelRatio, 1.5); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); canvas.style.width = `${width}px`; canvas.style.height = `${height}px`; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); bounds = interaction.getBoundingClientRect(); wake(); };
     const visibility = new IntersectionObserver(([entry]) => { active = entry.isIntersecting; if (active) { last = 0; wake(); } else { cancelAnimationFrame(frame); frame = 0; } });
     const onVisibility = () => { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; } else { last = 0; wake(); } };
     const observer = new ResizeObserver(resize); observer.observe(el); visibility.observe(el);

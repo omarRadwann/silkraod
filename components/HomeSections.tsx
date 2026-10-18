@@ -15,7 +15,10 @@ export function Introduction() {
       <section className="about section visual-about" id="about">
         <div className="about-photograph">
           <img
-            src={`${base}/beverage-editorial.webp`}
+            src={`${base}/beverage-editorial-800.webp`}
+            srcSet={`${base}/beverage-editorial-480.webp 480w, ${base}/beverage-editorial-800.webp 800w, ${base}/beverage-editorial.webp 1200w`}
+            sizes="(max-width: 900px) 90vw, 45vw"
+            decoding="async"
             alt="Fruit tea, matcha latte and brown sugar bubble tea serving ideas"
             width="1000"
             height="700"
@@ -151,7 +154,9 @@ export function ClosingSections() {
       <section id="sourcing" className="sourcing">
         <img
           className="port-image"
-          src={`${base}/port-optimized.webp`}
+          src={`${base}/port-optimized-960.webp`}
+          srcSet={`${base}/port-optimized-480.webp 480w, ${base}/port-optimized-960.webp 960w, ${base}/port-optimized.webp 1400w`}
+          sizes="100vw"
           alt="Aerial view of a shipping container terminal"
           width="1600"
           height="1067"
@@ -335,7 +340,7 @@ export function SiteFooter() {
           <div className="footer-links">
             <a href="#collection">{"Collection"} ↗</a>
             <a
-              href={`${base}/silk-road-collection-2026.pdf?v=per-piece-no-date`}
+              href={`${base}/silk-road-collection-2026.pdf?v=web-optimized-2026`}
               target="_blank"
               rel="noreferrer"
             >
