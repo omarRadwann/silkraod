@@ -82,18 +82,18 @@ export default memo(function ProductCard({
             <dd>{p.weight}</dd>
           </div>
           <div>
-            <dt>Per carton</dt>
-            <dd>{p.carton} packs</dd>
+            <dt>Order unit</dt>
+            <dd>1 individual item</dd>
           </div>
         </dl>
         <button
           className={`product-order ${added ? "is-added" : ""}`}
           onClick={() => onAdd(p.id)}
-          aria-label={`Add one carton of ${p.name}`}
+          aria-label={`Add one item of ${p.name}`}
         >
           <span>
             {added ? <Check size={18} /> : <Plus size={18} />}
-            {added ? "Added to your order" : "Add a carton"}
+            {added ? "Added to your order" : "Add to order"}
           </span>
           <span className="product-order-caption">
             Enquire for price <ArrowUpRight size={14} />

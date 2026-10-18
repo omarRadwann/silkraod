@@ -5820,3 +5820,9 @@ html {
 .product-card{border-color:#dce3e9;box-shadow:0 3px 14px #10223804}
 .product-card:focus-within{border-color:#b49373}
 .product-type{border-radius:3px}
+
+/* Give the official mark room to read at every viewport. */
+header{height:118px;min-height:118px}
+header .brand>img{width:108px;height:108px;object-fit:contain}
+html{scroll-padding-top:138px}
+@media(max-width:760px){header{height:96px;min-height:96px;padding-inline:6vw}header .brand>img{width:86px;height:86px}html{scroll-padding-top:112px}}

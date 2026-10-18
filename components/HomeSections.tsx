@@ -103,7 +103,7 @@ export function ClosingSections() {
             {
               number: "01",
               title: "Wholesale ingredients",
-              body: "Build your beverage menu with our current BODUO range. Choose flavours, pack sizes and carton quantities.",
+              body: "Build your beverage menu with our current BODUO range. Choose flavours, pack sizes and item quantities.",
               label: "Browse the collection",
               href: "#collection",
             },
@@ -213,7 +213,7 @@ export function ClosingSections() {
             {
               n: "01",
               title: "Find your mix",
-              body: "Explore the collection. Add your ingredients and choose how many cartons you need.",
+              body: "Explore the collection. Add your ingredients and choose how many items you need.",
             },
             {
               n: "02",
@@ -254,11 +254,11 @@ export function ClosingSections() {
           {[
             [
               "How do I get wholesale pricing?",
-              "Choose your ingredients and carton quantities, then open your enquiry and continue to WhatsApp. Our team will discuss current prices and availability before you confirm anything.",
+              "Choose your ingredients and item quantities, then open your enquiry and continue to WhatsApp. Our team will discuss current prices and availability before you confirm anything.",
             ],
             [
               "Can I enquire about several products together?",
-              "Yes. Add different ingredients to your enquiry and choose the number of cartons for each. Your complete product list is included in the WhatsApp message.",
+              "Yes. Add different ingredients to your enquiry and choose the number of items for each. Your complete product list is included in the WhatsApp message.",
             ],
             [
               "Can you help source other products from Asia?",

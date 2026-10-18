@@ -33,7 +33,7 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
           <div className="section-intro">
             <p>
               {
-                "Explore 12 BODUO ingredients. Select your flavours and carton quantities to request a wholesale quote."
+                "Explore 12 BODUO ingredients. Select your flavours and item quantities to request a wholesale quote."
               }
             </p>
             <a

@@ -33,7 +33,7 @@ export default function Storefront({
         <button
           className="enquiry-tray"
           onClick={() => setOpen(true)}
-          aria-label={`Review enquiry with ${count} cartons`}
+          aria-label={`Review enquiry with ${count} items`}
         >
           <span className="tray-icon">
             <ShoppingBag size={18} />
@@ -45,7 +45,7 @@ export default function Storefront({
             <small>
               {selected.length}{" "}
               {selected.length === 1 ? "ingredient" : "ingredients"} · {count}{" "}
-              {count === 1 ? "carton" : "cartons"}
+              {count === 1 ? "item" : "items"}
             </small>
           </span>
           <span className="tray-action">
@@ -57,7 +57,7 @@ export default function Storefront({
         {added && (
           <>
             <Check size={17} />
-            {"One carton added to your order"}
+            {"One item added to your order"}
             <button onClick={() => setOpen(true)}>{"View order"} ↗</button>
           </>
         )}

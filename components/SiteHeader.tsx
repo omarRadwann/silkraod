@@ -47,7 +47,7 @@ export default function SiteHeader({
         <button
           className="bag-button"
           onClick={onOpen}
-          aria-label={`Open order, ${count} cartons`}
+          aria-label={`Open order, ${count} items`}
         >
           <ShoppingBag size={17} />
           <span className="bag-label">Your enquiry</span>

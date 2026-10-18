@@ -19,7 +19,7 @@ export async function generateMetadata({
   return p
     ? {
         title: `BODUO ${p.name} ${p.weight} Wholesale in Egypt | Silk Road`,
-        description: `Enquire about BODUO ${p.name} in Egypt. ${p.weight} per pack, ${p.carton} packs per carton. Wholesale prices and availability confirmed on WhatsApp.`,
+        description: `Enquire about BODUO ${p.name} in Egypt. ${p.weight} per item. Sold individually. Wholesale prices and availability confirmed on WhatsApp.`,
       }
     : {};
 }
@@ -35,7 +35,7 @@ export default async function ProductPage({
     "@context": "https://schema.org",
     "@type": "Product",
     name: `BODUO ${p.name}`,
-    description: `${p.category}. ${p.weight} per pack, ${p.carton} packs per carton. Wholesale enquiries in Egypt.`,
+    description: `${p.category}. ${p.weight} per item. Sold individually. Wholesale enquiries in Egypt.`,
     sku: p.id,
     brand: { "@type": "Brand", name: "BODUO" },
     weight: p.weight,
@@ -96,8 +96,8 @@ export default async function ProductPage({
               <dd>{p.weight}</dd>
             </div>
             <div>
-              <dt>Carton quantity</dt>
-              <dd>{p.carton} packs</dd>
+              <dt>Order unit</dt>
+              <dd>1 individual item</dd>
             </div>
             <div>
               <dt>Product code</dt>
@@ -111,7 +111,7 @@ export default async function ProductPage({
           <a
             className="button dark"
             href={whatsapp(
-              `Hello Silk Road! I would like a wholesale quotation for BODUO ${p.name}.\nSKU: ${p.id}\nPack: ${p.weight} × ${p.carton} pcs per carton\nCartons required:\nBusiness name:\nDelivery city:`,
+              `Hello Silk Road! I would like a wholesale quotation for BODUO ${p.name}.\nSKU: ${p.id}\nPack: ${p.weight} each\nItems required:\nBusiness name:\nDelivery city:`,
             )}
             target="_blank"
             rel="noreferrer"
@@ -171,7 +171,7 @@ export default async function ProductPage({
                 <span>{item.category}</span>
                 <h3>{item.name}</h3>
                 <p>
-                  {item.weight} / {item.carton} packs per carton
+                  {item.weight} per item
                 </p>
               </a>
             ))}

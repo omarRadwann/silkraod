@@ -96,12 +96,12 @@ export default function OrderDialog({
                   <div>
                     <h3>{p.name}</h3>
                     <p>
-                      {p.weight} × {p.carton} {"pcs / carton"}
+                      {p.weight} per item
                     </p>
                     <span className="quantity">
                       <button
                         onClick={() => change(p.id, -1)}
-                        aria-label={`Remove one carton of ${p.name}`}
+                        aria-label={`Remove one item of ${p.name}`}
                       >
                         <Minus size={14} />
                       </button>
@@ -109,11 +109,11 @@ export default function OrderDialog({
                       <button
                         disabled={cart[p.id] >= 999}
                         onClick={() => change(p.id, 1)}
-                        aria-label={`Add one carton of ${p.name}`}
+                        aria-label={`Add one item of ${p.name}`}
                       >
                         <Plus size={14} />
                       </button>
-                      <small>{"cartons"}</small>
+                      <small>{"items"}</small>
                     </span>
                   </div>
                   <button
@@ -128,7 +128,7 @@ export default function OrderDialog({
             </div>
             <div className="order-summary">
               <div>
-                <span>{"Total cartons"}</span>
+                <span>{"Total items"}</span>
                 <b>{count}</b>
               </div>
               <p>
