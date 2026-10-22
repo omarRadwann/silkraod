@@ -18,6 +18,16 @@ export type Product = {
 };
 export const products: Product[] = [
   {
+    id: "130600912",
+    name: "Mango",
+    ar: "مانجو",
+    category: "Popping boba",
+    weight: "1.2 kg",
+    carton: 12,
+    color: "#f6d7a7",
+    note: "A sunshine state of mind.",
+  },
+  {
     id: "130600913",
     name: "Green Apple",
     ar: "تفاح أخضر",
@@ -57,16 +67,7 @@ export const products: Product[] = [
     color: "#f1e4ad",
     note: "Bring a tropical twist to the menu.",
   },
-  {
-    id: "130600912",
-    name: "Mango",
-    ar: "مانجو",
-    category: "Popping boba",
-    weight: "1.2 kg",
-    carton: 12,
-    color: "#f6d7a7",
-    note: "A sunshine state of mind.",
-  },
+
   {
     id: "130600908",
     name: "Blueberry",
