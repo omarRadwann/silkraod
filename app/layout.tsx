@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { siteUrl, siteName, organization } from "@/lib/site";
+import StructuredData from "@/components/StructuredData";
 const inter = localFont({
   src: "../public/fonts/inter-latin-variable.woff2",
   variable: "--font-inter",
@@ -14,25 +16,27 @@ export const viewport: Viewport = {
 };
 import "./globals.css";
 export const metadata: Metadata = {
-  ...(process.env.NEXT_PUBLIC_SITE_URL
-    ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) }
-    : {}),
-  title: "Silk Road | From China to Egypt.",
+  metadataBase: new URL(siteUrl),
+  title: "Silk Road Egypt | Bubble Tea Ingredients & China Sourcing",
   description:
-    "Connecting China with businesses in Egypt. Explore BODUO wholesale beverage ingredients, build an order or discuss your next sourcing opportunity with Silk Road.",
+    "Shop popping boba, tapioca pearls, matcha, taro, creamer and brown sugar syrup in Egypt. Prices per item. Order on WhatsApp or request custom sourcing from China.",
   openGraph: {
-    title: "Silk Road — From China to Egypt.",
+    title: "Silk Road Egypt | Bubble Tea Ingredients & China Sourcing",
     description: "Bubble tea ingredients & China-to-Egypt sourcing.",
+    siteName,
+    locale: "en_EG",
+    url: `${siteUrl}/`,
     type: "website",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_PATH || ""}/visuals/tiger-ritual.webp`,
+        url: `${siteUrl}/visuals/tiger-ritual.webp`,
         width: 1000,
         height: 1250,
         alt: "Silk Road — brown sugar milk tea serving inspiration",
       },
     ],
   },
+  twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
   icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/icon.png` },
 };
@@ -41,7 +45,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        <StructuredData data={organization} />
+        {children}
+      </body>
     </html>
   );
 }

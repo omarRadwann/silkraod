@@ -154,3 +154,11 @@ export const products: Product[] = [
 ];
 export const whatsapp = (message: string) =>
   `https://wa.me/201097477503?text=${encodeURIComponent(message)}`;
+
+// The tapioca supplier pack does not display the BODUO brand.
+export const productBrand = (p: Pick<Product, "id">) =>
+  p.id === "130500521" ? undefined : "BODUO";
+export const productName = (p: Product) =>
+  p.category === "Popping boba" ? `${p.name} Popping Boba` : p.name;
+export const productLabel = (p: Product) =>
+  [productBrand(p), productName(p)].filter(Boolean).join(" ");

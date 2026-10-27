@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import { ProductImage } from "@/components/ResponsiveImage";
 import Brand from "@/components/Brand";
 import IngredientMotion from "@/components/IngredientMotion";
+import StructuredData from "@/components/StructuredData";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, MessageCircle } from "lucide-react";
-import { products, base, whatsapp } from "@/lib/catalog";
+import {
+  products, base, whatsapp, productBrand, productName, productLabel,
+} from "@/lib/catalog";
 import { formatPrice } from "@/lib/order";
+import { siteUrl, siteName, organizationId } from "@/lib/site";
 export function generateStaticParams() {
   return products.map((p) => ({ id: p.id }));
 }
@@ -17,13 +21,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const p = products.find((p) => p.id === id);
-  return p
-    ? {
-        title: `BODUO ${p.name} ${p.weight} Wholesale in Egypt | Silk Road`,
-        alternates: { canonical: `/products/${p.id}/` },
-        description: `BODUO ${p.name} for ${formatPrice(p.priceEGP)} per ${p.weight} item in Egypt. Sold individually. Order through Silk Road on WhatsApp. Delivery and availability confirmed before ordering.`,
-      }
-    : {};
+  if (!p) return {};
+  const title = `${productLabel(p)} ${p.weight} in Egypt | Silk Road`;
+  const description = `${productLabel(p)} for ${formatPrice(p.priceEGP)} per ${p.weight} item in Egypt. Sold individually. Order on WhatsApp. Delivery and availability confirmed before ordering.`;
+  const image = `${siteUrl}/products/${p.id}-2026.webp`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `/products/${p.id}/` },
+    openGraph: {
+      title, description, siteName, type: "website", locale: "en_EG",
+      url: `${siteUrl}/products/${p.id}/`,
+      images: [{ url: image, alt: `${productLabel(p)} ${p.weight} supplier pack` }],
+    },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
+  };
 }
 export default async function ProductPage({
   params,
@@ -36,27 +48,34 @@ export default async function ProductPage({
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `BODUO ${p.name}`,
+    name: productLabel(p),
+    image: [`${siteUrl}/products/${p.id}-2026.webp`],
     description: `${p.category}. ${p.weight} per item. Sold individually. Wholesale enquiries in Egypt.`,
     sku: p.id,
-    brand: { "@type": "Brand", name: "BODUO" },
-    weight: p.weight,
+    ...(productBrand(p) ? { brand: { "@type": "Brand", name: productBrand(p) } } : {}),
+    category: p.category,
+    size: p.weight,
+    url: `${siteUrl}/products/${p.id}/`,
     offers: {
       "@type": "Offer",
       price: p.priceEGP,
       priceCurrency: "EGP",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://silkroadeg.net"}/products/${p.id}/`,
-      seller: { "@type": "Organization", name: "Silk Road" },
+      url: `${siteUrl}/products/${p.id}/`,
+      seller: { "@id": organizationId },
     },
+  };
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: siteName, item: `${siteUrl}/` },
+      { "@type": "ListItem", position: 2, name: productName(p), item: `${siteUrl}/products/${p.id}/` },
+    ],
   };
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
-        }}
-      />
+      <StructuredData data={schema} />
+      <StructuredData data={breadcrumbs} />
       <header>
         <a href={`${base}/`} className="wordmark">
           <Brand />
@@ -79,7 +98,7 @@ export default async function ProductPage({
           data-category={p.category}
           style={{ "--product-color": p.color } as React.CSSProperties}
         >
-          <span className="detail-edition">BODUO / COLLECTION 2026</span>
+          <span className="detail-edition">{productBrand(p) || "SILK ROAD"} / COLLECTION 2026</span>
           <span className="detail-orbit" aria-hidden="true" />
           <IngredientMotion product={p} />
           <ProductImage
@@ -87,14 +106,14 @@ export default async function ProductPage({
             sizes="(max-width: 800px) 65vw, 30vw"
             loading="eager"
             fetchPriority="high"
-            alt={`BODUO ${p.name} ${p.weight} pack`}
+            alt={`${productLabel(p)} ${p.weight} pack`}
             width="500"
             height="600"
           />
         </div>
         <div className="product-page-copy">
-          <span className="eyebrow">BODUO / {p.category.toUpperCase()}</span>
-          <h1>{p.name}</h1>
+          <span className="eyebrow">{productBrand(p) || "SILK ROAD"} / {p.category.toUpperCase()}</span>
+          <h1>{productName(p)}</h1>
           <p>
             {p.note} Part of the Silk Road wholesale ingredient collection for
             beverage businesses in Egypt.
@@ -120,7 +139,7 @@ export default async function ProductPage({
           <a
             className="button dark"
             href={whatsapp(
-              `Hello Silk Road! I would like to order BODUO ${p.name}.\nSKU: ${p.id}\nPack: ${p.weight} each\nUnit price: ${formatPrice(p.priceEGP)}\nItems required:\nBusiness name:\nDelivery city:\nPlease confirm availability and delivery charges.`,
+              `Hello Silk Road! I would like to order ${productLabel(p)}.\nSKU: ${p.id}\nPack: ${p.weight} each\nUnit price: ${formatPrice(p.priceEGP)}\nItems required:\nBusiness name:\nDelivery city:\nPlease confirm availability and delivery charges.`,
             )}
             target="_blank"
             rel="noreferrer"
@@ -170,7 +189,7 @@ export default async function ProductPage({
                 <div style={{ background: item.color }}>
                   <ProductImage
                     id={item.id}
-                    alt={`BODUO ${item.name}`}
+                    alt={productLabel(item)}
                     loading="lazy"
                     width="300"
                     height="340"

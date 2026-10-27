@@ -1,7 +1,7 @@
 "use client";
 import { memo } from "react";
 import { ArrowUpRight, Plus, Check } from "lucide-react";
-import { base, type Product } from "@/lib/catalog";
+import { base, productBrand, productLabel, type Product } from "@/lib/catalog";
 import { formatPrice } from "@/lib/order";
 import IngredientMotion from "./IngredientMotion";
 import { ProductImage } from "./ResponsiveImage";
@@ -27,11 +27,11 @@ export default memo(function ProductCard({
       <a
         className="product-visual"
         href={`${base}/products/${p.id}/`}
-        aria-label={`View BODUO ${p.name} details`}
+        aria-label={`View ${productLabel(p)} details`}
       >
         <div className="product-stage-top">
           <span className="product-maker">
-            BODUO<span>THE INGREDIENT COLLECTION</span>
+            {productBrand(p) || "SILK ROAD"}<span>THE INGREDIENT COLLECTION</span>
           </span>
           <span className="product-type">{p.category}</span>
         </div>
@@ -40,7 +40,7 @@ export default memo(function ProductCard({
         <IngredientMotion product={p} compact />
         <ProductImage
           id={p.id}
-          alt={`BODUO ${p.name} ${p.weight} packaging`}
+          alt={`${productLabel(p)} ${p.weight} packaging`}
           loading="lazy"
           decoding="async"
           width="360"

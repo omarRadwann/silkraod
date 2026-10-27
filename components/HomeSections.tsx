@@ -333,9 +333,9 @@ export function SiteFooter() {
             <Brand />
           </a>
           <p>
-            {"From China to Egypt."}
+            {"Silk Road Egypt · Import & Export"}
             <br />
-            {"A wider world, within reach."}
+            {"From China to Egypt. A wider world, within reach."}
           </p>
           <div className="footer-links">
             <a href="#collection">{"Collection"} ↗</a>
