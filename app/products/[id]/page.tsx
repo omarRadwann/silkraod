@@ -5,6 +5,7 @@ import IngredientMotion from "@/components/IngredientMotion";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, MessageCircle } from "lucide-react";
 import { products, base, whatsapp } from "@/lib/catalog";
+import { formatPrice } from "@/lib/order";
 export function generateStaticParams() {
   return products.map((p) => ({ id: p.id }));
 }
@@ -19,7 +20,8 @@ export async function generateMetadata({
   return p
     ? {
         title: `BODUO ${p.name} ${p.weight} Wholesale in Egypt | Silk Road`,
-        description: `Enquire about BODUO ${p.name} in Egypt. ${p.weight} per item. Sold individually. Wholesale prices and availability confirmed on WhatsApp.`,
+        alternates: { canonical: `/products/${p.id}/` },
+        description: `BODUO ${p.name} for ${formatPrice(p.priceEGP)} per ${p.weight} item in Egypt. Sold individually. Order through Silk Road on WhatsApp. Delivery and availability confirmed before ordering.`,
       }
     : {};
 }
@@ -39,6 +41,13 @@ export default async function ProductPage({
     sku: p.id,
     brand: { "@type": "Brand", name: "BODUO" },
     weight: p.weight,
+    offers: {
+      "@type": "Offer",
+      price: p.priceEGP,
+      priceCurrency: "EGP",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://silkroadeg.net"}/products/${p.id}/`,
+      seller: { "@type": "Organization", name: "Silk Road" },
+    },
   };
   return (
     <>
@@ -90,6 +99,10 @@ export default async function ProductPage({
             {p.note} Part of the Silk Road wholesale ingredient collection for
             beverage businesses in Egypt.
           </p>
+          <div className="product-price product-page-price">
+            <strong>{formatPrice(p.priceEGP)}</strong>
+            <span>per {p.weight} item</span>
+          </div>
           <dl>
             <div>
               <dt>Pack size</dt>
@@ -103,26 +116,22 @@ export default async function ProductPage({
               <dt>Product code</dt>
               <dd>{p.id}</dd>
             </div>
-            <div>
-              <dt>Trade price</dt>
-              <dd>On request</dd>
-            </div>
           </dl>
           <a
             className="button dark"
             href={whatsapp(
-              `Hello Silk Road! I would like a wholesale quotation for BODUO ${p.name}.\nSKU: ${p.id}\nPack: ${p.weight} each\nItems required:\nBusiness name:\nDelivery city:`,
+              `Hello Silk Road! I would like to order BODUO ${p.name}.\nSKU: ${p.id}\nPack: ${p.weight} each\nUnit price: ${formatPrice(p.priceEGP)}\nItems required:\nBusiness name:\nDelivery city:\nPlease confirm availability and delivery charges.`,
             )}
             target="_blank"
             rel="noreferrer"
           >
             <MessageCircle size={18} />
-            Request a wholesale price
+            Order on WhatsApp
             <ArrowUpRight size={18} />
           </a>
           <small>
-            Prices, availability and delivery are confirmed before your order is
-            placed.
+            Sold individually. Delivery is additional; charges and availability
+            are confirmed before your order is placed.
           </small>
           <a className="text-link" href={`${base}/#collection`}>
             Build a mixed-product order
@@ -171,7 +180,7 @@ export default async function ProductPage({
                 <span>{item.category}</span>
                 <h3>{item.name}</h3>
                 <p>
-                  {item.weight} per item
+                  {item.weight} per item · {formatPrice(item.priceEGP)}
                 </p>
               </a>
             ))}

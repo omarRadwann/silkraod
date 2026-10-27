@@ -5835,3 +5835,14 @@ header .nav.mobile-open{top:100%}
 .product-card[data-category]:is(:hover,:focus-within) .product-visual>img{transform:none}
 @media(hover:hover) and (pointer:fine){.product-card[data-category]:is(:hover,:focus-within) .product-visual:has(.ingredient-motion.is-ready)>img{transform:translateX(-7%)}}
 @media(hover:none),(pointer:coarse){.product-card .ingredient-motion{display:none}}
+
+/* Published per-item EGP prices and order totals. */
+.product-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin:14px 0;color:#142235;font-variant-numeric:tabular-nums}
+.product-price strong{font-size:24px;font-weight:650;letter-spacing:-.6px;line-height:1.2}
+.product-price>span{font-size:12px;color:#59687a}
+.product-page-price{margin:24px 0}
+.product-page-price strong{font-size:32px}
+.order-item .order-line-total{font-size:13px;font-weight:600;color:#142235;margin-top:4px;font-variant-numeric:tabular-nums}
+.order-summary .order-subtotal{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #dce3e9}
+.order-summary .order-subtotal b{font-size:24px;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:420px){.product-price strong{font-size:22px}.product-page-price strong{font-size:28px}.order-summary .order-subtotal b{font-size:22px}}

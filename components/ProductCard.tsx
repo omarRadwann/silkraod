@@ -2,6 +2,7 @@
 import { memo } from "react";
 import { ArrowUpRight, Plus, Check } from "lucide-react";
 import { base, type Product } from "@/lib/catalog";
+import { formatPrice } from "@/lib/order";
 import IngredientMotion from "./IngredientMotion";
 import { ProductImage } from "./ResponsiveImage";
 type Props = {
@@ -62,6 +63,10 @@ export default memo(function ProductCard({
           )}
         </div>
         <p>{p.note}</p>
+        <div className="product-price">
+          <strong>{formatPrice(p.priceEGP)}</strong>
+          <span>per item</span>
+        </div>
         <dl className="product-specs">
           <div>
             <dt>Pack size</dt>
@@ -75,14 +80,14 @@ export default memo(function ProductCard({
         <button
           className={`product-order ${added ? "is-added" : ""}`}
           onClick={() => onAdd(p.id)}
-          aria-label={`Add one item of ${p.name}`}
+          aria-label={`Add one item of ${p.name} for ${formatPrice(p.priceEGP)}`}
         >
           <span>
             {added ? <Check size={18} /> : <Plus size={18} />}
             {added ? "Added to your order" : "Add to order"}
           </span>
           <span className="product-order-caption">
-            Enquire for price <ArrowUpRight size={14} />
+            1 item
           </span>
         </button>
       </div>

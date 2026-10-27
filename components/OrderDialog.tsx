@@ -9,7 +9,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { type Product } from "@/lib/catalog";
-import { buildOrderUrl } from "@/lib/order";
+import { buildOrderUrl, formatPrice, orderSubtotal } from "@/lib/order";
 import { ProductImage } from "./ResponsiveImage";
 type Props = {
   cart: Record<string, number>;
@@ -96,7 +96,10 @@ export default function OrderDialog({
                   <div>
                     <h3>{p.name}</h3>
                     <p>
-                      {p.weight} per item
+                      {p.weight} · {formatPrice(p.priceEGP)} per item
+                    </p>
+                    <p className="order-line-total">
+                      {formatPrice(cart[p.id] * p.priceEGP)} line total
                     </p>
                     <span className="quantity">
                       <button
@@ -131,9 +134,13 @@ export default function OrderDialog({
                 <span>{"Total items"}</span>
                 <b>{count}</b>
               </div>
+              <div className="order-subtotal" aria-live="polite" aria-atomic="true">
+                <span>Product subtotal</span>
+                <b>{formatPrice(orderSubtotal(selected, cart))}</b>
+              </div>
               <p>
                 {
-                  "This is a quotation request. Our team will confirm prices, stock and delivery on WhatsApp."
+                  "Delivery is additional. Our team will confirm delivery charges and availability on WhatsApp before your order is placed."
                 }
               </p>
               <a

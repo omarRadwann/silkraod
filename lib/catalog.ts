@@ -12,6 +12,7 @@ export type Product = {
   ar: string;
   category: Exclude<Category, "All ingredients">;
   weight: string;
+  priceEGP: number;
   carton: number;
   color: string;
   note: string;
@@ -20,6 +21,7 @@ export const products: Product[] = [
   {
     id: "130600912",
     name: "Mango",
+    priceEGP: 420,
     ar: "مانجو",
     category: "Popping boba",
     weight: "1.2 kg",
@@ -30,6 +32,7 @@ export const products: Product[] = [
   {
     id: "130600913",
     name: "Green Apple",
+    priceEGP: 420,
     ar: "تفاح أخضر",
     category: "Popping boba",
     weight: "1.2 kg",
@@ -40,6 +43,7 @@ export const products: Product[] = [
   {
     id: "130600914",
     name: "Lychee",
+    priceEGP: 420,
     ar: "ليتشي",
     category: "Popping boba",
     weight: "1.2 kg",
@@ -50,6 +54,7 @@ export const products: Product[] = [
   {
     id: "130600910",
     name: "Strawberry",
+    priceEGP: 420,
     ar: "فراولة",
     category: "Popping boba",
     weight: "1.2 kg",
@@ -60,6 +65,7 @@ export const products: Product[] = [
   {
     id: "130600911",
     name: "Passion Fruit",
+    priceEGP: 420,
     ar: "باشن فروت",
     category: "Popping boba",
     weight: "1.2 kg",
@@ -71,6 +77,7 @@ export const products: Product[] = [
   {
     id: "130600908",
     name: "Blueberry",
+    priceEGP: 420,
     ar: "توت أزرق",
     category: "Popping boba",
     weight: "1.2 kg",
@@ -81,6 +88,7 @@ export const products: Product[] = [
   {
     id: "130600915",
     name: "Peach",
+    priceEGP: 420,
     ar: "خوخ",
     category: "Popping boba",
     weight: "1.2 kg",
@@ -91,6 +99,7 @@ export const products: Product[] = [
   {
     id: "130500521",
     name: "Black Tapioca Pearls",
+    priceEGP: 240,
     ar: "لؤلؤ التابيوكا السوداء",
     category: "Core ingredients",
     weight: "1 kg",
@@ -101,6 +110,7 @@ export const products: Product[] = [
   {
     id: "132100600",
     name: "Brown Sugar Flavored Syrup",
+    priceEGP: 1000,
     ar: "سيرب بنكهة السكر البني",
     category: "Core ingredients",
     weight: "2 L (2.5 kg)",
@@ -111,6 +121,7 @@ export const products: Product[] = [
   {
     id: "130401971",
     name: "Non-Dairy Creamer C92",
+    priceEGP: 390,
     ar: "مبيض غير لبني C92",
     category: "Powders",
     weight: "1 kg",
@@ -121,6 +132,7 @@ export const products: Product[] = [
   {
     id: "130201334",
     name: "Signature Matcha",
+    priceEGP: 925,
     ar: "ماتشا سيجنتشر",
     category: "Powders",
     weight: "1 kg",
@@ -131,6 +143,7 @@ export const products: Product[] = [
   {
     id: "130201335",
     name: "Taro Flavored Powder",
+    priceEGP: 600,
     ar: "بودرة بنكهة التارو",
     category: "Powders",
     weight: "1 kg",

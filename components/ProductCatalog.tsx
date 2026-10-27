@@ -33,12 +33,12 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
           <div className="section-intro">
             <p>
               {
-                "Explore 12 BODUO ingredients. Choose individual tubs, bags or bottles, then request prices on WhatsApp."
+                "Explore 12 BODUO ingredients with prices in Egyptian pounds. Choose individual tubs, bags or bottles and order on WhatsApp."
               }
             </p>
             <a
               className="text-link"
-              href={`${base}/silk-road-collection-2026.pdf?v=web-optimized-2026`}
+              href={`${base}/silk-road-collection-2026.pdf?v=prices-2026-10-27`}
               target="_blank"
               rel="noreferrer"
             >
@@ -82,8 +82,7 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
         </div>
         <div className="results-count" aria-live="polite">
           {filtered.length}{" "}
-          {filtered.length === 1 ? "ingredient" : "ingredients"} / prices on
-          request
+          {filtered.length === 1 ? "ingredient" : "ingredients"} / EGP per item
         </div>
         <div className="product-grid">
           {filtered.map((p) => (
@@ -113,7 +112,7 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
         )}
         <p className="catalog-note">
           {
-            "Products are available individually at the listed pack size. Prices, stock and delivery are confirmed on WhatsApp before you place an order."
+            "All prices are in EGP for one individual item at the listed pack size. Delivery is additional and confirmed with availability on WhatsApp before your order is placed."
           }
         </p>
       </section>

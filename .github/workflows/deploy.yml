@@ -27,8 +27,8 @@ jobs:
       - run: npm run typecheck
       - run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: /silkraod
-          NEXT_PUBLIC_SITE_URL: https://omarradwann.github.io/silkraod
+          NEXT_PUBLIC_BASE_PATH: ""
+          NEXT_PUBLIC_SITE_URL: https://silkroadeg.net
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

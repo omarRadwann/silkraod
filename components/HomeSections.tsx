@@ -228,7 +228,7 @@ export function ClosingSections() {
             {
               n: "03",
               title: "Let’s make it happen",
-              body: "We’ll discuss prices, availability and delivery with you before confirming your order.",
+              body: "We’ll confirm availability, delivery charges and the final order total with you before your order is placed.",
             },
           ].map((s) => (
             <div key={s.n} className="step reveal">
@@ -262,8 +262,8 @@ export function ClosingSections() {
               "Yes. Each quantity is one tub, bag or bottle at the listed pack size, not a full carton. You can combine different products in one enquiry.",
             ],
             [
-              "How do I get pricing?",
-              "Choose your ingredients and item quantities, then open your enquiry and continue to WhatsApp. Our team will discuss current prices and availability before you confirm anything.",
+              "Are prices per item or per carton?",
+              "Every displayed price is in EGP for one individual tub, bag or bottle at the listed pack size. Your order shows the product subtotal. Delivery charges and availability are confirmed separately on WhatsApp.",
             ],
             [
               "Can I enquire about several products together?",
