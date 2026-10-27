@@ -33,7 +33,7 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
           <div className="section-intro">
             <p>
               {
-                "Explore 12 BODUO ingredients with prices in Egyptian pounds. Choose individual tubs, bags or bottles and order on WhatsApp."
+                "Explore 12 beverage ingredients with prices in Egyptian pounds. Choose individual tubs, bags or bottles and order on WhatsApp."
               }
             </p>
             <a
