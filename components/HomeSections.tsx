@@ -340,7 +340,7 @@ export function SiteFooter() {
           <div className="footer-links">
             <a href="#collection">{"Collection"} ↗</a>
             <a
-              href={`${base}/silk-road-collection-2026.pdf?v=web-optimized-2026`}
+              href={`${base}/silk-road-collection-2026.pdf?v=prices-2026-10-27`}
               target="_blank"
               rel="noreferrer"
             >
