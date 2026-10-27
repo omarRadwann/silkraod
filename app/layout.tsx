@@ -17,6 +17,7 @@ export const viewport: Viewport = {
 import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  verification: { google: "pcYMbSq4TeDjpk9gqoqzzjOTlp91iKJWj2Cfqe6vT1o" },
   title: "Silk Road Egypt | Bubble Tea Ingredients & China Sourcing",
   description:
     "Shop popping boba, tapioca pearls, matcha, taro, creamer and brown sugar syrup in Egypt. Prices per item. Order on WhatsApp or request custom sourcing from China.",
