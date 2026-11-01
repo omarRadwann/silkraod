@@ -24,8 +24,8 @@ export const signatures = [
     layer: "Matcha character",
     photo: "matcha-ritual",
     products: [
-      { id: "130201334", name: "Signature Matcha", detail: "1 kg · 20 packs / carton" },
-      { id: "130401971", name: "Non-Dairy Creamer C92", detail: "1 kg · 20 packs / carton" },
+      { id: "130201334", name: "Signature Matcha", detail: "1 kg · per individual item" },
+      { id: "130401971", name: "Non-Dairy Creamer C92", detail: "1 kg · per individual item" },
     ],
   },
   {
@@ -38,8 +38,8 @@ export const signatures = [
     layer: "Taro character",
     photo: "taro-ritual",
     products: [
-      { id: "130201335", name: "Taro Flavored Powder", detail: "1 kg · 20 packs / carton" },
-      { id: "130401971", name: "Non-Dairy Creamer C92", detail: "1 kg · 20 packs / carton" },
+      { id: "130201335", name: "Taro Flavored Powder", detail: "1 kg · per individual item" },
+      { id: "130401971", name: "Non-Dairy Creamer C92", detail: "1 kg · per individual item" },
     ],
   },
 ] as const;
