@@ -6,7 +6,7 @@ import StructuredData from "@/components/StructuredData";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, MessageCircle } from "lucide-react";
 import {
-  products, base, whatsapp, productBrand, productName, productLabel,
+  products, base, whatsapp, productBrand, productName, productLabel, productImageId,
 } from "@/lib/catalog";
 import { formatPrice } from "@/lib/order";
 import { siteUrl, siteName, organizationId } from "@/lib/site";
@@ -24,7 +24,7 @@ export async function generateMetadata({
   if (!p) return {};
   const title = `${productLabel(p)} ${p.weight} in Egypt | Silk Road`;
   const description = `${productLabel(p)} for ${formatPrice(p.priceEGP)} per ${p.weight} item in Egypt. Sold individually. Order on WhatsApp. Delivery and availability confirmed before ordering.`;
-  const image = `${siteUrl}/products/${p.id}-2026.webp`;
+  const image = `${siteUrl}/products/${productImageId(p.id)}-2026.webp`;
   return {
     title,
     description,
@@ -49,7 +49,7 @@ export default async function ProductPage({
     "@context": "https://schema.org",
     "@type": "Product",
     name: productLabel(p),
-    image: [`${siteUrl}/products/${p.id}-2026.webp`],
+    image: [`${siteUrl}/products/${productImageId(p.id)}-2026.webp`],
     description: `${p.category}. ${p.weight} per item. Sold individually. Wholesale enquiries in Egypt.`,
     sku: p.id,
     ...(productBrand(p) ? { brand: { "@type": "Brand", name: productBrand(p) } } : {}),
