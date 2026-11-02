@@ -80,10 +80,10 @@ test("all three powders use individual 1 kg packs in ordering and revised label 
   assert.equal((message.match(/1 kg each/g) || []).length, 3);
   assert.doesNotMatch(message, /carton|20 kg|20 pcs|20 packs/);
   assert.match(message, /Product subtotal: EGP 1,915/);
-  assert.equal(productImageId("130600912"), "130600912-wrap");
+  assert.equal(productImageId("130600912"), "130600912-wrap2");
 });
 
 test("every boba flavour uses the corrected cylindrical package artwork", () => {
   for (const p of products.filter((p) => p.category === "Popping boba"))
-    assert.equal(productImageId(p.id), `${p.id}-wrap`);
+    assert.equal(productImageId(p.id), `${p.id}-wrap2`);
 });

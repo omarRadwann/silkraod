@@ -38,7 +38,7 @@ export default function ProductCatalog({ cart, added, onAdd }: Props) {
             </p>
             <a
               className="text-link"
-              href={`${base}/silk-road-collection-2026.pdf?v=curved-wrap-2026-11-02`}
+              href={`${base}/silk-road-collection-2026.pdf?v=curved-wrap-audit-2026-11-02`}
               target="_blank"
               rel="noreferrer"
             >
