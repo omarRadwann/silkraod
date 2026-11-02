@@ -86,4 +86,5 @@ test("all three powders use individual 1 kg packs in ordering and revised label 
 test("every boba flavour uses the corrected cylindrical package artwork", () => {
   for (const p of products.filter((p) => p.category === "Popping boba"))
     assert.equal(productImageId(p.id), `${p.id}-wrap2`);
+  assert.equal(productImageId("132100600"), "132100600-fold");
 });

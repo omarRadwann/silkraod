@@ -162,6 +162,6 @@ export const productName = (p: Product) =>
   p.category === "Popping boba" ? `${p.name} Popping Boba` : p.name;
 // New URLs invalidate the older low-resolution package images in browser caches.
 export const productImageId = (id: string) =>
-  `${id}-${id.startsWith("130600") ? "wrap2" : "hq"}`;
+  `${id}-${id.startsWith("130600") ? "wrap2" : id === "132100600" ? "fold" : "hq"}`;
 export const productLabel = (p: Product) =>
   [productBrand(p), productName(p)].filter(Boolean).join(" ");
