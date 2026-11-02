@@ -2,7 +2,7 @@
 import { memo } from "react";
 import { ArrowUpRight, Plus, Check } from "lucide-react";
 import { base, productBrand, productLabel, type Product } from "@/lib/catalog";
-import { formatPrice } from "@/lib/order";
+import { formatPrice, MAX_UNITS } from "@/lib/order";
 import IngredientMotion from "./IngredientMotion";
 import { ProductImage } from "./ResponsiveImage";
 type Props = {
@@ -79,12 +79,13 @@ export default memo(function ProductCard({
         </dl>
         <button
           className={`product-order ${added ? "is-added" : ""}`}
+          disabled={quantity >= MAX_UNITS}
           onClick={() => onAdd(p.id)}
-          aria-label={`Add one item of ${p.name} for ${formatPrice(p.priceEGP)}`}
+          aria-label={quantity >= MAX_UNITS ? `Item limit reached for ${p.name}` : `Add one item of ${p.name} for ${formatPrice(p.priceEGP)}`}
         >
           <span>
             {added ? <Check size={18} /> : <Plus size={18} />}
-            {added ? "Added to your order" : "Add to order"}
+            {quantity >= MAX_UNITS ? "Item limit reached" : added ? "Added to your order" : "Add to order"}
           </span>
           <span className="product-order-caption">
             1 item

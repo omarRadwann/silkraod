@@ -9,7 +9,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { type Product } from "@/lib/catalog";
-import { buildOrderUrl, formatPrice, orderSubtotal } from "@/lib/order";
+import { buildOrderUrl, formatPrice, orderSubtotal, MAX_UNITS } from "@/lib/order";
 import { ProductImage } from "./ResponsiveImage";
 type Props = {
   cart: Record<string, number>;
@@ -35,7 +35,15 @@ export default function OrderDialog({
     return () => {
       dialog.current?.close();
       document.body.style.overflow = overflow;
-      opener?.focus();
+      // Native dialog closing restores focus after this cleanup. Restore on the
+      // next frame, including when the floating tray opener has been unmounted.
+      requestAnimationFrame(() => {
+        if (document.querySelector("dialog[open]")) return;
+        const target = opener?.isConnected && opener !== document.body
+          ? opener
+          : document.querySelector<HTMLButtonElement>(".bag-button");
+        target?.focus({ preventScroll: true });
+      });
     };
   }, []);
   return (
@@ -110,13 +118,13 @@ export default function OrderDialog({
                       </button>
                       <b>{cart[p.id]}</b>
                       <button
-                        disabled={cart[p.id] >= 999}
+                        disabled={cart[p.id] >= MAX_UNITS}
                         onClick={() => change(p.id, 1)}
                         aria-label={`Add one item of ${p.name}`}
                       >
                         <Plus size={14} />
                       </button>
-                      <small>{"items"}</small>
+                      <small>{cart[p.id] === 1 ? "item" : "items"}</small>
                     </span>
                   </div>
                   <button
