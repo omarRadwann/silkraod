@@ -74,11 +74,11 @@ test("all three powders use individual 1 kg packs in ordering and revised label 
   assert.equal(powders.length, 3);
   for (const p of powders) {
     assert.equal(p.weight, "1 kg");
-    assert.equal(productImageId(p.id), `${p.id}-unit`);
+    assert.equal(productImageId(p.id), `${p.id}-hq`);
   }
   const message = new URL(buildOrderUrl(powders, Object.fromEntries(powders.map((p) => [p.id, 1])))).searchParams.get("text");
   assert.equal((message.match(/1 kg each/g) || []).length, 3);
   assert.doesNotMatch(message, /carton|20 kg|20 pcs|20 packs/);
   assert.match(message, /Product subtotal: EGP 1,915/);
-  assert.equal(productImageId("130600912"), "130600912");
+  assert.equal(productImageId("130600912"), "130600912-hq");
 });

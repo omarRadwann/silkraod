@@ -136,6 +136,14 @@ export default async function ProductPage({
               <dd>{p.id}</dd>
             </div>
           </dl>
+          <div className="product-artwork-links">
+            <a href={`${base}/labels/${p.id}-label-hq.pdf`} target="_blank" rel="noreferrer">
+              Read the product label <ArrowUpRight size={16} />
+            </a>
+            <a href={`${base}/products/${productImageId(p.id)}-2026.webp`} target="_blank" rel="noreferrer">
+              View full-size packaging <ArrowUpRight size={16} />
+            </a>
+          </div>
           <a
             className="button dark"
             href={whatsapp(

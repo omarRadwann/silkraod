@@ -5846,3 +5846,19 @@ header .nav.mobile-open{top:100%}
 .order-summary .order-subtotal{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #dce3e9}
 .order-summary .order-subtotal b{font-size:24px;white-space:nowrap;font-variant-numeric:tabular-nums}
 @media(max-width:420px){.product-price strong{font-size:22px}.product-page-price strong{font-size:28px}.order-summary .order-subtotal b{font-size:22px}}
+.product-artwork-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  margin: -6px 0 28px;
+}
+.product-artwork-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 14px;
+  color: #14263e;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}

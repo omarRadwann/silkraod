@@ -6,17 +6,13 @@ export function ProductImage({
   sizes = "(max-width: 560px) 58vw, (max-width: 900px) 30vw, 22vw",
   ...props
 }: ImageProps & { id: string }) {
-  const revision = id === "132100600" ? "?v=clean-label-2" : "";
   const imageId = productImageId(id);
-  const originalWidth = imageId !== id ? 1000 : id.startsWith("130600")
-    ? 625
-    : id === "130500521"
-      ? 599
-      : 592;
   return (
     <img
-      src={`${base}/products/${imageId}-480.webp${revision}`}
-      srcSet={`${base}/products/${imageId}-160.webp${revision} 160w, ${base}/products/${imageId}-320.webp${revision} 320w, ${base}/products/${imageId}-480.webp${revision} 480w, ${base}/products/${imageId}-2026.webp${revision} ${originalWidth}w`}
+      src={`${base}/products/${imageId}-480.webp`}
+      srcSet={[160, 320, 480, 960, 1600, 2400].map((width) =>
+        `${base}/products/${imageId}-${width === 2400 ? "2026" : width}.webp ${width}w`,
+      ).join(", ")}
       sizes={sizes}
       width="360"
       height="400"

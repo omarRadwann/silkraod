@@ -160,8 +160,7 @@ export const productBrand = (p: Pick<Product, "id">) =>
   p.id === "130500521" ? undefined : "BODUO";
 export const productName = (p: Product) =>
   p.category === "Popping boba" ? `${p.name} Popping Boba` : p.name;
-// Separate asset URLs prevent the former carton labels from staying in caches.
-export const productImageId = (id: string) =>
-  ["130401971", "130201334", "130201335"].includes(id) ? `${id}-unit` : id;
+// New URLs invalidate the older low-resolution package images in browser caches.
+export const productImageId = (id: string) => `${id}-hq`;
 export const productLabel = (p: Product) =>
   [productBrand(p), productName(p)].filter(Boolean).join(" ");
